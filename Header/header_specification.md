@@ -5,7 +5,8 @@
 **component_type_guid**: UUID7 for the component  
 **component_type_version_guid**: UUID7 for the component version  
 **component_version**: Semantic version of the component definition  
-**classification_reference**: URI for the classification reference  
+**component_hash**: Hash of the Component Definition 
+**classification_reference**: URI for the classification reference 
 
 ## ComponentInstanceDataSource:
 
@@ -37,6 +38,9 @@
 **status**: Status of the item (e.g., WIP, Active, Other)  
 **active**: Active status (e.g., Yes/No)  
 
+## Responce Header 
+**component_responces**: Array of previous headers from components. 
+
 # If the Data is a payload use the payloads
 
 ## ComponentInstancePayloadDetails:
@@ -58,10 +62,10 @@
 
 ## ComponentInstanceRelationship:
 
-**source_entities**: Source entity IDs  
-**source_components**: Source component IDs  
+**source_entities**: Array of Source entity IDs  
+**source_components**: Array of Source component IDs  
 **source_component_type**: Type of source component  
-**destination_entities**: List of destination entity IDs  
-**destination_components**: List of destination component IDs  
+**destination_entities**: Array of destination entity IDs  
+**destination_components**: Array of destination component IDs  
 **destination_component_type**: Type of destination component  
 
