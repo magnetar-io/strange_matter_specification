@@ -1,0 +1,231 @@
+{
+    "@context": {
+        "strange_matter_component_header_definition_schema_version":"0.1",
+        "strange_matter_version_date": "20230827",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "strange_matter_definition": "http://example.org/strangematter/v.01/vocab"
+    },
+    "@graph": [
+        {
+            "@type": "ComponentDefinition",
+            "component_type": {
+                "@value": "<Named Definition for the component>",
+                "@type": "xsd:string"
+            },
+            "component_type_reference": {
+                "@value": "<URI to its definition>",
+                "@type": "xsd:anyURI"
+            },
+            "component_type_guid": {
+                "@value": "<UUID7 of the Component>",
+                "@type": "xsd:string"
+            },
+            "component_type_version_guid": {
+                "@value": "<UUID7 of the Component Version>",
+                "@type": "xsd:string"
+            },
+            "component_version": {
+                "@value": "<Semantic Version of the Component Definition>",
+                "@type": "xsd:string"
+            },
+            "classification_reference": {
+                "@value": "URI for the Classification Reference.",
+                "@type": "xsd:anyURI"
+            }
+        },
+        {
+            "@type": "ComponentInstanceDataSource",
+            "author": {
+                "@value": ["<Authors name, person or company etc>"],
+                "@type": "xsd:string"
+            },
+            "context": {
+                "@value": "<Domain/ Source that the instance data originated from>",
+                "@type": "xsd:string"
+            },
+            "source_data": {
+                "@value": "<URL or URI for definition data>",
+                "@type": "xsd:anyURI"
+            },
+            "source_data_file_date": {
+                "@value": "<File or file like container date of creation>",
+                "@type": "xsd:date"
+            },
+            "source_data_file_id": {
+                "@value": "<File or file like container id>",
+                "@type": "xsd:string"
+            },
+            "source_data_file_version_id": {
+                "@value": "<File or file like container version id>",
+                "@type": "xsd:string"
+            },
+            "source_data_item_id": {
+                "@value": "<ID from the source application>",
+                "@type": "xsd:string"
+            },
+            "source_data_item_version_id": {
+                "@value": "<ID from the source application>",
+                "@type": "xsd:string"
+            },
+            "source_data_other": {
+                "@value": "<Other values from the source that are key to identifying the data>",
+                "@type": "xsd:string"
+            }
+        },
+        {
+            "@type": "ComponentInstanceDataExtensions",
+            "Name_space_1": {
+                "Value1": {
+                    "@value": "<my value>",
+                    "@type": "xsd:string"
+                }
+            },
+            "MyCompany_Workflow_Extention": {
+                "Value1": {
+                    "@value": "<my value>",
+                    "@type": "xsd:string"
+                }
+            }
+        },
+        {
+            "@type": "ComponentInstanceHeader",
+            "entity_guid": {
+                "@value": "<UUID7 value to represent the Entity>",
+                "@type": "xsd:string"
+            },
+            "component_guid": {
+                "@value": "<UUID7 Value for the Component>",
+                "@type": "xsd:string"
+            },
+            "version": {
+                "@value": "<Human Readable Semantic Version>",
+                "@type": "xsd:string"
+            },
+            "version_id": {
+                "@value": "<UUID7 Version GUID>",
+                "@type": "xsd:string"
+            },
+            "version_increment": {
+                "@value": "<Used to track modification when using a version control system>",
+                "@type": "xsd:string"
+            },
+            "date_created": {
+                "@value": "<Creation_Date_Time of the Payload>",
+                "@type": "xsd:dateTime"
+            },
+            "name": {
+                "@value": "<User Name for the item>",
+                "@type": "xsd:string"
+            },
+            "classification_value": {
+                "@value": "Classification Value for the item",
+                "@type": "xsd:string"
+            },
+            "sequence_name": {
+                "@value": "<If the component is part of a sequence...this names that sequence>",
+                "@type": "xsd:string"
+            },
+            "sequence_id": {
+                "@value": "<UUID7 for the sequence>",
+                "@type": "xsd:string"
+            },
+            "sequence_value": {
+                "@value": "<Ordered Number for the sequence>",
+                "@type": "xsd:integer"
+            },
+            "option": {
+                "@value": "<Specific Option of the data>",
+                "@type": "xsd:string"
+            },
+            "phase": {
+                "@value": "<Specific User Data Phase>",
+                "@type": "xsd:string"
+            },
+            "status": {
+                "@value": "<WIP,Active,Other>",
+                "@type": "xsd:string"
+            },
+            "active": {
+                "@value": "<Active Status Yes/No>",
+                "@type": "xsd:string"
+            }
+        },
+        {
+            "@type": "ComponentInstancePayloadDetails",
+            "authoring_software": {
+                "@value": "<Name of the Authoring Software>",
+                "@type": "xsd:string"
+            },
+            "payload_hash": {
+                "@value": "<Payload specific Hash of the payload data>",
+                "@type": "xsd:string"
+            },
+            "hash_definition": {
+                "@value": "<Link or description of hash>",
+                "@type": "xsd:anyURI"
+            },
+            "payload_data_type": {
+                "@value": "<encoding of the payload>",
+                "@type": "xsd:string"
+            },
+            "payload_data_type_definition": {
+                "@value": "<encoding of the payload>",
+                "@type": "xsd:anyURI"
+            }
+        },
+        {
+            "@type": "ComponentInstancePayload",
+            "payload_encoding": {
+                "@value": "<Encoding of the payload>",
+                "@type": "xsd:string"
+            },
+            "payload_encryption": {
+                "@value": "?",
+                "@type": "xsd:string"
+            },
+            "payload_data": {
+                "@value": "<Local path or URL/URI>",
+                "@type": "xsd:anyURI"
+            }
+        },
+        {
+            "@type": "ComponentInstanceRelationship",
+            "source_entities": {
+                "@value": "2XO9sNxaf0tBWBWE4fj28X",
+                "@type": "xsd:string"
+            },
+            "source_components": {
+                "@value": "12c5310a-fca8-434f-b36f-494754b157a4",
+                "@type": "xsd:string"
+            },
+            "source_component_type": {
+                "@value": "BuildingStory",
+                "@type": "xsd:string"
+            },
+            "destination_entities": {
+                "@value": [
+                    "2XO9sNxaf0tBWBWF8fj06l", 
+                    "2XO9sNxaf0tBWBWF8fj01x", 
+                    "2XO9sNxaf0tBWBWF8fj3bd", 
+                    // more items ...
+                    "2XO9sNxaf0tBWBWE4fj2gH"
+                ],
+                "@type": "xsd:string"
+            },
+            "destination_components": {
+                "@value": [
+                    "1cb6d448-9b57-48d1-8daf-b03e1c3fea86",
+                    "32aedccb-4a4b-48fd-9181-0635d6cb281d",
+                    // more items ...
+                    "0bf7b19a-a6a7-448f-be4f-06d29a5d16c0"
+                ],
+                "@type": "xsd:string"
+            },
+            "destination_component_type": {
+                "@value": "",
+                "@type": "xsd:string"
+            }
+        }
+    ]
+    
+}    
