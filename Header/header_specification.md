@@ -41,7 +41,7 @@
 ## Responce Header 
 **component_responces**: Array of previous headers from components. 
 
-# If the Data is a payload use the payloads
+# If the Data is a payload use the payload sections
 
 ## ComponentInstancePayloadDetails:
 
@@ -58,7 +58,7 @@
 **payload_encryption**: Encryption status or type of the payload  
 **payload_data**: Local path or URL/URI for the payload data  
 
-# If the the Data is a component us the components
+# If the the Data is a component use relationship
 
 ## ComponentInstanceRelationship:
 
