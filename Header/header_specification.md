@@ -6,7 +6,6 @@
 **component_type_version_guid**: UUID7 for the component version  
 **component_version**: Semantic version of the component definition  
 **component_hash**: Hash of the Component Definition
-
 **classification_reference**: URI for the classification reference 
 
 ## ComponentInstanceDataSource:
