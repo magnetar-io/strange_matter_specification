@@ -46,7 +46,7 @@ Components are units of data for Strange Matter.  Components need to be able to 
 **active**: Active status (e.g., Yes/No)  
 
 ## ComponentInstanceResponcesHeader 
-**component_responses**: Nested Array of previous headers from components that this data is created in response to. 
+**component_responses**:  Array of previous headers from components that this data is created in response to. 
 
 # If the Data is a payload, use the payload sections
 
@@ -64,14 +64,16 @@ Components are units of data for Strange Matter.  Components need to be able to 
 **payload_encryption**: Encryption status or type of the payload  
 **payload_data**: Embedded URL/URI for the payload data  
 
-# If the the Data is a component, use the relationship
+# If the the Data is a component, use the relationship, 
 
 ## ComponentInstanceRelationship:
 
 **source_entities**: Array of Source entity IDs  
 **source_components**: Array of Source component IDs  
 **source_component_type**: Array of types of source component   
+**source)_component_classification**: Array of the classification applied to components
 **destination_entities**: Array of destination entity IDs  
 **destination_components**: Array of destination component IDs  
 **destination_component_type**: Array of type of destination component  
+**destination_classfication**: Array of the classification applied to components
 
