@@ -62,16 +62,5 @@ Components are units of data for Strange Matter.  Components need to be able to 
 **payload_encryption**: Encryption status or type of the payload (required) 
 **payload_data**: Embedded URL/URI for the payload data (required) 
 
-# If the the Data is a component, use the relationship, 
 
-## ComponentInstanceRelationship:
-
-**source_entities**: Array of Source entity IDs  
-**source_components**: Array of Source component IDs  
-**source_component_type**: Array of types of source component   
-**source)_component_classification**: Array of the classification applied to components
-**destination_entities**: Array of destination entity IDs  
-**destination_components**: Array of destination component IDs  
-**destination_component_type**: Array of type of destination component  
-**destination_classfication**: Array of the classification applied to components
 
