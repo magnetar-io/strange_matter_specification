@@ -59,7 +59,7 @@ Components are units of data for Strange Matter.  Components need to be able to 
 ## ComponentInstancePayload:
 
 **payload_encoding**: Encoding of the payload (required)  
-**payload_encryption**: Encryption status or type of the payload (required) 
+**payload_encryption**: Encryption status or type of the payload (required)  
 **payload_data**: Embedded URL/URI for the payload data (required) 
 
 
