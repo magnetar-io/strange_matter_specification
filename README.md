@@ -26,12 +26,72 @@ ECS](https://leatherbee.org/index.php/2019/09/12/ecs-1-inheritance-vs-compositio
 It should be said from the outset that Strange Matter  learns from ECS but given the need to
 allow for a distributed approach, it diverges in some key areas, so while ECS is
 the precedent Strange Matter follows its own rules and so is best described as a
-means to compose data.
+means to compose data.  
 
-The graphic below illustrates the core ideas. A single entity might be fully
-described using several different data types from other standards and
-systems. Hence, an object-based definition from classical programming is not well
-suited.
+The most critical learning and, thus, the main requirement that Strange Matter addresses is that data should be assembled from any relevant sources external to any application.   
+
+It Must
+
+- Make Machine-readable connections between arbitrary datasets.
+- Contain a reference to its definition if the payload has a published format via data dictionary or similar concept
+- Have no opinion on the data to be assembled, but facilitate standard representations of known data.  Others can overlay an opinion, but thats not the place of the framework.
+- It must be expressive and thus not be limited to “flat” data like in databases or text files but should include workflow, requirements, computation, relationships, and issues. etc
+- Should look to be agnostic of governance or data model. It should enable standardization but not define it
+
+---
+
+### Clash Detection Example  - More than the Sum of its parts….
+
+There are two main patterns for clash detection.   Whether it’s standards-based using BCF or a custom schema to track issues, they all do something like this.
+
+- Generate Clash Results
+- Results filtered into some subset of issues
+- Create an issue that gets stored in a file or web service.
+- Model Application loads the model.
+- The model editing/viewing application creates a “temporary join” between the issues and the modeled elements.
+- When the applications are closed,  the “connection” logic is lost and thus has to be recalculated when the next user brings the data together. Certainly, IDs exist that enable this join, but that has to be recomputed. You would have to open the source model each time you want to review the data.
+
+<aside>
+💡 What if the data was connected?  What kinds of things become possible?  Let’s think through some very basic workflows that could exist
+
+
+- One could look across my projects to find patterns without opening a tool and instead look at the data
+
+  ```mermaid
+  flowchart LR
+      Component_1 --> Clashes_Relationship --> Component_2
+  ```
+
+- One could make custom “relationship_Types” that express meaning and not just “something clashed.”
+
+  ```mermaid
+  flowchart LR
+      Component_1 --> Clashes_Relationship_Routing_Error --> Component_2
+  ```
+
+- One could capture the actual fix in the data so if it ever resurfaces on the project or project type, you have captured the knowledge of how it was previously solved.
+
+  ```mermaid
+  flowchart LR
+      Component_1 --> Clashes_Relationship_Routing_Error
+  		 --> Component_2 -->Fix_Relationship-->Component_1
+  ```
+
+- Finally, you could make an ML/ AI tool that Learned from this data and suggested or implemented an “AutoFix” instruction and then include the actual algorithm used in the data so it’s not a mystery in the future.
+
+  ```mermaid
+  flowchart LR
+      Component_1 --> Clashes_Relationship_Routing_Error
+  		 --> Component_2 -->Auto_Fix_Relationship-->Auto_Fix_Algorithm--> Component_1
+  ```
+
+</aside>
+
+## Key Take Aways - Making Data More than its parts
+
+This example shows how making data connections to other data outside of an application can add to and collect knowledge that is currently lost in our processes.   it's currently not computable or trainable because it’s not machine-readable. 
+
+This is not surprising, given this shows up in USD, Software Development, and all other examples.
 
 # Details
 
