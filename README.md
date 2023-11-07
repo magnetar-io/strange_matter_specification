@@ -6,9 +6,9 @@ Strange matter is format, vendor, and tool agnostic.
 
 It is a way for people, processes, and tools with different requirements working together on design and construction projects to collaborate on data that has distributed ownership, comes from different sources, and that is continuously changing.
 
-Strange Matter does this by providing a universal abstract concept of entity. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or whatever) and for which more or less data may be available to different stakeholders over different periods of time, authored in different pieces of software.
+Strange Matter does this by providing a universal abstract concept of entity. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or whatever) and for which more or less data may be available to different stakeholders over different periods, authored in different pieces of software.
 
-Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates. Relationships are defined in the same way as components, just without payloads, and can describe any kind of semantic relation between two components. A relationship between a component and entity is done by sharing a relationship with an Entity ID component.
+Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates.   The payloads can be data or relationships between components. 
 
 ## Structure 
 
@@ -56,21 +56,19 @@ Strange Matter looks to replicate these approaches and separate the transport an
 
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/Like_Internet.svg)
 
-**The header specifies what the component is, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.**
+**The header specifies the component, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.**
 
-**The payload is to the choosing of the creator.  It could be json, images, geojson, blobs, binary ifc, rvt , any format, and any encoding of data should be supported** 
+**This is contained in the payload is up to the body that creates the components.  This can be a standards body or a company.  The requirement is that its well defined and not generic.** 
 
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/payload_header.svg)
+
+## Component Header Requirements
 
 The protocol specifies that inside a component, you need to find the following information.  
 
  This ensures the complete component is intact when it moves between platforms, tools, etc.   This is a foundational requirement of the protocol and should not be violated. 
 
-Components need to do a lot of heavy lifting as they need to be able to exist in the world without the benefit of a file container that would often help describe the source, contents, etc, of the data inside it.    Because of this fact and because components need to be able to satisfy workflows, it is essential that a component carry around a wealth of information that helps a user of the data understand it fully without any other reference. 
-
-
-
-## Component Header Requirements
+Components need to do a lot of heavy lifting as they need to exist in the world without the benefit of a file container that would often help describe the source, contents, etc, of the data inside it.    Because of this fact and because components need to be able to satisfy workflow requirements, it is essential that a component carry around a wealth of information that helps a user of the data understand it fully without any other reference. 
 
 ### Component - Header -  Source: The source, definition, and identifiers of the component used in an instance. 
 
@@ -114,21 +112,21 @@ Components need to do a lot of heavy lifting as they need to be able to exist in
 **active**: Active status (e.g., Yes/No)  (required)
 
 ### Component - Header - Responses:
-**component_responses**:  Array of previous headers from components that this data is created in response to. (required)
+**component_responses**:  Array of previous headers from components that this data is created in response to. (required)  This enables data to respond to other data instead of having separate communications about the data.   An example.   The location of an entity needs to be moved.  Instead of describing this in language, you create a new location component.   This field would then carry the header information of the previous component, so the recipient could automatically reason that the data is referring to the correct prior state of the component. 
 
-### Component - Header - Payload Details:
+### Component - Header - Payload Details:   Information on how to parse and understand the payload's content. 
 
 **payload_hash**: Specific hash of the payload data (required)  
-**hash_definition**: Link or description of the hash (required) 
-**payload_data_type**: Encoding of the payload (required) 
-**payload_data_type_definition**: Definition for the payload encoding  (required)
-
-
-### Component - Header - Payload :
-
+**hash_definition**: Link or description of the hash (required)   
+**payload_data_type**: Encoding of the payload (required)   
+**payload_data_type_definition**: Definition for the payload encoding  (required)  
 **payload_encoding**: Encoding of the payload (required)  
-**payload_encryption**: Encryption status or type of the payload (required)  
-**payload_data**: Embedded or sURL/URI for the payload data (required) 
+**payload_encryption**: Encryption status or type of the payload (required)   
+
+
+### Component - Header - Payload :  The payload itself 
+
+**payload_data**: Embedded or URL/URI for the payload data (required) 
 
 ## Payload Types
 
@@ -136,13 +134,11 @@ Components need to do a lot of heavy lifting as they need to be able to exist in
 
 ### Data
 
-Strange Matter doesn't care and should never care what data is a payload.   This allows it to be abstract and solves the underlying issue that there will never be one datatype to rule them all.  Instead, it's assumed that when a unique kind of data. IFC, Images, GeoJSON, ETC defined, then the definers will pick the protocols needed to identify the data.  
-
-
+Strange Matter doesn't care and should never care what data is a payload.   This allows it to be abstract and solves the underlying issue that there will never be one datatype to rule them all.  Instead, it's assumed that when a unique kind of data. IFC, Images, GeoJSON, or others are defined, then the definers will pick the representations needed to identify the data.  
 
 ### Relationship
 
-A fundamental concept of Strange Matter is the ablity to related data together.  Thus a relationship is a means to specify a named relationship between two or more components.  These Components can either be part of the same Entity or deferent Entiies. 
+A fundamental concept of Strange Matter is the ability to relate data together.  Thus, a relationship is a means to specify a named relationship between two or more components.  These components can either be part of the same Entity or different Entities. 
 
 There are several identified relationship configurations. 
 
@@ -161,33 +157,21 @@ There are several identified relationship configurations.
   
 
 
-
-
 ### Collection
 A Collection provides a means of defining a named group of components.  In practical terms this serves the function of a "File", without the limitations of files.  Typically files "own" the data defined in it, a collection simply references the data included in it.  This is analogous to a branch in Git the actual branch simply references the corrects versions of the data it contains.  The actual versions of the objects are all part of the Git project.  Just like in GIT a component (payload or relationship), can be part of multiple Collections. 
-### # Entity
+### 
 ### # Payload
-### # System
+
+
 ### # Scene
-### # Element
-### # PSetAll
-### 
-### 
-### 
-### 
-### 
 ### # Archetype
-### # Ledger
+
+A defined group of components.     When breaking from a traditional object-orientated model of data creation, we need a concept that collects together a group of named components to serve a purpose.   An owner might make an archetype so specify all the data they care about for "Furniture"
+
+![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/archytype.svg)
+
 ### # Classification
 ### 
-### # Payload
-### 
-### # Sequence
-### # Context
-### # Component Type
-### Source
-### Destination
-
 # Sample Data 
 
 
