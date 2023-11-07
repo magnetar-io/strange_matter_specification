@@ -35,22 +35,26 @@ suited.
 
 # Details
 
-
-
 ## Component
-Everything is a component.  A component is the base object for storing instance data.  It stores a  subset of data that describes the shared object identified by the **Entity**.  Components are used to carry or reference data and to identify relationships.
+Everything is a component.  A component is the base object for storing instance data.  It stores a  subset of data that describes the shared object identified by the **Entity**.  **Components** are used to carry or reference data and to identify relationships.
 
 Components are units of data for Strange Matter.  Components need to be able to exist on their own in the world.  To enable this, they have detailed information that must be present in their headers.    Some methods could be developed to carry duplicate data in containers, but for now, the protocol requires this information set. 
 
 ## Component Header vs Payload
 
-Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strange Matter must Specify this fully.   Strange Matter does not specify the payload and should only specify a payload where it's required to unify differing datatypes. 
+Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strange Matter must specify this fully.   Strange Matter does not limit the potential payloads and should only look to specifiy them where it's required to unify differing datatypes.   The known places where this needs to be explored are in Relationships, Identifier Components, Units, and Locations.  
 
-This leans heavily on several precedents.   The Internet layer stack is the most visualizable, but at the same time, EDI and Email are good touch references as well. 
+This idea of separation leans heavily on several precedents.   The Internet layer stack is the most prescient, but at the same time, EDI and Email are good references as well. All of these saw the value of separating communication requirements from content.  You can put anything in an email, but an email header always contains the required data.   EDI illustrates that if you describe the content programmatically such that a recipient can be assured of what's inside of it, you can make machine-to-machine communication possible.  
+
+https://en.wikipedia.org/wiki/Protocol_stack
+
+https://www.iana.org/assignments/message-headers/message-headers.xhtml
+
+https://en.wikipedia.org/wiki/Electronic_data_interchange
+
+Strange Matter looks to replicate these approaches and separate the transport and relationship-making from the kind of data being related and stored.   This is to allow data types that are entirely non-compatible to "talk"  to one another without having to coerce them into a standard format where data loss and all kinds of interoperability issues become a problem.
 
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/Like_Internet.svg)
-
-The goal is to separate the transport and relationship-making from the kind of data being related and stored.   This is to allow data types that are completely non-compatible to "talk"  to one another without having to coerce them into a standard format where data loss and all kinds of interoperability issues become a problem.
 
 **The header specifies what the component is, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.**
 
