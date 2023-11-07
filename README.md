@@ -40,11 +40,25 @@ Everything is a component.  A component is the base object for storing instance 
 
 Components are units of data for Strange Matter.  Components need to be able to exist on their own in the world.  To enable this, they have detailed information that must be present in their headers.    Some methods could be developed to carry duplicate data in containers, but for now, the protocol requires this information set. 
 
-## Component Requirements
+## Component Header vs Payload
 
-The protocol specifies that inside a component, you need to find the following information.   This ensures the complete component is intact when it moves between platforms, tools, etc.   This is a foundational requirement of the protocol and should not be violated. 
+Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strang Matter must Specify this fully.   Strange Matter does not specify the payload and should only select a payload where it's required to unify differing datatypes. 
+
+**The header specifies what the component is, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.  **
+
+**The payload is to the choosing of the creator.  It could be json, images, geojson, blobs, binary ifc, rvt , any format, and any encoding of data should be supported** 
+
+![](\media\header_payload.png)
+
+The protocol specifies that inside a component, you need to find the following information.  
+
+ This ensures the complete component is intact when it moves between platforms, tools, etc.   This is a foundational requirement of the protocol and should not be violated. 
 
 Components need to do a lot of heavy lifting as they need to be able to exist in the world without the benefit of a file container that would often help describe the source, contents, etc, of the data inside it.    Because of this fact and because components need to be able to satisfy workflows, it is essential that a component carry around a wealth of information that helps a user of the data understand it fully without any other reference. 
+
+
+
+## Component Header Requirements
 
 ### Component - Header -  Source: The source, definition, and identifiers of the component used in an instance. 
 
