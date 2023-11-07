@@ -48,7 +48,7 @@ Components have two distinct parts—header vs the Payload.  The Header must be 
 
 **The payload is to the choosing of the creator.  It could be json, images, geojson, blobs, binary ifc, rvt , any format, and any encoding of data should be supported** 
 
-![](\media\header_payload.png)
+![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/header_payload.png)
 
 The protocol specifies that inside a component, you need to find the following information.  
 
