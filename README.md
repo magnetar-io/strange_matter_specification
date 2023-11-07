@@ -44,6 +44,8 @@ Components are units of data for Strange Matter.  Components need to be able to 
 
 Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strang Matter must Specify this fully.   Strange Matter does not specify the payload and should only select a payload where it's required to unify differing datatypes. 
 
+![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/Like_Internet.svg)
+
 **The header specifies what the component is, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.**
 
 **The payload is to the choosing of the creator.  It could be json, images, geojson, blobs, binary ifc, rvt , any format, and any encoding of data should be supported** 
