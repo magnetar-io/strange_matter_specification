@@ -74,7 +74,7 @@ There are two main patterns for clash detection.   Whether it’s standards-base
   ```mermaid
   flowchart LR
       Component_1 --> Clashes_Relationship_Routing_Error
-  		 --> Component_2 -->Fix_Relationship-->Component_1
+  		 --> Component_2 -->New_Location-->Component_1
   ```
 
 - Finally, you could make an ML/ AI tool that Learned from this data and suggested or implemented an “AutoFix” instruction and then include the actual algorithm used in the data so it’s not a mystery in the future.
@@ -92,6 +92,14 @@ There are two main patterns for clash detection.   Whether it’s standards-base
 This example shows how making data connections to other data outside of an application can add to and collect knowledge that is currently lost in our processes.   it's currently not computable or trainable because it’s not machine-readable. 
 
 This is not surprising, given this shows up in USD, Software Development, and all other examples.
+
+
+
+
+
+------
+
+
 
 # Details
 
