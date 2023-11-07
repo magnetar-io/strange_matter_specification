@@ -93,7 +93,7 @@ There are two main patterns for clash detection.   Whether it’s standards-base
 
 This example shows how making data connections to other data outside of an application can add to and collect knowledge that is currently lost in our processes.   it's currently not computable or trainable because it’s not machine-readable. 
 
-This is not surprising, given this shows up in USD, Software Development, and all other examples.
+It's not surprising to learn that these are the things that are solved in USD, Software Development, and in other more mature approaches to data.
 
 
 
