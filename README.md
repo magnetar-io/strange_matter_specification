@@ -40,7 +40,9 @@ It Must
 
 ---
 
-### Clash Detection Example  - More than the Sum of its parts….
+### Clash Detection Example  
+
+One of the reasons for Strange Matter to exist is to connect workflows that can't be joined today.   Clash detection is a perfect demonstration where the data itself can't communicate the updates; we must rely on human written notes and instructions.  Additionally, because this process happens outside of the data it's challenging to reason why changes happened.
 
 There are two main patterns for clash detection.   Whether it’s standards-based using BCF or a custom schema to track issues, they all do something like this.
 
