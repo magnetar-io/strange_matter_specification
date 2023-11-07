@@ -14,6 +14,8 @@ Actual data in a Strange Matter project is organized into components and relatio
 
 Components are meant to be the smallest unit of useful data about an object.  Given the need, the amount of data in a component could be as small as a single property or point or could contain many objects and properties.   Strange Matter is designed with the idea that if you make well-defined small data structures that map to real data workflows, it becomes much easier to connect data to a workflow. 
 
+![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/strangematter.svg)
+
 ### The Basics of the Protocol
 
 The main concepts behind Strange Matter come from Entity Component Systems. ECS.
