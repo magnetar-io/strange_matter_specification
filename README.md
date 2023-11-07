@@ -36,15 +36,19 @@ suited.
 
 
 ## Component
-Everything is a component.  A component is the base object for storing instance data.  It stores a  subset of data that is used to describe the shared object identified by the **Entity**.  Components are used to carry or reference data and to identify relationships.
+Everything is a component.  A component is the base object for storing instance data.  It stores a  subset of data that describes the shared object identified by the **Entity**.  Components are used to carry or reference data and to identify relationships.
 
 Components are units of data for Strange Matter.  Components need to be able to exist on their own in the world.  To enable this, they have detailed information that must be present in their headers.    Some methods could be developed to carry duplicate data in containers, but for now, the protocol requires this information set. 
 
 ## Component Header vs Payload
 
-Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strang Matter must Specify this fully.   Strange Matter does not specify the payload and should only select a payload where it's required to unify differing datatypes. 
+Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strange Matter must Specify this fully.   Strange Matter does not specify the payload and should only specify a payload where it's required to unify differing datatypes. 
+
+This leans heavily on several precedents.   The Internet layer stack is the most visualizable, but at the same time, EDI and Email are good touch references as well. 
 
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/Like_Internet.svg)
+
+The goal is to separate the transport and relationship-making from the kind of data being related and stored.   This is to allow data types that are completely non-compatible to "talk"  to one another without having to coerce them into a standard format where data loss and all kinds of interoperability issues become a problem.
 
 **The header specifies what the component is, who created it, what kind of serialization and structure you'll find in the payload, versions ... etc.**
 
