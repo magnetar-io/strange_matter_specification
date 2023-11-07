@@ -124,7 +124,7 @@ Components need to do a lot of heavy lifting as they need to exist in the world 
 **payload_encryption**: Encryption status or type of the payload (required)   
 
 
-### Component - Header - Payload :  The payload itself 
+### Component - Payload :  The payload itself 
 
 **payload_data**: Embedded or URL/URI for the payload data (required) 
 
