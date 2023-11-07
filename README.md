@@ -168,7 +168,7 @@ A defined group of components.     When breaking from a traditional object-orien
 
 # Strange Matter Design Criteria
 
-The list of criteria can seem long but it's addressable looking across topics and issues or you can arrive at something holistic. 
+The list of criteria can seem long, but it's addressable by looking across topics and issues, or you can arrive at something holistic. 
 
 | **Requirement**                                              | **Type**               | **Design Solution**                                          |
 | ------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
@@ -176,7 +176,7 @@ The list of criteria can seem long but it's addressable looking across topics an
 | To describe the built world we need GIS, BIM, text, requirements, issues, inspections, lidar data, point cloud data, products, carbon, energy just to name a few. No format, standard etc. can ever describe all this data so we need to find a way that can connect standard, nonstandard and even proprietary data without taking ownership of its description | Functionality          | Strange matter is format, vendor, and tool agnostic.         |
 | Machine to Machine Readable                                  | Functionality          | There have been attempts to package heterogeneous data in formats previously, but the data was only labeled or classified and didn’t allow machine to machine communication. To solve this Strange Matter has proposed robust methods of data description and self-description of payloads |
 | Heiarchy is in the eye of the beholder                       | Functionality          |                                                              |
-| The data we use to digitally describe the built world relies heavily on relationships. Today relationships are formally describe inside the standards  but they are mostly at the service of the standard, and are not flexible for the end users to create and augment additional relationships. | Functionality          | Relationships are just as easy to create and compose as the data itself. This is a key requirement to incorporate automation, workflow and future machine learning capacities. |
+| The data we use to digitally describe the built world relies heavily on relationships. Today relationships are formally describe inside the standards  but they are mostly at the service of the standard, and are not flexible for the end users to create and augment additional relationships. | Functionality          | Relationships are just as easy to create and compose as the data itself. This is a key requirement to incorporate automation, workflow, and future machine learning capacities. |
 | Data needs to work in many platforms, offline, online, archive, | Flexablity             | Strange Matter is rather simple in design but meant to work as a complete protocol as its indented to be whole, no matter the system that is used. It’s well suited to be stored, accessed and created in many technologies. <br />It’s simple enough that it can work as a file on disk, but it certainly can be use in SQL, NO-SQL, Graph and other formats. <br />The emergence of Columnar “File as Database” formats like [Apache Parquet](https://parquet.apache.org/) or [LanceDB](https://lancedb.github.io/lance/) that are becoming standard in the data science and ML world are very intriguing as they marry very well the component based approach. This opens the door for native ML and automation capabilities directly on the data. |
 | Technology needs to enable solutions independent of contracts, governance or delivery models. | Flexibility            | One of the many challenges in the built environment is the variety of ways that the facilities / infrastructure are organized and managed. Strange Matter looks to provide much needed technological flexibility to work in these many different models and to enable the benefits of digitization while doing so. |
 | File vs Web is not the way to understand the challenging our industry faces, instead choice and easy movement between this is important. | Robustness             | Moving from a file-based world to an all web world should not be a requirement for adoption and thus the system is flexible. In reality there is a strong interest in a middle ground that mirrors other distributed design and engineering driven industries like software development and Film and VFX, where file-based systems are used behind change and version management tools like Git and Github. |
@@ -193,3 +193,10 @@ The list of criteria can seem long but it's addressable looking across topics an
 | Strange Matter has one component (currently)                 |                        | 1 Component...                                               |
 | Classsifcation is for funtion/ Component Type is for content |                        | ....                                                         |
 |                                                              |                        |                                                              |
+
+# Component Header Schema 
+
+```
+
+```
+
