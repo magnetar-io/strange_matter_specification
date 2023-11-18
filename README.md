@@ -6,25 +6,25 @@ Strange matter is format, vendor, and tool agnostic.
 
 It is a way for people, processes, and tools with different requirements working together on design and construction projects to collaborate on data that has distributed ownership, comes from different sources, and that is continuously changing.
 
-Strange Matter does this by providing a universal abstract concept of entity. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or whatever) and for which more or less data may be available to different stakeholders over different periods, authored in different pieces of software.
+Strange Matter does this by providing a universal abstract concept calld and **_Entity_**. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or an abstract concept like a relationship, inferface etc.) and for which more or less data may be available to different stakeholders over different periods, authored in different pieces of software.
 
-Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates.   The payloads can be data or relationships between components. 
+Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates.   The payloads can be data or relationships between components, collections of components or collectons of collections. 
 
 ## Structure 
 
-Components are meant to be the smallest unit of useful data about an object.  Given the need, the amount of data in a component could be as small as a single property or point or could contain many objects and properties.   Strange Matter is designed with the idea that if you make well-defined small data structures that map to real data workflows, it becomes much easier to connect data to a workflow. 
+**_Components_** are meant to be the smallest unit of useful data about an **Entity**.  Given the need, the amount of data in a component could be as small as a single property or point or could contain many whole datasets and properties.  Strange Matter is designed with the idea that if you make well-defined small data structures that map to real data workflows, it becomes much easier to connect data to a workflow. 
 
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/strangematter.svg)
 
 ### The Basics of the Protocol
 
-The main concepts behind Strange Matter come from Entity Component Systems. ECS.
+The main concepts behind Strange Matter come from Entity Component Systems _ECS_.  
+
 Instead of Inheritance-based objects and data, it follows a Composition model.
 Here is a good technical background. [Leatherbee
 ECS](https://leatherbee.org/index.php/2019/09/12/ecs-1-inheritance-vs-composition-and-ecs-background/)
 
-It should be said from the outset that Strange Matter  learns from ECS but given the need to
-allow for a distributed approach, it diverges in some key areas, so while ECS is
+It should be said from the outset that Strange Matter  learns from ECS but given the need to be distributed, it diverges in some key areas, so while ECS is
 the precedent Strange Matter follows its own rules and so is best described as a
 means to compose data.  
 
@@ -34,7 +34,7 @@ It Must
 
 - Make Machine-readable connections between arbitrary datasets.
 - Contain a reference to its definition if the payload has a published format via data dictionary or similar concept
-- Have no opinion on the data to be assembled, but facilitate standard representations of known data.  Others can overlay an opinion, but thats not the place of the framework.
+- Have no opinion on the data to be assembled, but facilitate standard representations of known data.  Others can overlay an opinion, but thats not the place of the protocol.
 - It must be expressive and thus not be limited to “flat” data like in databases or text files but should include workflow, requirements, computation, relationships, and issues. etc
 - Should look to be agnostic of governance or data model. It should enable standardization but not define it
 
@@ -42,7 +42,9 @@ It Must
 
 ### Clash Detection Example  
 
-One of the reasons for Strange Matter to exist is to connect workflows that can't be joined today.   Clash detection is a perfect demonstration where the data itself can't communicate the updates; we must rely on human written notes and instructions.  Additionally, because this process happens outside of the data it's challenging to reason why changes happened.
+One of the reasons for Strange Matter to exist is to connect workflows that can't jointed in machine to machine processes without a person acting as a translator.    
+
+Clash detection is a perfect demonstration where the data itself can't communicate the updates; we must rely on human written notes and instructions.  Additionally, because this process happens outside of the data it's challenging to reason why changes happened.
 
 There are two main patterns for clash detection.   Whether it’s standards-based using BCF or a custom schema to track issues, they all do something like this.
 
@@ -51,7 +53,9 @@ There are two main patterns for clash detection.   Whether it’s standards-base
 - Create an issue that gets stored in a file or web service.
 - Model Application loads the model.
 - The model editing/viewing application creates a “temporary join” between the issues and the modeled elements.
-- When the applications are closed,  the “connection” logic is lost and thus has to be recalculated when the next user brings the data together. Certainly, IDs exist that enable this join, but that has to be recomputed. You would have to open the source model each time you want to review the data.
+- When the applications are closed,  the **“join”** logic is lost and thus has to be recalculated when the next user brings the data together.  This basically eliminates the ablity to reason about the data without software bridging the data. 
+
+Certainly, IDs exist that enable this join, but that has to be recomputed. You would have to open the source model each time you want to review the data.
 
 <aside>
 💡 What if the data was connected?  What kinds of things become possible?  Let’s think through some very basic workflows that could exist
@@ -95,16 +99,10 @@ This example shows how making data connections to other data outside of an appli
 
 It's not surprising to learn that these are the things that are solved in USD, Software Development, and in other more mature approaches to data.
 
-
-
-
-
 ------
 
-
-
 # Details
-
+ 
 ## Component
 Everything is a component.  A component is the base object for storing instance data.  It stores a  subset of data that describes the shared object identified by the **Entity**.  **Components** are used to carry or reference data and to identify relationships.
 
