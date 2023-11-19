@@ -140,61 +140,64 @@ Components need to do a lot of heavy lifting as they need to exist in the world 
 
 ### Component - Header -  Source: The source, definition, and identifiers of the component used in an instance. 
 
-**component_type**: The human-readable name for the component. (required)  
-**component_type_reference**: URI of the hosted library for the component (required)  
-**component_type_guid**: The UUID7 id for the component (required) (this is because we can't assume that the internet is forever and need to be able to identify different versions.  UUID7 because it contains uniqueness and time)  
-**component_type_version_guid**: UUID7 to identify the version of the component (required) 
-**component_version**: Semantic version of the component definition used for humans to follow and track (required) 
-**component_hash**: Hash of the Component Definition as there could be scenarios where different information is added to the component definition  (required)
+- **component_type**: The human-readable name for the component. (required)  
+- **component_type_reference**: URI of the hosted library for the component (required)  
+- **component_type_guid**: The UUID7 id for the component (required) (this is because we can't assume that the internet is forever and need to be able to identify different versions.  UUID7 because it contains uniqueness and time)  
+- **component_type_version_guid**: UUID7 to identify the version of the component (required) 
+- **component_version**: Semantic version of the component definition used for humans to follow and track (required) 
+- **component_hash**: Hash of the Component Definition as there could be scenarios where different information is added to the component definition  (required)
+
 
 ### Component - Header - Data Source:  Where did the instance data in the component come from?  As this is coming from objects inside tools, we need to have robust knowledge of the source. 
 
-**author**: Name of the author, which can be a person, company, etc. (required) 
-**author_identifier**: Name or Number of the scope that this data refers to (required)  
-**context**: Domain/source from which the instance data originated (required) 
-**source_data**: URL or URI for the data source for this component (required) 
-**source_data_file_date**: Creation date of the file, database, etc (required) 
-**source_data_file_id**: ID for the file or similar container (required) 
-**source_data_file_version_id**: Version ID for the file or similar container (required) 
-**source_data_item_id**: ID from the source application of the referenced object (required)  
-**source_data_item_version_id**: ID for the version from the source application of the referenced object (required) 
-**source_data_other**: Other values from the source key to identifying the data  (optional)
+- **author**: Name of the author, which can be a person, company, etc. (required) 
+- **author_identifier**: Name or Number of the scope that this data refers to (required)  
+- **context**: Domain/source from which the instance data originated (required) 
+- **source_data**: URL or URI for the data source for this component (required) 
+- **source_data_file_date**: Creation date of the file, database, etc (required) 
+- **source_data_file_id**: ID for the file or similar container (required) 
+- **source_data_file_version_id**: Version ID for the file or similar container (required) 
+- **source_data_item_id**: ID from the source application of the referenced object (required)  
+- **source_data_item_version_id**: ID for the version from the source application of the referenced object (required) 
+- **source_data_other**: Other values from the source key to identifying the data  (optional)
 
 ### Component - Header - Strange Matter Identifiers: The Strange Matter data that identifies the object and its history, external to any tool or application. 
 
-**entity_guid**: UUID7 value representing the entity (required) 
-**component_guid**: UUID7 value for the component (required) 
-**version**: Human-readable semantic version (required)  
-**version_guid**: UUID7 version GUID (required) 
-**component_hash**: Hash of the component instance header details (required)
-**version_increment**: Used to track modifications when using a version control system (required) 
-**date_created**: DateTime of the payload's creation (required) 
-**name**: User name for the item (required) 
-**classification_value**: Classification value for the item (up for debate if this is included) (required) 
-**sequence_name**: Name of the sequence if the component is part of one (optional)   
-**sequence_guid**: UUID7 for the sequence (optional)   
-**sequence_value**: Ordered number for the sequence (optional)   
-**option**: Specific option of the data (optional)  
-**phase**: Specific user data phase (optional)  
-**status**: Status of the item (e.g., WIP, Active, Other) (required) 
-**active**: Active status (e.g., Yes/No)  (required)
+- **entity_guid**: UUID7 value representing the entity (required) 
+- **component_guid**: UUID7 value for the component (required) 
+- **version**: Human-readable semantic version (required)  
+- **version_guid**: UUID7 version GUID (required) 
+- **component_hash**: Hash of the component instance header details (required)
+- **version_increment**: Used to track modifications when using a version control system (required) 
+- **date_created**: DateTime of the payload's creation (required) 
+- **name**: User name for the item (required) 
+- **classification_value**: Classification value for the item (up for debate if this is included) (required) 
+- **sequence_name**: Name of the sequence if the component is part of one (optional)   
+- **sequence_guid**: UUID7 for the sequence (optional)   
+- **sequence_value**: Ordered number for the sequence (optional)   
+- **option**: Specific option of the data (optional)  
+- **phase**: Specific user data phase (optional)  
+- **status**: Status of the item (e.g., WIP, Active, Other) (required) 
+- **active**: Active status (e.g., Yes/No)  (required)
 
 ### Component - Header - Responses:
-**component_responses**:  Array of previous headers from components that this data is created in response to. (required)  This enables data to respond to other data instead of having separate communications about the data.   An example.   The location of an entity needs to be moved.  Instead of describing this in language, you create a new location component.   This field would then carry the header information of the previous component, so the recipient could automatically reason that the data is referring to the correct prior state of the component. 
+- **component_responses**:  Array of previous headers from components that this data is created in response to. (required)  This enables data to respond to other data instead of having separate communications about the data.   An example.   The location of an entity needs to be moved.  Instead of describing this in language, you create a new location component.   This field would then carry the header information of the previous component, so the recipient could automatically reason that the data is referring to the correct prior state of the component. 
 
 ### Component - Header - Payload Details:   Information on how to parse and understand the payload's content. 
 
-**payload_hash**: Specific hash of the payload data (required)  
-**hash_definition**: Link or description of the hash (required)   
-**payload_data_type**: Encoding of the payload (required)   
-**payload_data_type_definition**: Definition for the payload encoding  (required)  
-**payload_encoding**: Encoding of the payload (required)  
-**payload_encryption**: Encryption status or type of the payload (required)   
+- **payload_hash**: Specific hash of the payload data (required)  
+- **hash_definition**: Link or description of the hash (required)   
+- **payload_data_type**: Encoding of the payload (required)   
+- **payload_data_type_definition**: Definition for the payload encoding  
+(required)  
+- **payload_encoding**: Encoding of the payload (required)  
+- **payload_encryption**: Encryption status or type of the payload (required)   
+
 
 
 ### Component - Payload:  The payload itself 
 
-**payload**: Embedded or URL/URI for the payload data (required) 
+- **payload**: Embedded or URL/URI for the payload data (required) 
 
 ## Payload Types
 
@@ -210,7 +213,7 @@ A fundamental concept of Strange Matter is the ability to relate data together. 
 
 There are several identified relationship configurations. 
 
-- **Component to Component **
+- **Component to Component**
 
   Relationships that are direct and specific to a component.  An example here would be a clash.  Given an Entity can have multiple geometric representations, it would be required to indicate the discreet elements clash, not the generic entities.  
 
@@ -223,17 +226,24 @@ There are several identified relationship configurations.
   It's unclear if this is necessary or useful at this time. 
 
   ### Relationship as a Payload
-  
-  **source_entities**: Array of Source entity IDs  
-  **source_components**: Array of Source component IDs  
-  **source_component_type**: Array of types of source component   
-  **source)_component_classification**: Array of the classification applied to components
-  **destination_entities**: Array of destination entity IDs  
-  **destination_components**: Array of destination component IDs  
-  **destination_component_type**: Array of type of destination component  
-  **destination_classfication**: Array of the classification applied to components
-  
-  
+
+  - **source_entities**: Array of Source entity IDs  
+  - **source_components**: Nest Array of source_components and version_guids or acceptable filters for versions. 
+  Types of values to support.  
+    -  All
+    - A Specific Version 
+    - Date_Created > "(datavalue)"
+  - **source_component_type**: Array of types of source component   
+  - **source)_component_classification**: Array of the classification applied to components
+  - **destination_entities**: Array of destination entity IDs  
+  - **destination_components**: Nest Array of source_components and version_guids or acceptable filters for versions. 
+  Types of values to support.  
+    - All
+    - A Specific Version 
+    - Date_Created > "(datavalue)"
+  - **destination_component_type**: Array of type of destination component  
+  - **destination_classfication**: Array of the classification applied to components
+
 
 ## Other Needed Concepts
 
