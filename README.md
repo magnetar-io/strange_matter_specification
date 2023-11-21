@@ -28,9 +28,8 @@ Both of these examples are very solvable with Strange Matter.
 ## Structure 
 
 **_Components_** are meant to be the smallest unit of useful data about an **Entity**.  Given the need, the amount of data in a component could be as small as a single property or point or could contain many whole datasets and properties.  Strange Matter is designed with the idea that if you make well-defined small data structures that map to real data workflows, it becomes much easier to connect data to a workflow. 
-<p align="center">
+
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/strangematter.svg)
-</p>
 
 ### The Basics of the Protocol
 
@@ -144,7 +143,10 @@ Strange Matter looks to replicate these approaches and separate the transport an
 
 **What is contained in the payload is up to the body that creates the components.  This can be a standards body or a company.  The requirement is that its well defined and not generic.** 
 
-![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/payload_header.svg)
+<p align="center">
+  <img src="https://github.com/magnetar-io/strange_matter_specification/blob/main/media/payload_header.svg" />
+</p>
+
 
 ## Component Header Requirements
 
@@ -269,7 +271,7 @@ There are several identified relationship configurations.
 
 ### Collection
 
-A Collection provides a means of defining a named group of components.  In practical terms, this serves the function of a "File" without the limitations of files.  Typically, files "own" or contain the data defined in it.   A collection references the data included in it.  This is analogous to a branch in Git. The actual branch references the correct versions of the data it contains.  The actual versions of the objects are all part of the Git project.  Just like in GIT a component; can be part of multiple Collections. 
+A Collection provides a means of defining a named group of components.  In practical terms, this serves the function of a "File" without the limitations of files.  Typically, files "own" or contain the data defined in it.   A collection references the data included in it.  This is analogous to a branch in Git. The actual branch references the correct versions of the data it contains.  The actual versions of the objects are all part of the Git project.  Just like in GIT a component can be part of multiple Collections. 
 
 ### # Archetype
 
