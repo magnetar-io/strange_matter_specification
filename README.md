@@ -4,11 +4,26 @@
 
 Strange matter is format, vendor, and tool agnostic.
 
-It is a way for people, processes, and tools with different requirements working together on design and construction projects to collaborate on data that has distributed ownership, comes from different sources, and that is continuously changing.
+It is a way for people, processes, and tools with different requirements working together on design and construction projects to collaborate on data that has distributed ownership, comes from different sources, and is continuously changing.
 
-Strange Matter does this by providing a universal abstract concept calld and **_Entity_**. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or an abstract concept like a relationship, inferface etc.) and for which more or less data may be available to different stakeholders over different periods, authored in different pieces of software.
+Strange Matter does this by providing a universal abstract concept called an **_Entity_**. That is the thing that people care about (whether it is a particular building, floor, facade, column, duct, asset, or an abstract concept like a relationship, interface etc.) and for which more or less data may be available to different stakeholders over different periods, authored in different pieces of software.
 
-Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates.   The payloads can be data or relationships between components, collections of components or collectons of collections. 
+Actual data in a Strange Matter project is organized into components and relationships. Components are JSON headers that refer to data payloads, which can be in any format a user or tool generates.   The payloads can be data or relationships between components, collections of components or collections of collections. 
+
+## Why Strange Matter?
+
+There is a fundamental problem in the way we create data on design and construction projects digitally.  
+
+The key is that its serial, as in it must be completed in order because the data can't be developed/ added to without the previous step having been completed.  If the work is small enough such that a single individual has the expertise to design, procure and build the project then this is not an issue.   
+
+This is a major impediment to knowledge reuse.  
+
+Today if a company has a knowledge base like.  "Our Low, Medium and High Carbon content numbers for Concrete in New York City, this information must be manually added to a model after the geometry has been created to do analysis. 
+
+Or a  contractor can't start associating pricing information to wall assemblies as the designer defines the different types, and then later calculates the total when all the instances exist is a huge lost opportunity to gain efficiency.  
+
+Both of these examples are very solvable with Strange Matter. 
+
 
 ## Structure 
 
@@ -24,7 +39,7 @@ Instead of Inheritance-based objects and data, it follows a Composition model.
 Here is a good technical background. [Leatherbee
 ECS](https://leatherbee.org/index.php/2019/09/12/ecs-1-inheritance-vs-composition-and-ecs-background/)
 
-It should be said from the outset that Strange Matter  learns from ECS but given the need to be distributed, it diverges in some key areas, so while ECS is
+It should be said from the outset that Strange Matter barrows from ECS but given the need to be distributed, it diverges in some key areas, so while ECS is
 the precedent Strange Matter follows its own rules and so is best described as a
 means to compose data.  
 
@@ -33,8 +48,8 @@ The most critical learning and, thus, the main requirement that Strange Matter a
 It Must
 
 - Make Machine-readable connections between arbitrary datasets.
-- Contain a reference to its definition if the payload has a published format via data dictionary or similar concept
-- Have no opinion on the data to be assembled, but facilitate standard representations of known data.  Others can overlay an opinion, but thats not the place of the protocol.
+- Contain a reference to its definition if the payload has a published format via a data dictionary or similar concept
+- Have no opinion on the data to be assembled, but facilitate standard representations of known data.  Others can overlay an opinion, but that's not the place of the protocol.
 - It must be expressive and thus not be limited to “flat” data like in databases or text files but should include workflow, requirements, computation, relationships, and issues. etc
 - Should look to be agnostic of governance or data model. It should enable standardization but not define it
 
@@ -42,9 +57,9 @@ It Must
 
 ### Clash Detection Example  
 
-One of the reasons for Strange Matter to exist is to connect workflows that can't jointed in machine to machine processes without a person acting as a translator.    
+One of the reasons for Strange Matter to exist is to connect workflows that can't joined in machine-to-machine processes without a person acting as a translator.    
 
-Clash detection is a perfect demonstration where the data itself can't communicate the updates; we must rely on human written notes and instructions.  Additionally, because this process happens outside of the data it's challenging to reason why changes happened.
+Clash detection is a perfect demonstration where the data itself can't communicate the updates; we must rely on handwritten notes and instructions.  Additionally, because this process happens outside of the data it's challenging to reason why changes happened.
 
 There are two main patterns for clash detection.   Whether it’s standards-based using BCF or a custom schema to track issues, they all do something like this.
 
@@ -53,11 +68,11 @@ There are two main patterns for clash detection.   Whether it’s standards-base
 - Create an issue that gets stored in a file or web service.
 - Model Application loads the model.
 - The model editing/viewing application creates a “temporary join” between the issues and the modeled elements.
-- When the applications are closed,  the **“join”** logic is lost and thus has to be recalculated when the next user brings the data together.  This basically eliminates the ablity to reason about the data without software bridging the data. 
+- When the applications are closed,  the **“join”** logic is lost and thus has to be recalculated when the next user brings the data together.  This eliminates the ability to reason about the data without software bridging the data. 
 
 Certainly, IDs exist that enable this join, but that has to be recomputed. You would have to open the source model each time you want to review the data.
 
-<aside>
+
 💡 What if the data was connected?  What kinds of things become possible?  Let’s think through some very basic workflows that could exist
 
 
@@ -75,7 +90,7 @@ Certainly, IDs exist that enable this join, but that has to be recomputed. You w
       Component_1 --> Clashes_Relationship_Routing_Error --> Component_2
   ```
 
-- One could capture the actual fix in the data so if it ever resurfaces on the project or project type, you have captured the knowledge of how it was previously solved.
+- One could capture the actual fix in the data so if a similar issue resurfaces on the project or project type, you have captured the knowledge of how it was previously solved.
 
   ```mermaid
   flowchart LR
@@ -97,7 +112,7 @@ Certainly, IDs exist that enable this join, but that has to be recomputed. You w
 
 This example shows how making data connections to other data outside of an application can add to and collect knowledge that is currently lost in our processes.   it's currently not computable or trainable because it’s not machine-readable. 
 
-It's not surprising to learn that these are the things that are solved in USD, Software Development, and in other more mature approaches to data.
+It's not surprising to learn that these are the things that are solved in USD, Software Development, and other more mature approaches to data.
 
 ------
 
@@ -110,7 +125,7 @@ Components are units of data for Strange Matter.  Components need to be able to 
 
 ## Component Header vs Payload
 
-Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strange Matter must specify this fully.   Strange Matter does not limit the potential payloads and should only look to specifiy them where it's required to unify differing datatypes.   The known places where this needs to be explored are in Relationships, Identifier Components, Units, and Locations.  
+Components have two distinct parts—header vs the Payload.  The Header must be standard and consistent across use cases, and thus, Strange Matter must specify this fully.   Strange Matter does not limit the potential payloads and should only look to specify them where it's required to unify differing datatypes.   The known places where this needs to be explored are in Relationships, Identifier Components, Units, and Locations.  
 
 This idea of separation leans heavily on several precedents.   The Internet layer stack is the most prescient, but at the same time, EDI and Email are good references as well. All of these saw the value of separating communication requirements from content.  You can put anything in an email, but an email header always contains the required data.   EDI illustrates that if you describe the content programmatically such that a recipient can be assured of what's inside of it, you can make machine-to-machine communication possible.  
 
@@ -151,6 +166,7 @@ Components need to do a lot of heavy lifting as they need to exist in the world 
 
 ### Component - Header - Data Source:  Where did the instance data in the component come from?  As this is coming from objects inside tools, we need to have robust knowledge of the source. 
 
+
 > - **author**: Name of the author, which can be a person, company, etc. (required) 
 > - **author_identifier**: Name or Number of the scope that this data refers to (required)  
 > - **context**: Domain/source from which the instance data originated (required) 
@@ -162,7 +178,6 @@ Components need to do a lot of heavy lifting as they need to exist in the world 
 > - **source_data_item_version_id**: ID for the version from the source application of the referenced object (required) 
 > - **source_data_other**: Other values from the source key to identifying the data  (optional)
 >
-
 ### Component - Header - Strange Matter Identifiers: The Strange Matter data that identifies the object and its history, external to any tool or application. 
 
 > - **entity_guid**: UUID7 value representing the entity (required) 
@@ -213,7 +228,7 @@ Strange Matter doesn't care and should never care what data is a payload.   This
 
 ### Relationship
 
-A fundamental concept of Strange Matter is the ability to relate data together.   Relationships is a means to specify a named relationship between two or more components.  These components can either be part of the same Entity or different Entities. 
+A fundamental concept of Strange Matter is the ability to relate data together.   Relationships are a means to specify a named relationship between two or more components.  These components can either be part of the same Entity or different Entities. 
 
 There are several identified relationship configurations. 
 
@@ -238,7 +253,7 @@ There are several identified relationship configurations.
   >   - A Specific Version 
   >   - Date_Created > "(datavalue)"
   > - **source_component_type**: Array of types of source component   
-  > - **source)_component_classification**: Array of the classification applied to components
+  > - **source_component_classification**: Array of the classification applied to components
   > - **destination_entities**: Array of destination entity IDs  
   > - **destination_components**: Nest Array of source_components and version_guids or acceptable filters for versions. 
   >   Types of values to support.  
@@ -253,7 +268,7 @@ There are several identified relationship configurations.
 
 ### Collection
 
-A Collection provides a means of defining a named group of components.  In practical terms, this serves the function of a "File" without the limitations of files.  Typically, files "own" or contain the data defined in it.   A collection references the data included in it.  This is analogous to a branch in Git. The actual branch references the correct versions of the data it contains.  The actual versions of the objects are all part of the Git project.  Just like in GIT a component, can be part of multiple Collections. 
+A Collection provides a means of defining a named group of components.  In practical terms, this serves the function of a "File" without the limitations of files.  Typically, files "own" or contain the data defined in it.   A collection references the data included in it.  This is analogous to a branch in Git. The actual branch references the correct versions of the data it contains.  The actual versions of the objects are all part of the Git project.  Just like in GIT a component; can be part of multiple Collections. 
 
 ### # Archetype
 
