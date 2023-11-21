@@ -28,8 +28,9 @@ Both of these examples are very solvable with Strange Matter.
 ## Structure 
 
 **_Components_** are meant to be the smallest unit of useful data about an **Entity**.  Given the need, the amount of data in a component could be as small as a single property or point or could contain many whole datasets and properties.  Strange Matter is designed with the idea that if you make well-defined small data structures that map to real data workflows, it becomes much easier to connect data to a workflow. 
-
+<p align="center">
 ![](https://github.com/magnetar-io/strange_matter_specification/blob/main/media/strangematter.svg)
+</p>
 
 ### The Basics of the Protocol
 
