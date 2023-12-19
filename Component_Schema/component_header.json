@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "StrangeMatter Header Component Schema",
-    "source": ""
+    "source": "",
     "description": "A schema for representing component header information",
     "version": "0.0.1",
     "hash": {"type": "string"},

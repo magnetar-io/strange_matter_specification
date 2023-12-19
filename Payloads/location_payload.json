@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "4x4 Transformation Matrix for 3D Geometry",
+    "description": "A JSON schema for a 4x4 transformation matrix in column-oriented format, used in 3D geometry transformations",
+    "version": "0.0.1",
+    "hash": {"type": "string"},
+    "dateCreated": "2023-12-19",
+    "type": "object",
+    "properties": {
+      "transformationMatrix": {
+        "type": "array",
+        "description": "Column-oriented 4x4 transformation matrix for 3D geometry",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 16,
+        "maxItems": 16,
+        "examples": [
+          // Example of a typical 4x4 transformation matrix in column-major order
+          [1, 0, 0, 0, // Column 1: Rotation and scaling (X-axis)
+           0, 1, 0, 0, // Column 2: Rotation and scaling (Y-axis)
+           0, 0, 1, 0, // Column 3: Rotation and scaling (Z-axis)
+           0, 0, 0, 1  // Column 4: Translation
+           // Last row is implicitly [0, 0, 0, 1]
+          ]
+        ]
+      }
+    },
+    "required": ["transformationMatrix"]
+  }
+  
