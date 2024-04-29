@@ -37,6 +37,8 @@
       "SourceDataOther": { "type": "string" },
       "EntityGuid": { "$ref": "#/definitions/Uuid7" },
       "ComponentGuid": { "$ref": "#/definitions/Uuid7" },
+      "ParentTypicalEntity": { "type": "string" },
+      "ParentArchitypeEntity": { "type": "string" },
       "Version": { "type": "string" },
       "VersionGuid": { "$ref": "#/definitions/Uuid7" },
       "VersionIncrement": { "type": "string" },
