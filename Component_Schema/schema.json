@@ -47,7 +47,7 @@
       "SequenceGuid": { "$ref": "#/definitions/Uuid7" },
       "SequenceValue": { "type": "integer" },
       "Option": { "type": "string" },
-      "Phase": { "type": ["string", "null"] }, // Indicating the property is optional
+      "Phase": { "type": ["string", "null"] },
       "Status": { "type": "string" },
       "Active": { "type": "string" },
       "ComponentResponses": { "type": "array", "items": { "type": "object" } },
