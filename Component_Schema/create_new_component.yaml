@@ -1,0 +1,258 @@
+openapi: 3.0.3
+info:
+  title: Create Component API
+  description: API for creating new components with reference to existing entities
+  version: 1.0.0
+paths:
+  /entities:
+    get:
+      summary: Get a list of entities
+      responses:
+        '200':
+          description: A list of entities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+
+  /components:
+    post:
+      summary: Create a new component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewComponent'
+      responses:
+        '201':
+          description: Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Component created successfully
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid input
+
+
+
+  /enums/classification:
+    get:
+      summary: Get valid classifications
+      responses:
+        '200':
+          description: A list of valid classifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: hok.room.net
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+
+  /enums/ComponentType:
+    get:
+      summary: Get a list of valid component types
+      responses:
+        '200':
+          description: A list of valid component types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: component.hok.quantities.room
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid request
+
+
+
+
+    NewComponent:
+      type: object
+      properties:
+        ComponentType:
+          type: string
+          description: This value should be retrieved from the `/enums/ComponentType` endpoint.
+          example: component.hok.quantities.room # Example component type.
+        ComponentTypeReference:
+          type: string
+          example: www.hok.com/components/v1 # Example component type reference URL.
+        ComponentTypeGuid:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: FakeGUIDforNOW # Example UUID.
+        ComponentVersion:
+          type: integer
+          example: 1 # Example version number.
+        ComponentHash:
+          type: string
+          example: 44EF8331D00EE612161ACCAB32796A1D # Example hash value.
+        Author:
+          type: string
+          example: user # Example author name.
+        AuthorIdentifier:
+          type: string
+          format: email # This field must be an email.
+          example: email address # Example email address.
+        Context:
+          type: string
+          example: myprojectdata.ifc5 # Example context.
+        Function:
+          type: string
+          enum:
+            - Instance
+            - Typical
+            - Architype
+        ParentTypical:
+          nullable: true # This field can be null.
+          example: "" # Example value..
+        ParentArchitype:
+          nullable: true # This field can be null.
+          example: "" # Example value.
+        AuthuringSoftware:
+          type: string
+          example: Revit2024 # Example authoring software.
+        SourceData:
+          type: string
+          example: B:\\FME to ECS/FME to Strange Matter.rvt # Example source data path.
+        SourceDataDate:
+          type: string
+          format: date-time # This field must be a date-time.
+          example: 2024-05-09T16:45:28Z # Example date-time.
+        SourceDataID:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: b1edaba5-c475-4462-987e-7ddde2a3e14b # Example UUID.
+        SourceDateVersionId:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: b1edaba5-c475-4462-987e-7ddde2a3e14b # Example UUID.
+        SourceDataItemId:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: 67ac9cfa-eb32-4d3d-8601-8f954467c2e0 # Example UUID.
+        SourceDataItemVersionId:
+          type: string
+          example: not real value... # Example value.
+        EntityGUID:
+          type: string
+          format: uuid # This field must be a UUID.
+          description: This value must reference an existing EntityGUID.
+          example: 01HY5ZMW6R0SGVV4VDBNKYZ5HJ # Example UUID referencing an existing entity.
+        ComponetGUID:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: d1eb73ac-1001-4d2d-b68c-45d86bf30a95 # Example UUID.
+        ComponentVersionGUID:
+          type: string
+          format: uuid # This field must be a UUID.
+          nullable: true # This is would be blank if an external system is being used for change management... like git etc. 
+          example: a50efed4-7889-4c47-8a36-432dcfd9d1e5 # Example UUID.
+        SemanticVersion:
+          type: string
+          nullable: true # This field can be null.
+          example: V1 # Example semantic version.
+        VersionIncrement:
+          type: string
+          nullable: true # This field can be null.
+          example: "" # Example value.
+        DateCreated:
+          type: string
+          format: date-time # This field must be a date-time.
+          example: 2024-05-18T09:53:17.513Z # Example date-time.
+        Name:
+          type: string
+          example: Room2 # Example name.
+        Classification:
+          type: string
+          description: This value should be retrieved from the `/enums/classification` endpoint.
+          example: hok.room.net # Example classification.
+        SequenceName:
+          type: string
+          example: na # Example sequence name.
+        SequenceGUID:
+          type: string
+          format: uuid # This field must be a UUID.
+          example: "" # Example value.
+        SequenceValue:
+          type: string
+          example: na # Example sequence value.
+        Option:
+          type: integer
+          nullable: true # This field can be null.
+          example: 1 # Example option value.
+        Phase:
+          type: string
+          nullable: true # This field can be null.
+          example: New Construction # Example phase.
+        Status:
+          type: string
+          enum:
+            - WIP
+            - Completed
+            - On Hold
+          example: WIP # Example status.
+        Active:
+          type: boolean
+          example: true # Example active status.
+        ResponceToComponent:
+          type: string
+          nullable: true # This field can be null.
+          example: "" # Example response to component.
+        HashDefinition:
+          type: string
+          example: MD5 # Example hash definition.
+        PayloadHash:
+          type: string
+          pattern: '^[a-fA-F0-9]{32}$' # This field must match the MD5 hash pattern.
+          example: D41D8CD98F00B204E9800998ECF8427E # Example hash value.
+        PayloadDataType:
+          type: string
+          example: json # Example payload data type.
+        Payload:
+          type: object
+          additionalProperties: true # This allows any additional properties in the payload.
