@@ -1,0 +1,137 @@
+[
+	{
+		"ComponentType" : "component.geojson.polygon",
+		"ComponentTypeReference" : "www.hok.com/components/v1",
+		"ComponentTypeGuid" : "FakeGUIDforNOW",
+		"ComponentVersion" : 1,
+		"ComponentHash" : "5075721BB7725E235C33C15BF86BCA73",
+		"Author" : "user",
+		"AuthorIdentifier" : "email address",
+		"Context" : "myprojectdata.ifc5",
+		"Function" : "Instance",
+		"ParentTypical" : "",
+		"ParentArchitype" : "",
+		"AuthuringSoftware" : "Revit2024",
+		"SourceData" : "C:\\Program Files\\Autodesk\\Revit 2023\\Samples\\rac_advanced_sample_project.rvt",
+		"SourceDataDate" : "20220510232008",
+		"SourceDataID" : "a8bb5526-b511-4dc7-8f04-1e4e21a79b93",
+		"SourceDateVersionId" : "a8bb5526-b511-4dc7-8f04-1e4e21a79b93",
+		"SourceDataItemId" : "7a4f2d19-b926-444c-8a52-5eac052b5192-00034d91",
+		"SourceDataItemVersionId" : "not real value... ",
+		"EntityGUID" : "01HY64A3P8S21TJ179X7RRV109",
+		"ComponetGUID" : "eb4082cf-c64b-4c12-b89d-a9c1615a1d6f",
+		"ComponentVersionGUID" : "049ca80e-6c51-46fe-99bc-f3ed757e41e5",
+		"SemanticVersion" : "V1",
+		"VersionIncrement" : "",
+		"DateCreated" : "20240518121720.6258216",
+		"Name" : "Electrical",
+		"Classification" : "hok.room.net",
+		"SequenceName" : "na",
+		"SequenceGUID" : "",
+		"SequenceValue" : "na",
+		"Option" : 1,
+		"Phase" : "New Construction",
+		"Status" : "WIP",
+		"Active" : "1",
+		"ResponceToComponent" : "",
+		"HashDefinition" : "MD5",
+		"PayloadHash" : "D41D8CD98F00B204E9800998ECF8427E",
+		"PayloadDataType" : "geojson",
+		"Payload" : {
+			"type" : "GeometryCollection",
+			"geometries" : [
+				{
+					"type" : "Polygon",
+					"coordinates" : [
+						[
+							[ 9643.3505584, 22324.5407562 ],
+							[ 9643.3505584, 24539.0407562 ],
+							[ 7113.7510724, 24539.0407562 ],
+							[ 7113.7510724, 22324.5407562 ],
+							[ 7169.5010724, 22324.5407562 ],
+							[ 9643.3505584, 22324.5407562 ]
+						]
+					]
+				},
+				{
+					"type" : "Polygon",
+					"coordinates" : [
+						[
+							[ 7113.7510724, 22324.5407562 ],
+							[ 7113.7510724, 24539.0407562 ],
+							[ 9643.3505584, 24539.0407562 ],
+							[ 9643.3505584, 22324.5407562 ],
+							[ 7169.5010724, 22324.5407562 ],
+							[ 7113.7510724, 22324.5407562 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 9643.3505584, 22324.5407562 ],
+							[ 7169.5010724, 22324.5407562 ]
+						],
+						[
+							[ 7169.5010724, 22324.5407562 ],
+							[ 9643.3505584, 22324.5407562 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 9643.3505584, 24539.0407562 ],
+							[ 9643.3505584, 22324.5407562 ]
+						],
+						[
+							[ 9643.3505584, 22324.5407562 ],
+							[ 9643.3505584, 24539.0407562 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 7113.7510724, 24539.0407562 ],
+							[ 9643.3505584, 24539.0407562 ]
+						],
+						[
+							[ 9643.3505584, 24539.0407562 ],
+							[ 7113.7510724, 24539.0407562 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 7113.7510724, 22324.5407562 ],
+							[ 7113.7510724, 24539.0407562 ]
+						],
+						[
+							[ 7113.7510724, 24539.0407562 ],
+							[ 7113.7510724, 22324.5407562 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 7169.5010724, 22324.5407562 ],
+							[ 7113.7510724, 22324.5407562 ]
+						],
+						[
+							[ 7113.7510724, 22324.5407562 ],
+							[ 7169.5010724, 22324.5407562 ]
+						]
+					]
+				}
+			]
+		}
+	}
+]
