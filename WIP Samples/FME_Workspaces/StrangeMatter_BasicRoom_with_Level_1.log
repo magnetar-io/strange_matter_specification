@@ -1,0 +1,79 @@
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Current FME version: FME 2024.0.1.0 (20240328 - Build 24202 - WIN64)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|System Time: 20240520163337 UTC
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME_HOME is 'C:\Program Files\FME\2024_Beta\'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Form (floating)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Permanent License.
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Machine host name is: NY-D677
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|OS Locale Name     : en_US
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|OS Locale Encoding : windows-1252
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Process Encoding   : UTF-8
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME API version: '4.0 20240212'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: FME_BASE is 'no'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: FME_MF_DIR is 'B:\Git\strange_matter_specification\WIP Samples\FME_Workspaces/'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: FME_MF_NAME is 'StrangeMatter_BasicRoom_with_Level_1.fmw'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: FME_PRODUCT_NAME is 'FME(R) 2024.0.1.0'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Operating System: Microsoft Windows 11 64-bit  (Build 22631)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Platform: WIN64
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|System Status: 32.51 GB of disk space available in the FME temporary folder (C:\Users\GREG~1.SCH\AppData\Local\Temp\wbrun_1716221241541_55540\fmetmp_e)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|System Status: 31.70 GB of physical memory available
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|System Status: 126.78 GB of virtual memory available
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|START - ProcessID: 28208, peak process memory usage: 51816 kB, current process memory usage: 51816 kB
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Command line arguments are `C:\Program Files\FME\2024_Beta\fme.exe' `B:\Git\strange_matter_specification\WIP Samples\FME_Workspaces\wb-xlate-1716222816129_55540' `LOG_STANDARDOUT' `YES' `LOG_TIMINGS' `YES' `LogCountServerName' `60280' `LOG_STANDARDOUT' `No' `WORKBENCH_LOG_SERVER' `60273'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Connection Storage: 'C:\Users\greg.schleusner\AppData\Roaming\Safe Software\FME\'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for formats are : C:\Program Files\FME\2024_Beta\datasources;C:\Users\greg.schleusner\Documents\FME\Formats
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for transformers are : C:\Users\greg.schleusner\AppData\Roaming\Safe Software\FME\Packages\24202-win64\transformers;C:\Program Files\FME\2024_Beta\transformers;C:\Users\greg.schleusner\AppData\Roaming\Safe Software\FME\FME Store\Transformers
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for coordinate systems are : C:\Users\greg.schleusner\Documents\FME\CoordinateSystems
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for coordinate system exceptions are : C:\Users\greg.schleusner\Documents\FME\CoordinateSystemExceptions
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for coordinate system grid overrides are : C:\Users\greg.schleusner\Documents\FME\CoordinateSystemGridOverrides
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for CS-MAP transformation exceptions are : C:\Users\greg.schleusner\Documents\FME\CsmapTransformationExceptions
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Shared folders for transformer categories are : C:\Users\greg.schleusner\Documents\FME\TransformerCategories
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Reader Keyword is `MULTI_READER'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Writer Keyword is `MULTI_DEST'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Writer Group Definition Keyword is `MULTI_DEST_DEF'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Reader type is `MULTI_READER'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Writer type is `MULTI_WRITER'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: No destination coordinate system set
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Current working folder is `B:\Git\strange_matter_specification\WIP Samples\FME_Workspaces'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Temporary folder is `C:\Users\GREG~1.SCH\AppData\Local\Temp\wbrun_1716221241541_55540\fmetmp_e', set from environment variable `FME_TEMP'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Cache folder is 'C:\Users\GREG~1.SCH\AppData\Local\Temp'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: FME_HOME is `C:\Program Files\FME\2024_Beta\'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Start freeing memory when the process exceeds 95.09 GB
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Configuration: Stop freeing memory when the process is below 71.32 GB
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Creating writer for format: 
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Creating reader for format: 
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|MULTI_READER(MULTI_READER): Will fail with first member reader failure
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Using Multi Reader with keyword `MULTI_READER' to read multiple datasets
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Using MultiWriter with keyword `MULTI_DEST' to output data (ID_ATTRIBUTE is `multi_writer_id')
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Loaded module 'LogCount_func' from file 'C:\Program Files\FME\2024_Beta\plugins/LogCount_func.dll'
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME API version of module 'LogCount_func' matches current internal version (4.0 20240212)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Emptying factory pipeline
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Router and Unexpected Input Remover (RoutingFactory): Tested 0 input feature(s), wrote 0 output feature(s): 0 matched merge filters, 0 were routed to output, 0 could not be routed.
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Unwanted Router Input Nuker (TeeFactory): Cloned 0 input feature(s) into 0 output feature(s)
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Metadata.FileInformation_REVITNATIVE_1 Splitter (TeeFactory): Cloned 0 input feature(s) into 0 output feature(s)
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Metadata.LevelInformation_REVITNATIVE_1 Splitter (TeeFactory): Cloned 0 input feature(s) into 0 output feature(s)
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Architectural.Rooms_REVITNATIVE_1 Splitter (TeeFactory): Cloned 0 input feature(s) into 0 output feature(s)
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Restoring 91 feature(s) from FME feature store file `C:\Users\GREG~1.SCH\AppData\Local\Temp\wb-cache-StrangeMatter_BasicRoom_with_Lev-lwIDKW\Main_2DForcer -1 18 fo 0 2D  0  830f307cdd59f1cb81a1925e683826c66d531ebe.ffs'
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Destination Feature Type Routing Correlator (RoutingFactory): Tested 0 input feature(s), wrote 0 output feature(s): 0 matched merge filters, 0 were routed to output, 0 could not be routed.
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Final Output Nuker (TeeFactory): Cloned 0 input feature(s) into 0 output feature(s)
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|STATS |                            Features Read Summary
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|STATS |==============================================================================
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Total Features Read                                                          0
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|STATS |                           Features Written Summary
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|STATS |==============================================================================
+2024-05-20 12:33:37|   0.0|  0.0|STATS |Total Features Written                                                       0
+2024-05-20 12:33:37|   0.0|  0.0|STATS |=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~                                                                             ~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~    Feature caches have been recorded at every stage of the translation.     ~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~                      To inspect the recorded features,                      ~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~              click the feature cache icons next to the ports.               ~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~                                                                             ~-
+2024-05-20 12:33:37|   0.0|  0.0|WARN  |-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|Translation was SUCCESSFUL with 7 warning(s) (0 feature(s) output)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|FME Session Duration: 0.4 seconds. (CPU: 0.0s user, 0.0s system)
+2024-05-20 12:33:37|   0.0|  0.0|INFORM|END - ProcessID: 28208, peak process memory usage: 58960 kB, current process memory usage: 58960 kB
