@@ -1,0 +1,170 @@
+[
+	{
+		"ComponentType" : "component.geojson.polygon",
+		"ComponentTypeReference" : "www.hok.com/components/v1",
+		"ComponentTypeGuid" : "FakeGUIDforNOW",
+		"ComponentVersion" : 1,
+		"ComponentHash" : "5075721BB7725E235C33C15BF86BCA73",
+		"Author" : "user",
+		"AuthorIdentifier" : "email address",
+		"Context" : "myprojectdata.ifc5",
+		"Function" : "Instance",
+		"ParentTypical" : "",
+		"ParentArchitype" : "",
+		"AuthuringSoftware" : "Revit2024",
+		"SourceData" : "C:\\Program Files\\Autodesk\\Revit 2023\\Samples\\rac_advanced_sample_project.rvt",
+		"SourceDataDate" : "20220510232008",
+		"SourceDataID" : "a8bb5526-b511-4dc7-8f04-1e4e21a79b93",
+		"SourceDateVersionId" : "a8bb5526-b511-4dc7-8f04-1e4e21a79b93",
+		"SourceDataItemId" : "a79add17-780f-499e-a863-104a9aa9c91e-000347cd",
+		"SourceDataItemVersionId" : "not real value... ",
+		"EntityGUID" : "01HY64A3KWHMB9WN27DXMGHW22",
+		"ComponetGUID" : "3a6872b7-9945-4b7d-9cfb-60721cf453e3",
+		"ComponentVersionGUID" : "950d0014-608f-45ba-ad31-db62def736df",
+		"SemanticVersion" : "V1",
+		"VersionIncrement" : "",
+		"DateCreated" : "20240518121720.6340086",
+		"Name" : "Men",
+		"Classification" : "hok.room.net",
+		"SequenceName" : "na",
+		"SequenceGUID" : "",
+		"SequenceValue" : "na",
+		"Option" : 1,
+		"Phase" : "New Construction",
+		"Status" : "WIP",
+		"Active" : "1",
+		"ResponceToComponent" : "",
+		"HashDefinition" : "MD5",
+		"PayloadHash" : "D41D8CD98F00B204E9800998ECF8427E",
+		"PayloadDataType" : "geojson",
+		"Payload" : {
+			"type" : "GeometryCollection",
+			"geometries" : [
+				{
+					"type" : "Polygon",
+					"coordinates" : [
+						[
+							[ 12577.5505584, -23181.1613815 ],
+							[ 12577.5505584, -22664.9582412 ],
+							[ 12577.5505584, -22605.1645189 ],
+							[ 12577.5505584, -17384.6613815 ],
+							[ 10946.8005584, -17384.6613815 ],
+							[ 10313.7510724, -17384.6613815 ],
+							[ 10313.7510724, -23181.1613815 ],
+							[ 12577.5505584, -23181.1613815 ]
+						]
+					]
+				},
+				{
+					"type" : "Polygon",
+					"coordinates" : [
+						[
+							[ 10313.7510724, -17384.6613815 ],
+							[ 10946.8005584, -17384.6613815 ],
+							[ 12577.5505584, -17384.6613815 ],
+							[ 12577.5505584, -22605.1645189 ],
+							[ 12577.5505584, -22664.9582412 ],
+							[ 12577.5505584, -23181.1613815 ],
+							[ 10313.7510724, -23181.1613815 ],
+							[ 10313.7510724, -17384.6613815 ]
+						]
+					]
+				},
+				{
+					"type" : "Polygon",
+					"coordinates" : [
+						[
+							[ 10313.7510724, -23181.1613815 ],
+							[ 10313.7510724, -23181.1613815 ],
+							[ 12577.5505584, -23181.1613815 ],
+							[ 12577.5505584, -23181.1613815 ],
+							[ 10313.7510724, -23181.1613815 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 12577.5505584, -22664.9582412 ],
+							[ 12577.5505584, -23181.1613815 ]
+						],
+						[
+							[ 12577.5505584, -23181.1613815 ],
+							[ 12577.5505584, -22664.9582412 ]
+						],
+						[
+							[ 12577.5505584, -23181.1613815 ],
+							[ 12577.5505584, -23181.1613815 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 12577.5505584, -22605.1645189 ],
+							[ 12577.5505584, -22664.9582412 ]
+						],
+						[
+							[ 12577.5505584, -22664.9582412 ],
+							[ 12577.5505584, -22605.1645189 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 12577.5505584, -17384.6613815 ],
+							[ 12577.5505584, -22605.1645189 ]
+						],
+						[
+							[ 12577.5505584, -22605.1645189 ],
+							[ 12577.5505584, -17384.6613815 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 10946.8005584, -17384.6613815 ],
+							[ 12577.5505584, -17384.6613815 ]
+						],
+						[
+							[ 12577.5505584, -17384.6613815 ],
+							[ 10946.8005584, -17384.6613815 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 10313.7510724, -17384.6613815 ],
+							[ 10946.8005584, -17384.6613815 ]
+						],
+						[
+							[ 10946.8005584, -17384.6613815 ],
+							[ 10313.7510724, -17384.6613815 ]
+						]
+					]
+				},
+				{
+					"type" : "MultiLineString",
+					"coordinates" : [
+						[
+							[ 10313.7510724, -23181.1613815 ],
+							[ 10313.7510724, -17384.6613815 ]
+						],
+						[
+							[ 10313.7510724, -17384.6613815 ],
+							[ 10313.7510724, -23181.1613815 ]
+						]
+					]
+				}
+			]
+		}
+	}
+]
