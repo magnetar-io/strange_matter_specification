@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/component.json",
     "title": "Component",
     "type": "object",
     "properties": {
