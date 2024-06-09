@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Component",
+    "type": "object",
+    "properties": {
+      "ComponentType": {
+        "type": "string",
+        "pattern": "^\\S+\\/component\\.strangematter\\.id\\/v1$",
+        "examples": [".../component.strangematter.id/v1"]
+      },
+      "ComponentHash": {
+        "type": "string",
+        "pattern": "^[A-F0-9]{32}$",
+        "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
+      },
+      "AuthorIdentifier": {
+        "type": "string",
+        "format": "email",
+        "examples": ["greg.schleusner@hok.com"]
+      },
+      "Context": {
+        "type": "string",
+        "pattern": "^\\S+\\.ifc5$",
+        "examples": ["myprojectdata.ifc5"]
+      },
+      "Function": {
+        "type": "string",
+        "enum": ["Instance"],
+        "examples": ["Instance"]
+      },
+      "Includes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [["include1", "include2"]]
+      },
+      "EntityGUID": {
+        "type": "string",
+        "pattern": "^[0-9A-Z]{24}$",
+        "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
+      },
+      "ComponetGUID": {
+        "type": "string",
+        "format": "uuid",
+        "examples": ["1823e736-a75e-4c3d-a13b-a8c9e16def22"]
+      },
+      "ComponentVersionGUID": {
+        "type": "string",
+        "format": "uuid",
+        "examples": ["45be6d64-3a6f-49b8-a26d-75dc2ea41e0b"]
+      },
+      "DateCreated": {
+        "type": "string",
+        "pattern": "^[0-9]{17}\\.\\d+$",
+        "examples": ["20240602130548.1343902"]
+      },
+      "Name": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceGUID": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceName": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceValue": {
+        "type": "string",
+        "examples": [""]
+      },
+      "ResponceToComponent": {
+        "type": "string",
+        "examples": [""]
+      },
+      "HashDefinition": {
+        "type": "string",
+        "enum": ["MD5"],
+        "examples": ["MD5"]
+      },
+      "PayloadHash": {
+        "type": "string",
+        "pattern": "^[A-F0-9]{32}$",
+        "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
+      },
+      "PayloadDataType": {
+        "type": "string",
+        "enum": ["json"],
+        "examples": ["json"]
+      },
+      "Payload": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "examples": [[]]
+      }
+    },
+    "required": [
+      "ComponentType",
+      "ComponentHash",
+      "AuthorIdentifier",
+      "Context",
+      "Function",
+      "EntityGUID",
+      "ComponetGUID",
+      "ComponentVersionGUID",
+      "DateCreated",
+      "HashDefinition",
+      "PayloadHash",
+      "PayloadDataType",
+      "Payload"
+    ]
+  }
+  

@@ -2,7 +2,7 @@
 
 # Strange Matter Protocol
 
-For Technical Decisions and Topics, See [WIKI](https://github.com/magnetar-io/strange_matter_specification/wiki)
+See Wiki for Development Topics  [WIKI](https://github.com/magnetar-io/strange_matter_specification/wiki)
 
 Strange matter is format, vendor, and tool agnostic.
 
