@@ -313,205 +313,122 @@ The list of criteria can seem long, but it's addressable by looking across topic
 
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "properties": {
-    "component_type": {
-      "type": "string",
-      "description": "The human-readable name for the component",
-      "required": true
-    },
-    "component_type_reference": {
-      "type": "string",
-      "format": "uri",
-      "description": "URI of the hosted library for the component",
-      "required": true
-    },
-    "component_type_guid": {
-      "type": "string",
-      "description": "The UUID7 id for the component",
-      "required": true
-    },
-    "component_type_version_guid": {
-      "type": "string",
-      "description": "UUID7 to identify the version of the component",
-      "required": true
-    },
-    "component_version": {
-      "type": "string",
-      "description": "Semantic version of the component definition used for humans to follow and track",
-      "required": true
-    },
-    "component_hash": {
-      "type": "string",
-      "description": "Hash of the Component Definition as there could be scenarios where different information is added to the component definition",
-      "required": true
-    },
-    "author": {
-      "type": "string",
-      "description": "Name of the author, which can be a person, company, etc.",
-      "required": true
-    },
-    "author_identifier": {
-      "type": "string",
-      "description": "Name or Number of the scope that this data refers to",
-      "required": true
-    },
-    "context": {
-      "type": "string",
-      "description": "Domain/source from which the instance data originated",
-      "required": true
-    },
-    "source_data": {
-      "type": "string",
-      "format": "uri",
-      "description": "URL or URI for the data source for this component",
-      "required": true
-    },
-    "source_data_file_date": {
-      "type": "string",
-      "description": "Creation date of the file, database, etc",
-      "required": true
-    },
-    "source_data_file_id": {
-      "type": "string",
-      "description": "ID for the file or similar container",
-      "required": true
-    },
-    "source_data_file_version_id": {
-      "type": "string",
-      "description": "Version ID for the file or similar container",
-      "required": true
-    },
-    "source_data_item_id": {
-      "type": "string",
-      "description": "ID from the source application of the referenced object",
-      "required": true
-    },
-    "source_data_item_version_id": {
-      "type": "string",
-      "description": "ID for the version from the source application of the referenced object",
-      "required": true
-    },
-    "source_data_other": {
-      "type": "string",
-      "description": "Other values from the source key to identifying the data"
-    },
-    "entity_guid": {
-      "type": "string",
-      "description": "UUID7 value representing the entity",
-      "required": true
-    },
-    "component_guid": {
-      "type": "string",
-      "description": "UUID7 value for the component",
-      "required": true
-    },
-    "version": {
-      "type": "string",
-      "description": "Human-readable semantic version",
-      "required": true
-    },
-    "version_guid": {
-      "type": "string",
-      "description": "UUID7 version GUID",
-      "required": true
-    },
-    "version_increment": {
-      "type": "integer",
-      "description": "Used to track modifications when using a version control system",
-      "required": true
-    },
-    "date_created": {
-      "type": "string",
-      "format": "date-time",
-      "description": "DateTime of the payload's creation",
-      "required": true
-    },
-    "name": {
-      "type": "string",
-      "description": "User name for the item",
-      "required": true
-    },
-    "classification_value": {
-      "type": "string",
-      "description": "Classification value for the item (up for debate if this is included)",
-      "required": true
-    },
-    "sequence_name": {
-      "type": "string",
-      "description": "Name of the sequence if the component is part of one"
-    },
-    "sequence_guid": {
-      "type": "string",
-      "description": "UUID7 for the sequence"
-    },
-    "sequence_value": {
-      "type": "integer",
-      "description": "Ordered number for the sequence"
-    },
-    "option": {
-      "type": "string",
-      "description": "Specific option of the data"
-    },
-    "phase": {
-      "type": "string",
-      "description": "Specific user data phase"
-    },
-    "status": {
-      "type": "string",
-      "description": "Status of the item (e.g., WIP, Active, Other)",
-      "required": true
-    },
-    "active": {
-      "type": "boolean",
-      "description": "Active status (e.g., Yes/No)",
-      "required": true
-    },
-    "component_responses": {
-      "type": "array",
-      "items": {
-        "type": "object"
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Component",
+    "type": "object",
+    "properties": {
+      "ComponentType": {
+        "type": "string",
+        "pattern": "^\\S+\\/component\\.strangematter\\.id\\/v1$",
+        "examples": [".../component.strangematter.id/v1"]
       },
-      "description": "Array of previous headers from components that this data is created in response to (required)"
+      "ComponentHash": {
+        "type": "string",
+        "pattern": "^[A-F0-9]{32}$",
+        "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
+      },
+      "AuthorIdentifier": {
+        "type": "string",
+        "format": "email",
+        "examples": ["greg.schleusner@hok.com"]
+      },
+      "Context": {
+        "type": "string",
+        "pattern": "^\\S+\\.ifc5$",
+        "examples": ["myprojectdata.ifc5"]
+      },
+      "Function": {
+        "type": "string",
+        "enum": ["Instance"],
+        "examples": ["Instance"]
+      },
+      "Includes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [["include1", "include2"]]
+      },
+      "EntityGUID": {
+        "type": "string",
+        "pattern": "^[0-9A-Z]{24}$",
+        "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
+      },
+      "ComponetGUID": {
+        "type": "string",
+        "format": "uuid",
+        "examples": ["1823e736-a75e-4c3d-a13b-a8c9e16def22"]
+      },
+      "ComponentVersionGUID": {
+        "type": "string",
+        "format": "uuid",
+        "examples": ["45be6d64-3a6f-49b8-a26d-75dc2ea41e0b"]
+      },
+      "DateCreated": {
+        "type": "string",
+        "pattern": "^[0-9]{17}\\.\\d+$",
+        "examples": ["20240602130548.1343902"]
+      },
+      "Name": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceGUID": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceName": {
+        "type": "string",
+        "examples": [""]
+      },
+      "SequenceValue": {
+        "type": "string",
+        "examples": [""]
+      },
+      "ResponceToComponent": {
+        "type": "string",
+        "examples": [""]
+      },
+      "HashDefinition": {
+        "type": "string",
+        "enum": ["MD5"],
+        "examples": ["MD5"]
+      },
+      "PayloadHash": {
+        "type": "string",
+        "pattern": "^[A-F0-9]{32}$",
+        "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
+      },
+      "PayloadDataType": {
+        "type": "string",
+        "enum": ["json,geojson,usd,pdf"],
+        "examples": ["json"]
+      },
+      "Payload": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "examples": [[]]
+      }
     },
-    "payload_hash": {
-      "type": "string",
-      "description": "Specific hash of the payload data",
-      "required": true
-    },
-    "hash_definition": {
-      "type": "string",
-      "description": "Link or description of the hash",
-      "required": true
-    },
-    "payload_data_type": {
-      "type": "string",
-      "description": "Encoding of the payload",
-      "required": true
-    },
-    "payload_data_type_definition": {
-      "type": "string",
-      "description": "Definition for the payload encoding",
-      "required": true
-    },
-    "payload_encoding": {
-      "type": "string",
-      "description": "Encoding of the payload",
-      "required": true
-    },
-    "payload_encryption": {
-      "type": "string",
-      "description": "Encryption status or type of the payload",
-      "required": true
-    },
-    "payload": {
-      "type": "string",
-      "description": "Embedded or URL/URI for the payload data",
-      "required": true
-    }
+    "required": [
+      "ComponentType",
+      "ComponentHash",
+      "AuthorIdentifier",
+      "Context",
+      "Function",
+      "EntityGUID",
+      "ComponetGUID",
+      "ComponentVersionGUID",
+      "DateCreated",
+      "HashDefinition",
+      "PayloadHash",
+      "PayloadDataType",
+      "Payload"
+    ]
   }
-}
+  
 
 ```
 
