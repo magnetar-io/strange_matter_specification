@@ -1,0 +1,23 @@
+{
+    "Name": "eames chair",
+    "ComponentType": ".../component.strangematter.image/v1",
+    "ComponentHash": "909D9FA8328A39BE246E5281B9E7CCFB",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "typical",
+    "ComponentClassification": "chair.stylereference",
+    "Includes": [],
+    "EntityGUID": "A",
+    "ComponetGUID": "A:01",
+    "ComponentVersionGUID": "45be6d64-3a6f-49b8-a26d-75dc2ea41e0b",
+    "DateCreated": "20240602130548.1343902",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+    "PayloadDataType": "json",
+    "Payload": [
+      {
+        "imageData": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABtUlEQVR42mL8//8/AwWY0AFY3IT5nwDDxHTtGDg7t3vv3//4XhnEwMP3/0T5TxgYWhO7q7//94Jff//oTIYhkERFRQoa3/xSikJR0gqKA9u3eZBxd+//KZ9PZ//+j//+//+n+DiJUBQUF7k5uP/fycCZiBpefOcvEJbB+F1r97uL/4GDMMnwnpEP7ly5d+Gbxw4sS/YPIfAJDKAHT/nxy/8eH//7/zM09//uP/fb+xIaUlJQU/j//IHD1/xBgeiKT8fb2/7//zL5/A4OYmBh4ZeDiQh7gGgoK8Hjp0zcSkZHRwYySDj///78f0H4TQIb+78+D/8+8feP/fo5wNTAzTj/yoDRnwPM8B8KIgkIFVFVMEc3Jy/gZGRhszMDAwUOQFwFgMAQA2EETGyZm/P9cT7H5fz0UQ5/fJ0A1Py//LkD83+D0ECG+w5gKPCrSEFXR8MDA/sHFHD9/z4WvQDBLB/cADAEZl1+lydkmtAAAAAElFTkSuQmCC"
+      }
+    ]
+  }
+  

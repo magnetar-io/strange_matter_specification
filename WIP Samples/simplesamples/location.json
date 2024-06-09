@@ -1,0 +1,62 @@
+[
+  {
+    "Name": "eames chair",
+    "ComponentType": ".../component.strangematter.location/v1",
+    "ComponentHash": "909D9FA8328A39BE246E5281B9E7CCFB",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "instance",
+    "ComponentClassification": "chair.location",
+    "Includes": ["TPC:ENT:A"],
+    "EntityGUID": "B",
+    "ComponetGUID": "B:01",
+    "ComponentVersionGUID": "45be6d64-3a6f-49b8-a26d-75dc2ea41e0b",
+    "DateCreated": "20240602130548.1343902",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+    "PayloadDataType": "json",
+    "Payload": [
+          {
+            "transform": [
+              [1.0, 0.0, 0.0, 0.0],
+              [0.0, 1.0, 0.0, 0.0],
+              [0.0, 0.0, 1.0, 0.0],
+              [0.0, 0.0, 0.0, 1.0]
+            ],
+            "DisplayUnitLength": "feet",
+            "DisplayUnitScale": "feet",
+            "DisplayUnitRotation": "degrees"
+          }
+        ]
+  },
+  {
+    "Name": "eames chair",
+    "ComponentType": ".../component.strangematter.location/v1",
+    "ComponentHash": "909D9FA8328A39BE246E5281B9E7CCFB",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "instance",
+    "ComponentClassification": "chair.location",
+    "Includes": ["TPC:ENT:a"],
+    "EntityGUID": "C",
+    "ComponetGUID": "C:01",
+    "ComponentVersionGUID": "45be6d64-3a6f-49b8-a26d-75dc2ea41e0b",
+    "DateCreated": "20240602130548.1343902",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+    "PayloadDataType": "json",
+    "Payload": [
+      {
+        "transform": [
+          [1.0, 0.0, 0.0, 10.0],
+          [0.0, 1.0, 0.0, 10.0],
+          [0.0, 0.0, 1.0, 10.0],
+          [0.0, 0.0, 0.0, 1.0]
+        ],
+        "DisplayUnitLength": "feet",
+        "DisplayUnitScale": "feet",
+        "DisplayUnitRotation": "degrees"
+      }
+    ]
+  }
+]
