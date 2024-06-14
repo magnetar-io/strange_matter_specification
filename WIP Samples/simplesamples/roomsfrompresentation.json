@@ -1,0 +1,214 @@
+[
+  {
+    "ComponentType": ".../component.strangematter.id/v1",
+    "ComponentHash": "3AE907B9E4A13AFBD1F38493F84FFD74",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "Instance",
+    "Includes": [
+      "include1",
+      "include2"
+    ],
+    "EntityGUID": "A",
+    "ComponetGUID": "A1",
+    "ComponentVersionGUID": "3db27337-b0c7-4e78-9f51-2b0bf4c47b34",
+    "DateCreated": "20240610073757.0000608",
+    "Name": "CORE",
+    "SequenceGUID": "",
+    "SequenceName": "",
+    "SequenceValue": "",
+    "ResponceToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "3AE907B9E4A13AFBD1F38493F84FFD74",
+    "PayloadDataType": "json",
+    "Payload": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              112.12992125984252,
+              150.49212598425197
+            ],
+            [
+              332.42913385826773,
+              150.49212598425197
+            ],
+            [
+              332.42913385826773,
+              278.8070866141733
+            ],
+            [
+              112.12992125984252,
+              278.8070866141733
+            ],
+            [
+              112.12992125984252,
+              150.49212598425197
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "ComponentType": ".../component.strangematter.id/v1",
+    "ComponentHash": "B92C65331A99FCDD8F5B68D591BFF59F",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "Instance",
+    "Includes": [
+      "include1",
+      "include2"
+    ],
+    "EntityGUID": "B",
+    "ComponetGUID": "B1",
+    "ComponentVersionGUID": "907fb44a-dc60-4bbc-a822-c4d1886cb469",
+    "DateCreated": "20240610073757.0000612",
+    "Name": "Office",
+    "SequenceGUID": "",
+    "SequenceName": "",
+    "SequenceValue": "",
+    "ResponceToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "B92C65331A99FCDD8F5B68D591BFF59F",
+    "PayloadDataType": "json",
+    "Payload": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              522.0885826771654,
+              46.90944881889764
+            ],
+            [
+              680.1909448818898,
+              46.90944881889764
+            ],
+            [
+              680.1909448818898,
+              158.73622047244095
+            ],
+            [
+              522.0885826771654,
+              158.73622047244095
+            ],
+            [
+              522.0885826771654,
+              46.90944881889764
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "ComponentType": ".../component.strangematter.id/v1",
+    "ComponentHash": "4747F218096B0061887BD7E98AEB6274",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "Instance",
+    "Includes": [
+      "include1",
+      "include2"
+    ],
+    "EntityGUID": "C",
+    "ComponetGUID": "C1",
+    "ComponentVersionGUID": "349605cf-b58a-40ca-bcd7-0b8b2cb3e082",
+    "DateCreated": "20240610073757.0000614",
+    "Name": "Office",
+    "SequenceGUID": "",
+    "SequenceName": "",
+    "SequenceValue": "",
+    "ResponceToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "4747F218096B0061887BD7E98AEB6274",
+    "PayloadDataType": "json",
+    "Payload": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              522.0885826771654,
+              158.73622047244095
+            ],
+            [
+              680.1909448818898,
+              158.73622047244095
+            ],
+            [
+              680.1909448818898,
+              270.56299212598424
+            ],
+            [
+              522.0885826771654,
+              270.56299212598424
+            ],
+            [
+              522.0885826771654,
+              158.73622047244095
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "ComponentType": ".../component.strangematter.id/v1",
+    "ComponentHash": "D6BDC440C294F6FA5846035A19DE4F4E",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "myprojectdata.ifc5",
+    "Function": "Instance",
+    "Includes": [
+      "include1",
+      "include2"
+    ],
+    "EntityGUID": "C",
+    "ComponetGUID": "D1",
+    "ComponentVersionGUID":"bd2841dcc74841ddbb9be7ceeb3184c3",
+    "DateCreated": "20240610073757.0000616",
+    "Name": "Office",
+    "SequenceGUID": "",
+    "SequenceName": "",
+    "SequenceValue": "",
+    "ResponceToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D6BDC440C294F6FA5846035A19DE4F4E",
+    "PayloadDataType": "json",
+    "Payload": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              522.0885826771654,
+              270.56299212598424
+            ],
+            [
+              680.1909448818898,
+              270.56299212598424
+            ],
+            [
+              680.1909448818898,
+              382.3897637795275
+            ],
+            [
+              522.0885826771654,
+              382.3897637795275
+            ],
+            [
+              522.0885826771654,
+              270.56299212598424
+            ]
+          ]
+        ]
+      }
+    }
+  }
+]

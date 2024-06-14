@@ -1,117 +1,151 @@
 {
-    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/component.json",
-    "title": "Component",
-    "type": "object",
-    "properties": {
-      "ComponentType": {
-        "type": "string",
-        "pattern": "^\\S+\\/component\\.strangematter\\.id\\/v1$",
-        "examples": [".../component.strangematter.id/v1"]
-      },
-      "ComponentHash": {
-        "type": "string",
-        "pattern": "^[A-F0-9]{32}$",
-        "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
-      },
-      "AuthorIdentifier": {
-        "type": "string",
-        "format": "email",
-        "examples": ["greg.schleusner@hok.com"]
-      },
-      "Context": {
-        "type": "string",
-        "pattern": "^\\S+\\.ifc5$",
-        "examples": ["myprojectdata.ifc5"]
-      },
-      "Function": {
-        "type": "string",
-        "enum": ["Instance"],
-        "examples": ["Instance"]
-      },
-      "Includes": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "examples": [["include1", "include2"]]
-      },
-      "EntityGUID": {
-        "type": "string",
-        "pattern": "^[0-9A-Z]{24}$",
-        "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
-      },
-      "ComponetGUID": {
-        "type": "string",
-        "format": "uuid",
-        "examples": ["1823e736-a75e-4c3d-a13b-a8c9e16def22"]
-      },
-      "ComponentVersionGUID": {
-        "type": "string",
-        "format": "uuid",
-        "examples": ["45be6d64-3a6f-49b8-a26d-75dc2ea41e0b"]
-      },
-      "DateCreated": {
-        "type": "string",
-        "pattern": "^[0-9]{17}\\.\\d+$",
-        "examples": ["20240602130548.1343902"]
-      },
-      "Name": {
-        "type": "string",
-        "examples": [""]
-      },
-      "SequenceGUID": {
-        "type": "string",
-        "examples": [""]
-      },
-      "SequenceName": {
-        "type": "string",
-        "examples": [""]
-      },
-      "SequenceValue": {
-        "type": "string",
-        "examples": [""]
-      },
-      "ResponceToComponent": {
-        "type": "string",
-        "examples": [""]
-      },
-      "HashDefinition": {
-        "type": "string",
-        "enum": ["MD5"],
-        "examples": ["MD5"]
-      },
-      "PayloadHash": {
-        "type": "string",
-        "pattern": "^[A-F0-9]{32}$",
-        "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
-      },
-      "PayloadDataType": {
-        "type": "string",
-        "enum": ["json"],
-        "examples": ["json"]
-      },
-      "Payload": {
-        "type": "array",
-        "items": {
-          "type": "object"
-        },
-        "examples": [[]]
-      }
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/component.json",
+  "title": "Component",
+  "type": "object",
+  "properties": {
+    "ComponentType": {
+      "type": "string",
+      "pattern": "^\\S+\\/component\\.strangematter\\.v1\\component\\.<componentsource>\\.<componentname>$",
+      "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
+      "examples": [".../v1/component.strangematter.id/"]
     },
-    "required": [
-      "ComponentType",
-      "ComponentHash",
-      "AuthorIdentifier",
-      "Context",
-      "Function",
-      "EntityGUID",
-      "ComponetGUID",
-      "ComponentVersionGUID",
-      "DateCreated",
-      "HashDefinition",
-      "PayloadHash",
-      "PayloadDataType",
-      "Payload"
-    ]
-  }
-  
+    "ComponentHash": {
+      "type": "string",
+      "pattern": "^[A-F0-9]{32}$",
+      "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions", 
+      "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
+    },
+    "AuthorIdentifier": {
+      "type": "string",
+      "format": "email",
+      "description": "The email address of the author of the component",
+      "examples": ["greg.schleusner@hok.com"]
+    },
+    "Context": {
+      "type": "string",
+      "pattern": "^\\S+\\.\\S+$",
+      "description": "The context of the data set that the component was created in",
+      "examples": ["myprojectdata.ifc5"]
+    },
+    "Function": {
+      "type": "string",
+      "enum": ["Instance", "Typical", "Archetype", "Relationship", "Group", "Collection"],
+      "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
+      "examples": ["Instance"]
+    },
+    "Includes": {
+      "type": "array",
+      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how i'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc",
+      "items": {
+        "type": "string",
+        "pattern": "^(ACT|TPC):(ENT|COM):[0-9a-fA-F]+(?:\\:VER\\:[0-9a-fA-F]+)?$"
+      },
+      "examples": [
+        "ACT:ENT:0123456789abcdef",
+        "TPC:ENT:89abcdef0123456789abcdef",
+        "ACT:COM:0123456789abcdef",
+        "ACT:COM:0123456789abcdef:VER:0123456789abcdef",
+        "TPC:COM:fedcba9876543210",
+        "TPC:COM:fedcba9876543210:VER:abcdef0123456789"
+      ]
+    },
+    "ComponentClassification": {
+      "type": "object",
+      "description": "The classification of the component including a value and a URI to further describe its use.",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "The classification value of how the component is being used",
+          "examples": ["room.net.outline"]
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri",
+          "description": "A URI to more detailed information or definitions related to the classification",
+          "examples": ["http://example.com/definitions/room.net.outline"]
+        }
+      },
+      "required": ["Value", "URI"]
+    },
+    "EntityGUID": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]+$",
+      "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
+    },
+    "ComponentGUID": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]+$",
+      "examples": ["1823e736a75e4c3da13ba8c9e16def22"]
+    },
+    "ComponentVersionGUID": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]+$",
+      "examples": ["45be6d643a6f49b8a26d75dc2ea41e0b"]
+    },
+    "DateCreated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The creation date and time in ISO 8601 format.",
+      "examples": ["2024-06-02T13:05:48.134Z"]
+    },
+    "LastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the component was last modified, in ISO 8601 format.",
+      "examples": ["2024-06-14T09:00:00.000Z"]
+    },
+    "Name": {
+      "type": "string",
+      "examples": ["Example Name"]
+    },
+    "ResponseToComponent": {
+      "type": "string",
+      "examples": ["Response Example"]
+    },
+    "HashDefinition": {
+      "type": "string",
+      "enum": ["MD5"],
+      "examples": ["MD5"]
+    },
+    "PayloadHash": {
+      "type": "string",
+      "pattern": "^[A-F0-9]{32}$",
+      "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
+    },
+    "PayloadDataType": {
+      "description": "The data type of the payload.",
+      "type": "string",
+      "enum": [
+        "json", "xml", "gltf", "usda", "usdc", "obj", "buffer",
+        "jpeg-64bit", "png-64bit", "jpg-64bit", "png-32bit", "jpg-32bit",
+        "pdf", "gif", "tiff", "bmp", "svg", "hbjson", "rfa", "dwg",
+        "dxf", "3dm", "..."
+      ],
+      "examples": ["json"]
+    },
+    "Payload": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "examples": [[]]
+    }
+  },
+  "required": [
+    "ComponentType",
+    "ComponentHash",
+    "AuthorIdentifier",
+    "Context",
+    "Function",
+    "ComponentClassification",
+    "EntityGUID",
+    "ComponentGUID",
+    "ComponentVersion2Guid",
+    "DateCreated",
+    "LastModified",
+    "HashDefinition",
+    "PayloadHash",
+    "PayloadDataType",
+    "Payload"
+  ]
+}

@@ -53,9 +53,18 @@
           [0.0, 0.0, 1.0, 10.0],
           [0.0, 0.0, 0.0, 1.0]
         ],
-        "DisplayUnitLength": "feet",
-        "DisplayUnitScale": "feet",
-        "DisplayUnitRotation": "degrees"
+        "DisplayUnitLength": {
+          "value": "feet",
+          "URI": "http://example.com/definitions/displayUnitLength"
+        },
+        "DisplayUnitScale": {
+          "value": "feet",
+          "URI": "http://example.com/definitions/displayUnitScale"
+        },
+        "DisplayUnitRotation": {
+          "value": "degrees",
+          "URI": "http://example.com/definitions/displayUnitRotation"
+        }
       }
     ]
   }

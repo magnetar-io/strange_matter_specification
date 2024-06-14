@@ -1,0 +1,127 @@
+{
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/ProductSelectionFurniture_Payload_schema.json",
+    "title": "ProductSelectionFurniture",
+    "type": "object",
+    "properties": {
+      "ProductName": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Name of the product"
+          },
+          "URI": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["value", "URI"]
+      },
+      "ModelNumber": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Model number of the product"
+          },
+          "URI": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["value", "URI"]
+      },
+      "Manufacturer": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Manufacturer of the product"
+          },
+          "URI": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["value", "URI"]
+      },
+      "Dimensions": {
+        "type": "object",
+        "properties": {
+          "Height": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "description": "Height of the chair in centimeters"
+              },
+              "URI": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": ["value", "URI"]
+          },
+          "Width": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "description": "Width of the chair in centimeters"
+              },
+              "URI": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": ["value", "URI"]
+          },
+          "Depth": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "description": "Depth of the chair in centimeters"
+              },
+              "URI": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": ["value", "URI"]
+          }
+        },
+        "required": ["Height", "Width", "Depth"]
+      },
+      "Weight": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "Weight of the chair in kilograms"
+          },
+          "URI": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["value", "URI"]
+      },
+      "Warranty": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Warranty period for the chair"
+          },
+          "URI": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": ["value", "URI"]
+      }
+    },
+    "required": ["ProductName", "ModelNumber", "Manufacturer", "Dimensions", "Weight", "Warranty"]
+  }
+  

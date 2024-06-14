@@ -1,0 +1,75 @@
+{
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/LocationPayload.schema.json",
+    "title": "LocationPayload",
+    "type": "object",
+    "properties": {
+      "Payload": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "transform": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "DisplayUnitLength": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "URI": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": ["value", "URI"]
+            },
+            "DisplayUnitScale": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "URI": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": ["value", "URI"]
+            },
+            "DisplayUnitRotation": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "URI": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": ["value", "URI"]
+            }
+          },
+          "required": [
+            "transform",
+            "DisplayUnitLength",
+            "DisplayUnitScale",
+            "DisplayUnitRotation"
+          ]
+        }
+      }
+    },
+    "required": ["Payload"]
+  }
+  
