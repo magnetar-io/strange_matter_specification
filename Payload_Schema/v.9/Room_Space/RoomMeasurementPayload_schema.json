@@ -1,0 +1,143 @@
+{
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/RoomMeasurementPayload_schema.json",
+  "title": "RoomMeasurement",
+  "type": "object",
+  "properties": {
+    "Length": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Width": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Height": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Perimeter": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Area_Net": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Area_Gross": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "Volume": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "BbLength": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "BbWidth": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "URI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "DisplayUnit": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": ["Length", "Width", "Height", "Perimeter", "Area_Net", "Area_Gross", "Volume", "BbLength", "BbWidth"]
+}

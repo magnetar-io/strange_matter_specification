@@ -1,5 +1,5 @@
 {
-    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/StrangeMatterIDPayload_schema.json",
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/StrangeMatterID_Furniture_Payload_schema.json",
     "title": "StrangeMatterID",
     "type": "object",
     "properties": {
@@ -11,15 +11,11 @@
         "type": "number",
         "description": "Unique number identifier"
       },
-      "UserID_1": {
+      "Mark": {
         "type": "string",
         "description": "First user identifier"
-      },
-      "UserID_2": {
-        "type": "string",
-        "description": "Second user identifier"
       }
     },
-    "required": ["Name", "Number", "UserID_1", "UserID_2"]
+    "required": ["Name", "Number", "Mark"]
   }
   
