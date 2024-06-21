@@ -1,0 +1,24 @@
+{
+    "ComponentType": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Room_Space/RoomMeasurementPayload_schema",
+    "ComponentHash": "909D9FA8328A39BE246E5281B9E7CCFC",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "acc://projectfolder/myfile.rvt",
+    "Function": "Instance",
+    "Includes": [],
+    "ComponentClassification": {
+      "Value": "measurement.room",
+      "URI": "http://example.com/definitions/measurment.room"
+    },
+    "EntityGUID": "01HZCVEB7Z25PDNM32QFW5P6EB",
+    "ComponentGUID": "1823e736a75e4c3da13ba8c9e16def21",
+    "ComponentVersionGUID": "45be6d643a6f49b8a26d75dc2ea41e0b",
+    "DateCreated": "2024-06-02T13:05:48.134Z",
+    "LastModified": "2024-06-14T09:00:00.000Z",
+    "Name": "Office",
+    "ResponseToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+    "PayloadDataType": "json",
+    "Payload": [<RoomMeasurementPayload_schema.json>]
+  }
+  
