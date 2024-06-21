@@ -6,7 +6,7 @@
     "Function": "Instance",
     "Includes": [],
     "ComponentClassification": {
-      "Value": "measurement.room",
+      "Value": "hok.measurement.room",
       "URI": "http://example.com/definitions/measurment.room"
     },
     "EntityGUID": "01HZCVEB7Z25PDNM32QFW5P6EB",
