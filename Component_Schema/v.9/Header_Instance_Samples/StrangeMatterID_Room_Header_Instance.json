@@ -6,7 +6,7 @@
     "Function": "Instance",
     "Includes": [],
     "ComponentClassification": {
-      "Value": "metadata.room",
+      "Value": "hok.room.metadata",
       "URI": "http://example.com/definitions/metadata.room"
     },
     "EntityGUID": "01HZCVEB7Z25PDNM32QFW5P6EB",
