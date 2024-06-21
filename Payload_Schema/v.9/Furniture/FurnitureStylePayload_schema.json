@@ -1,5 +1,5 @@
 {
-    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/FurnitureStylePayload_schema.json",
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Furniture/FurnitureStylePayload_schema.json",
     "title": "FurnitureStylePayload",
     "type": "object",
     "properties": {

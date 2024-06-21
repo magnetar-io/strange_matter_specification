@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/component.json",
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/Header_Schema/component.json",
   "title": "Component",
   "type": "object",
   "properties": {

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/ImageDescriptionPayload_schema.json",
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Generic/ImageDescriptionPayload_schema.json",
   "title": "ImageDescriptionPayload",
   "type": "object",
   "properties": {

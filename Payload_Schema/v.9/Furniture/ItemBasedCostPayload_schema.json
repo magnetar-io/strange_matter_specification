@@ -1,5 +1,5 @@
 {
-    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/ItemBasedCostPayload_schema.json",
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Furniture/ItemBasedCostPayload_schema.json",
     "title": "ItemBasedCostPayload",
     "type": "object",
     "properties": {

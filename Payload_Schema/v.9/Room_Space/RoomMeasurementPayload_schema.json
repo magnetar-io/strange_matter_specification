@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/RoomMeasurementPayload_schema.json",
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Room_Space/RoomMeasurementPayload_schema.json",
   "title": "RoomMeasurement",
   "type": "object",
   "properties": {
