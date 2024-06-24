@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Component Schema",
+    "description": "StrangeMatter Component Schema",
+    "version": "version.01",
+    "definitions": {
+      "Uuid7": {
+        "type": "string",
+        "pattern": "^[0-9A-Fa-f]{14}$"
+      },
+      "DateTime": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "type": "object",
+    "properties": {
+      "ComponentType": { "type": "string" },
+      "ComponentTypeReference": { "type": "string", "format": "uri" },
+      "ComponentTypeGuid": { "type": "UUID7" },
+      "ComponentTypeVersionGuid": { "type": "UUID7" },
+      "ComponentVersion": { "type": "string" },
+      "ComponentHash": { "type": "string" },
+      "Author": { "type": "string" },
+      "AuthorIdentifier": { "type": "string" },
+      "Context": { "type": "string" },
+      "Function": { 
+        "type": "string",
+        "enum": ["Instance", "Typical", "Archetype"]
+      },
+      "SourceData": { "type": "string", "format": "uri" },
+      "SourceDataFileDate": { "$ref": "#/definitions/DateTime" },
+      "SourceDataFileId": { "type": "string" },
+      "SourceDataFileVersionId": { "type": "string" },
+      "SourceDataItemId": { "type": "string" },
+      "SourceDataItemVersionId": { "type": "string" },
+      "SourceDataOther": { "type": "string" },
+      "EntityGuid": { "type": "UUID7" },
+      "ComponentGuid": { "type": "UUID7" },
+      "ParentTypicalEntity": { "type": "string" },
+      "ParentArchitypeEntity": { "type": "string" },
+      "Version": { "type": "string" },
+      "VersionGuid": { "type": "UUID7" },
+      "VersionIncrement": { "type": "string" },
+      "DateCreated": { "$ref": "#/definitions/DateTime" },
+      "Name": { "type": "string" },
+      "ClassificationValue": { "type": "string" },
+      "SequenceName": { "type": "string" },
+      "SequenceGuid": { "type": "UUID7" },
+      "SequenceValue": { "type": "integer" },
+      "Option": { "type": "string" },
+      "Phase": { "type": ["string", "null"] },
+      "Status": { "type": "string" },
+      "Active": { "type": "string" },
+      "ComponentResponses": { "type": "array", "items": { "type": "object" } },
+      "PayloadHash": { "type": "string" },
+      "HashDefinition": { "type": "string" },
+      "PayloadDataType": { "type": "string" },
+      "PayloadDataTypeDefinition": { "type": "string" },
+      "PayloadEncoding": { "type": "string" },
+      "PayloadEncryption": { "type": "string" },
+      "Payload": { "type": "array", "items": { "type": "string" } },
+      "SourceEntities": { "type": "array", "items": { "type": "string" } },
+      "SourceComponents": { "type": "array", "items": { "type": "object" } },
+      "SourceComponentType": { "type": "array", "items": { "type": "string" } },
+      "SourceComponentClassification": { "type": "array", "items": { "type": "string" } },
+      "DestinationEntities": { "type": "array", "items": { "type": "string" } },
+      "DestinationComponents": { "type": "array", "items": { "type": "object" } },
+      "DestinationComponentType": { "type": "array", "items": { "type": "string" } },
+      "DestinationClassfication": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+  
