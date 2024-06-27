@@ -5,7 +5,7 @@
   "properties": {
     "ComponentType": {
       "type": "string",
-      "pattern": "^\\S+\\/component\\.strangematter\\.v1\\component\\.<componentsource>\\.<componentname>$",
+      "pattern": "",
       "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
       "examples": [".../v1/component.strangematter.id/"]
     },
