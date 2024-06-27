@@ -69,17 +69,17 @@
     },
     "EntityGUID": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]+$",
+      "pattern": "",
       "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
     },
     "ComponentGUID": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]+$",
+      "pattern": "",
       "examples": ["1823e736a75e4c3da13ba8c9e16def22"]
     },
     "ComponentVersionGUID": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]+$",
+      "pattern": "",
       "examples": ["45be6d643a6f49b8a26d75dc2ea41e0b"]
     },
     "DateCreated": {
