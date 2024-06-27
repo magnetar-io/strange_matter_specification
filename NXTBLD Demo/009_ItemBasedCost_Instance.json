@@ -1,0 +1,27 @@
+{
+    "CrossCost": {
+      "value": 1000.50,
+      "URI": "https://example.com/crosscost",
+      "UnitOfCurrency": "USD",
+      "DisplayCurrency": "USD"
+    },
+    "InstallCost": {
+      "value": 200.75,
+      "URI": "https://example.com/installcost",
+      "UnitOfCurrency": "USD",
+      "DisplayCurrency": "USD"
+    },
+    "TransportationCost": {
+      "value": 150.00,
+      "URI": "https://example.com/transportationcost",
+      "UnitOfCurrency": "USD",
+      "DisplayCurrency": "USD"
+    },
+    "StorageCost": {
+      "value": 50.25,
+      "URI": "https://example.com/storagecost",
+      "UnitOfCurrency": "USD",
+      "DisplayCurrency": "USD"
+    }
+  }
+  

@@ -1,0 +1,21 @@
+{
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Furniture/StrangeMatterID_Furniture_Payload_schema.json",
+    "title": "StrangeMatterID",
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string",
+        "description": "Name of the entity"
+      },
+      "Number": {
+        "type": "number",
+        "description": "Unique number identifier"
+      },
+      "Mark": {
+        "type": "string",
+        "description": "First user identifier"
+      }
+    },
+    "required": ["Name", "Number", "Mark"]
+  }
+  

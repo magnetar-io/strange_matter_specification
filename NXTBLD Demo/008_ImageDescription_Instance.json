@@ -1,0 +1,28 @@
+{
+    "ImageDescription": {
+      "value": "A classic Eames Lounge Chair with a rich walnut veneer and black leather upholstery.",
+      "URI": "https://example.com/imagedescription"
+    },
+    "PrimaryColor": {
+      "values": [
+        "#654321",  // Walnut veneer color
+        "#000000"   // Black leather color
+      ],
+      "URI": "https://example.com/primarycolor"
+    },
+    "AIDescription": {
+      "value": "Generated description: A luxurious Eames Lounge Chair, showcasing elegant walnut wood and premium black leather.",
+      "URI": "https://example.com/aidescription"
+    },
+    "Embeddings": [
+      {
+        "value": 0.234567,
+        "URI": "https://example.com/embeddings/1"
+      },
+      {
+        "value": 0.890123,
+        "URI": "https://example.com/embeddings/2"
+      }
+    ]
+  }
+  
