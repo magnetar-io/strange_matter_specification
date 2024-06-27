@@ -1,0 +1,37 @@
+{
+    "ProductName": {
+      "value": "Eames Lounge Chair",
+      "URI": "https://example.com/product/eames-lounge-chair"
+    },
+    "ModelNumber": {
+      "value": "LCW",
+      "URI": "https://example.com/model/lcw"
+    },
+    "Manufacturer": {
+      "value": "Herman Miller",
+      "URI": "https://example.com/manufacturer/herman-miller"
+    },
+    "Dimensions": {
+      "Height": {
+        "value": 84,
+        "URI": "https://example.com/dimensions/height"
+      },
+      "Width": {
+        "value": 84,
+        "URI": "https://example.com/dimensions/width"
+      },
+      "Depth": {
+        "value": 84,
+        "URI": "https://example.com/dimensions/depth"
+      }
+    },
+    "Weight": {
+      "value": 20,
+      "URI": "https://example.com/weight"
+    },
+    "Warranty": {
+      "value": "5 years",
+      "URI": "https://example.com/warranty"
+    }
+  }
+  

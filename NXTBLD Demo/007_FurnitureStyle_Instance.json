@@ -1,0 +1,15 @@
+{
+    "Description": {
+      "value": "A modern, minimalist chair with clean lines and a sleek finish.",
+      "URI": "https://example.com/description"
+    },
+    "Functionality": {
+      "value": "Ergonomic seating with adjustable height and lumbar support.",
+      "URI": "https://example.com/functionality"
+    },
+    "Moveability": {
+      "value": true,
+      "URI": "https://example.com/moveability"
+    }
+  }
+  

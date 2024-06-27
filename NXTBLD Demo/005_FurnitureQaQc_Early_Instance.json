@@ -1,0 +1,58 @@
+{
+  "ComponentType": "https://rayon.design/strange_matter_specification/Payload_Schema/v.9/FurnitureItemBlock/Plan",
+    "ComponentHash": "909D9FA8328A39BE246E5281B9E7CCFC",
+    "AuthorIdentifier": "greg.schleusner@hok.com",
+    "Context": "ACC:HOK:FurnitureLibrary/",
+    "Function": "Typical",
+    "Includes": ["TYP:ENT:A"],
+    "ComponentClassification": {
+      "Value": "FurnitureItem.3D.Detailed",
+      "URI": "http://hok.com/Families/Coordination/..."
+    },
+    "EntityGUID": "C",
+    "ComponentGUID": "A:04",
+    "ComponentVersionGUID": "45be6d643a6f49b8a26d75dc2ea41e0b",
+    "DateCreated": "2024-06-02T13:05:48.134Z",
+    "LastModified": "2024-06-14T09:00:00.000Z",
+    "Name": "Emames Lounge",
+    "ResponseToComponent": "",
+    "HashDefinition": "MD5",
+    "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+    "PayloadDataType": "URI",
+    "Payload": ["http://.../...Eames.rfa"]
+  }
+    "Payload": ["ChecklistItems": [
+      {
+        "item": "Choose primary color scheme for the furniture layout.",
+        "completed": false,
+        "notes": "Consider using neutral tones with bold accents.",
+        "URI": "https://example.com/primary-color-scheme"
+      },
+      {
+        "item": "Coordinate with interior design team for cohesive style.",
+        "completed": false,
+        "notes": "Ensure the furniture matches the overall theme of the space.",
+        "URI": "https://example.com/interior-design-coordination"
+      },
+      {
+        "item": "Select materials for furniture pieces.",
+        "completed": false,
+        "notes": "Evaluate durability and aesthetics of different materials.",
+        "URI": "https://example.com/material-selection"
+      },
+      {
+        "item": "Review space planning and layout options.",
+        "completed": false,
+        "notes": "Optimize for functionality and flow of the space.",
+        "URI": "https://example.com/space-planning"
+      },
+      {
+        "item": "Consult with lighting designer for furniture placement.",
+        "completed": false,
+        "notes": "Ensure furniture is placed to maximize natural and artificial lighting.",
+        "URI": "https://example.com/lighting-coordination"
+      }
+    ]
+    ]
+  }
+  

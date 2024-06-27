@@ -1,0 +1,24 @@
+{
+    "KnowledgeCollected": [
+      {
+        "location": "Living Room Setup Guide",
+        "details": "Place the Eames Lounge Chair in a well-lit area to highlight its design. Do not place it near high-traffic areas to avoid wear and tear.",
+        "URI": "https://example.com/living-room-setup"
+      },
+      {
+        "location": "Living Room Setup Guide",
+        "details": "Ensure the chair has enough space around it for easy movement. Avoid positioning it too close to other furniture to maintain its visual impact.",
+        "URI": "https://example.com/living-room-setup"
+      },
+      {
+        "location": "Living Room Setup Guide",
+        "details": "Regularly condition the leather to maintain its appearance. Do not expose the chair to direct sunlight for prolonged periods to prevent fading.",
+        "URI": "https://example.com/living-room-setup"
+      }
+    ],
+    "AISummary": {
+      "summary": "When laying out your space, consider placing the Eames Lounge Chair in a prominent, well-lit, and low-traffic area. Ensure it has enough surrounding space and regularly maintain the leather to keep it in top condition.",
+      "URI": "https://example.com/ai-summary"
+    }
+  }
+  
