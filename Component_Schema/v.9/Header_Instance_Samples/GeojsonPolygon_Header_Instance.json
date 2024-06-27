@@ -19,6 +19,7 @@
     "HashDefinition": "MD5",
     "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
     "PayloadDataType": "geojson",
-    "Payload": [<GeojsonPolygonPayload_schema.json>]
+    "Payload_geojson": [<GeojsonPolygonPayload_schema.json>]  
+    //* in the pure schema this would always be "payload" but because its being adapted to a storage technolgy the schema for geojson objects is going to be diffrent becasue they have a unqiue funtionality.  *//
   }
   
