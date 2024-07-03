@@ -126,11 +126,23 @@
       "examples": ["json"]
     },
     "Payload": {
-      "type": "array",
-      "items": {
-        "type": "object"
+      "type": ["array", "null"],
+      "items": { "type": "object" },
+      "examples": [{}]
+    },
+    "PayloadGeoJson": {
+      "type": ["object", "null"],
+      "properties": {
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "array", "items": { "type": "number" } }
+          }
+        },
+        "type": { "type": "string" }
       },
-      "examples": [[]]
+      "required": ["coordinates", "type"]
     }
   },
   "required": [
