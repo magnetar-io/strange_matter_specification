@@ -145,6 +145,16 @@
       "required": ["coordinates", "type"]
     }
   },
+  "oneOf": [
+    {
+      "required": ["Payload"],
+      "not": { "required": ["PayloadGeoJson"] }
+    },
+    {
+      "required": ["PayloadGeoJson"],
+      "not": { "required": ["Payload"] }
+    }
+  ],
   "required": [
     "ComponentType",
     "ComponentHash",
@@ -159,7 +169,6 @@
     "LastModified",
     "HashDefinition",
     "PayloadHash",
-    "PayloadDataType",
-    "Payload"
+    "PayloadDataType"
   ]
 }
