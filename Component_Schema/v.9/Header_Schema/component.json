@@ -12,7 +12,7 @@
     "ComponentHash": {
       "type": "string",
       "pattern": "^[A-F0-9]{32}$",
-      "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions", 
+      "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions",
       "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
     },
     "AuthorIdentifier": {
@@ -29,7 +29,14 @@
     },
     "Function": {
       "type": "string",
-      "enum": ["Instance", "Typical", "Archetype", "Relationship", "Group", "Collection"],
+      "enum": [
+        "Instance",
+        "Typical",
+        "Archetype",
+        "Relationship",
+        "Group",
+        "Collection"
+      ],
       "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
       "examples": ["Instance"]
     },
@@ -115,12 +122,7 @@
     "PayloadDataType": {
       "description": "The data type of the payload.",
       "type": "string",
-      "enum": [
-        "json", "xml", "gltf", "usda", "usdc", "obj", "buffer",
-        "jpeg-64bit", "png-64bit", "jpg-64bit", "png-32bit", "jpg-32bit",
-        "pdf", "gif", "tiff", "bmp", "svg", "hbjson", "rfa", "dwg",
-        "dxf", "3dm", "..."
-      ],
+      "enum": ["json", "geojson"],
       "examples": ["json"]
     },
     "Payload": {
