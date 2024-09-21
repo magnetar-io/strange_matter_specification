@@ -11,7 +11,7 @@
     },
     "ComponentHash": {
       "type": "string",
-      "pattern": "^[A-F0-9]{32}$",
+      "pattern": "",
       "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions",
       "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
     },
@@ -23,7 +23,7 @@
     },
     "Context": {
       "type": "string",
-      "pattern": "^\\S+\\.\\S+$",
+      "pattern": "^",
       "description": "The context of the data set that the component was created in",
       "examples": ["myprojectdata.ifc5"]
     },
@@ -45,7 +45,7 @@
       "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how i'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc",
       "items": {
         "type": "string",
-        "pattern": "^(ACT|TPC):(ENT|COM):[0-9a-fA-F]+(?:\\:VER\\:[0-9a-fA-F]+)?$"
+        "pattern": ""
       },
       "examples": [
         "ACT:ENT:0123456789abcdef",
@@ -116,7 +116,7 @@
     },
     "PayloadHash": {
       "type": "string",
-      "pattern": "^[A-F0-9]{32}$",
+      "pattern": "",
       "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
     },
     "PayloadDataType": {
