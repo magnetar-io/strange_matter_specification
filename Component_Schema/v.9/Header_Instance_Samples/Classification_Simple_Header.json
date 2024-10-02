@@ -1,0 +1,23 @@
+{
+  "ComponentType": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/Header_Instance_Samples/Classification_Simple_Header.json",
+  "ComponentHash": "",
+  "AuthorIdentifier": "<username>",
+  "Context": "<source data>",
+  "Function": "Instance",
+  "Includes": [],
+  "ComponentClassification": {
+    "Value": "<Classficiationsystemname>",
+    "URI": ""
+  },
+  "EntityGUID": "<ObjectEntityGUID>",
+  "ComponentGUID": "<GeneratedGUID>",
+  "ComponentVersionGUID": "<GeneratedGUID>",
+  "DateCreated": "2024-06-02T13:05:48.134Z",
+  "LastModified": "2024-06-14T09:00:00.000Z",
+  "Name": "<objectname>",
+  "ResponseToComponent": "",
+  "HashDefinition": "MD5",
+  "PayloadHash": "<gneratedHash>",
+  "PayloadDataType": "json",
+  "Payload": ["<Payload_Schema/v.9/Generic/ClassficiationPayload_Simple_schema.json>"]
+}
