@@ -1,0 +1,20 @@
+{
+    "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Generic/ClassficiationPayload_Simple_schema.json",
+    "title": "Classification_Simple",
+    "type": "object",
+    "properties": {
+      "ClassificationSystemName": {
+        "type": "string",
+        "description": "Name of the Classficiation System"
+      },
+      "ClassificationValue": {
+        "type": "string",
+        "description": "Name of the Classification "
+      }
+    },
+    "ClassificationValueColor": {
+      "type": "string",
+      "description": "RGB Color Value of the Classficiation Value "
+    }
+}
+
