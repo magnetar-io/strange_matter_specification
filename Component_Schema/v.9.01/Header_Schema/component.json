@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/Header_Schema/component.json",
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.01/Header_Schema/component.json",
   "title": "Component",
   "type": "object",
   "properties": {
@@ -7,7 +7,7 @@
       "type": "string",
       "pattern": "",
       "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
-      "examples": [".../v1/component.strangematter.id/"]
+      "examples": [".../v.9.01/component.strangematter.id"]
     },
     "ComponentHash": {
       "type": "string",
@@ -40,11 +40,41 @@
       "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
       "examples": ["Instance"]
     },
-    "Includes": {
+    "Using": {
       "type": "array",
-      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how i'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc",
+      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how i'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc.  They can be combined as needed as prefixes, but the general patterns should be Funtion, Then other, then IDs ",
       "items": {
         "type": "string",
+        "funtion enum ": [
+          "ACT", //Archetype 
+          "TPC", //Typical
+          "INT", //Instance
+          "ENT", //Entitiy
+          "COM", //Component
+          "VER" //Version 
+        ],
+        "pattern": ""
+      },
+      "examples": [
+        "ACT:ENT:0123456789abcdef",
+        "TPC:ENT:89abcdef0123456789abcdef",
+        "ACT:COM:0123456789abcdef",
+        "ACT:COM:0123456789abcdef:VER:0123456789abcdef",
+        "TPC:COM:fedcba9876543210",
+        "TPC:COM:fedcba9876543210:VER:abcdef0123456789"
+      ]
+    },
+    "Action": {
+      "type": "array",
+      "description": "",
+      "items": {
+        "type": "string",
+        "enum ": [
+          "Augment",          
+          "Overide",
+          "Modify",
+          "Remove"
+        ],
         "pattern": ""
       },
       "examples": [
@@ -73,6 +103,11 @@
         }
       },
       "required": ["Value", "URI"]
+    },
+    "GraphID": {
+      "type": "string",
+      "pattern": "",
+      "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
     },
     "EntityGUID": {
       "type": "string",
