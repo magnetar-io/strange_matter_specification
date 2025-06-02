@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/Header_Schema/component.json",
+  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.02/Header_Schema/component.json",
   "title": "Component",
   "type": "object",
   "properties": {
@@ -7,11 +7,11 @@
       "type": "string",
       "pattern": "",
       "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
-      "examples": [".../v1/component.strangematter.id/"]
+      "examples": [".../v.9.01/component.strangematter.id"]
     },
     "ComponentHash": {
       "type": "string",
-      "pattern": "^[A-F0-9]{32}$",
+      "pattern": "",
       "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions",
       "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
     },
@@ -23,11 +23,17 @@
     },
     "Context": {
       "type": "string",
-      "pattern": "^\\S+\\.\\S+$",
-      "description": "The context of the data set that the component was created in",
-      "examples": ["myprojectdata.ifc5"]
+      "format": "uri",
+      "pattern": "^.+\\?.*$",
+      "description": "A parameterized URI that identifies the specific project context and dataset origin where this component was created. The URI includes query parameters for project identification, source tracking, version information, and spatial context with both human-readable names and EntityGUIDs for precise location referencing.",
+      "examples": [
+        ".../aedas/?projectname=SKYLINE TOWER RESIDENTIAL&projectnumber=24.07825.00&sourceguid=b45378cc-789a-42bb-8c96-5dd737886005&versionguid=20240612_0930(x64)&level=L15&levelguid=01HZCVEB7Z25PDNM32QFW5P6EB&room=R1508&roomguid=01HZDMF8X3K9P2QN45RFW7T8YC",
+        ".../perkins/?projectname=WESTFIELD ELEMENTARY SCHOOL&projectnumber=23.15642.00&sourceguid=c67489dd-890b-53cc-9da7-6ee848997006&versionguid=20240425_1200(arm64)&level=L02&levelguid=01HZEAB9Z4L6M1PN32SFX8V9DK&room=CLASSROOM-204&roomguid=01HZFBC0A5M7Q3RO43TGY9W0EL", 
+        ".../foster/?projectname=METRO TRANSIT HUB&projectnumber=25.02138.00&sourceguid=d78590ee-901c-64dd-0eb8-7ff959008007&versionguid=20240801_1545(x64)&level=CONCOURSE&levelguid=01HZGCD1B6N8R4SP54UHZ0X1FM&room=TICKETING-HALL&roomguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
+        ".../zaha/?projectname=QUANTUM RESEARCH FACILITY&projectnumber=24.98321.00&sourceguid=e89601ff-012d-75ee-1fc9-8000a0119008&versionguid=20240710_1415(x64)&level=B03&levelguid=01HZIEFGD8P0T6UR76WJB2Z3HO&room=LAB-CLEAN-307&roomguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
+      ]
     },
-    "Function": {
+    "UsedAsA": {
       "type": "string",
       "enum": [
         "Instance",
@@ -40,39 +46,62 @@
       "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
       "examples": ["Instance"]
     },
-    "Includes": {
+    "Using": {
       "type": "array",
-      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how i'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc",
+      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how I'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc.  They can be combined as needed as prefixes, but the general patterns should be Function, then IDs, include a version. Foreign model references include both human-readable names and EntityGUIDs for precise linking.",
       "items": {
         "type": "string",
-        "pattern": "^(ACT|TPC):(ENT|COM):[0-9a-fA-F]+(?:\\:VER\\:[0-9a-fA-F]+)?$"
+        "enum": [
+          "ACT",
+          "TPC",
+          "INT",
+          "ENT",
+          "COM",
+          "VER"
+        ],
+        "pattern": ""
       },
       "examples": [
-        "ACT:ENT:0123456789abcdef",
-        "TPC:ENT:89abcdef0123456789abcdef",
-        "ACT:COM:0123456789abcdef",
-        "ACT:COM:0123456789abcdef:VER:0123456789abcdef",
-        "TPC:COM:fedcba9876543210",
-        "TPC:COM:fedcba9876543210:VER:abcdef0123456789"
+        "https://revit.autodesk.com/models/structural-library/WallType-Standard?usage=ACT&type=ENT&entityguid=01HZCVEB7Z25PDNM32QFW5P6EB",
+        "https://bentley.com/microstation/door-families/DoorAssembly-Interior?usage=TPC&type=ENT&entityguid=01HZDMF8X3K9P2QN45RFW7T8YC",
+        "https://bim360.autodesk.com/projects/hospital-renovation/MaterialLibrary-Concrete?usage=ACT&type=COM&entityguid=01HZEAB9Z4L6M1PN32SFX8V9DK",
+        "https://tekla.trimble.com/warehouse/steel-profiles/BeamProfile-W24x68?usage=ACT&type=COM&entityguid=01HZFBC0A5M7Q3RO43TGY9W0EL&version=v2.1.0&versionguid=01HZGCD1B6N8R4SP54UHZ0X1FM",
+        "https://rhino.mcneel.com/grasshopper/curtainwall-systems/WindowSystem-Curtainwall?usage=TPC&type=COM&entityguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
+        "https://carrier.com/hvac-library/vav-units/HVAC-VAV-Unit?usage=TPC&type=COM&entityguid=01HZIEFGD8P0T6UR76WJB2Z3HO&version=v1.3.2&versionguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
       ]
     },
-    "ComponentClassification": {
-      "type": "object",
-      "description": "The classification of the component including a value and a URI to further describe its use.",
-      "properties": {
-        "Value": {
-          "type": "string",
-          "description": "The classification value of how the component is being used",
-          "examples": ["room.net.outline"]
-        },
-        "URI": {
-          "type": "string",
-          "format": "uri",
-          "description": "A URI to more detailed information or definitions related to the classification",
-          "examples": ["http://example.com/definitions/room.net.outline"]
-        }
+    "Function": {
+      "type": "array",
+      "description": "This is still WIP in progress but to make changes in data machine readable and machine executable its nessesary to indicate what this new component is doing to another component.  So we need to encode an action in the data and not externally.  ",
+      "items": {
+        "type": "string",
+        "enum": [
+          "AGM",
+          "OVR",
+          "MOD",
+          "RMV",
+          "MOV"
+        ],
+        "pattern": ""
       },
-      "required": ["Value", "URI"]
+      "examples": [
+        "AGM:ENT:SELF",
+        "AGM:ENT:89abcdef0123456789abcdef",
+        "OVR:ENT:89abcdef0123456789abcdef",
+        "OVR:COM:0123456789abcdef:VER:0123456789abcdef",
+        "RMV:COM:0123456789abcdef",
+        "RMV:ENT:0123456789abcdef"
+      ]
+    },
+    "GraphID": {
+      "type": "string",
+      "description": "A unique identifier that groups related components and entities into logical data subgraphs. Components sharing the same GraphID are considered part of the same logical dataset or workflow, enabling efficient querying, transaction management, and data partitioning in distributed storage systems. This is particularly useful for organizing complex data relationships across multiple entities and components that need to be processed or versioned together.",
+      "pattern": "^[A-Z0-9]{26}$",
+      "examples": [
+        "01HZCVEB7Z25PDNM32QFW5P6EB",
+        "01HZDMF8X3K9P2QN45RFW7T8YC",
+        "01HZEAB9Z4L6M1PN32SFX8V9DK"
+      ]
     },
     "EntityGUID": {
       "type": "string",
@@ -105,10 +134,6 @@
       "type": "string",
       "examples": ["Example Name"]
     },
-    "ResponseToComponent": {
-      "type": "string",
-      "examples": ["Response Example"]
-    },
     "HashDefinition": {
       "type": "string",
       "enum": ["MD5"],
@@ -116,7 +141,7 @@
     },
     "PayloadHash": {
       "type": "string",
-      "pattern": "^[A-F0-9]{32}$",
+      "pattern": "",
       "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
     },
     "PayloadDataType": {
@@ -125,36 +150,64 @@
       "enum": ["json", "geojson"],
       "examples": ["json"]
     },
+    "PayloadSchema": {
+      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline JSON Schema object.",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri",
+          "description": "URI reference to an external schema definition"
+        },
+        {
+          "type": "object",
+          "description": "Inline JSON Schema object defining the payload structure"
+        }
+      ],
+      "examples": [
+        "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Generic/GeojsonPolygonPayload_schema.json",
+        "https://schemas.example.com/building-component-v1.json",
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "$id": "https://geojson.org/schema/Polygon.json",
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": ["type", "coordinates"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["Polygon"]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
     "Payload": {
       "type": ["array", "null"],
       "items": { "type": "object" },
       "examples": [{}]
-    },
-    "PayloadGeoJson": {
-      "type": ["object", "null"],
-      "properties": {
-        "coordinates": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": { "type": "array", "items": { "type": "number" } }
-          }
-        },
-        "type": { "type": "string" }
-      },
-      "required": ["coordinates", "type"]
     }
   },
-  "oneOf": [
-    {
-      "required": ["Payload"],
-      "not": { "required": ["PayloadGeoJson"] }
-    },
-    {
-      "required": ["PayloadGeoJson"],
-      "not": { "required": ["Payload"] }
-    }
-  ],
   "required": [
     "ComponentType",
     "ComponentHash",

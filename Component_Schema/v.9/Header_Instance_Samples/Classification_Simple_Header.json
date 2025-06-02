@@ -1,23 +1,36 @@
 {
   "ComponentType": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9/Header_Instance_Samples/Classification_Simple_Header.json",
-  "ComponentHash": "",
-  "AuthorIdentifier": "<username>",
-  "Context": "<source data>",
-  "Function": "Instance",
-  "Includes": [],
+  "ComponentHash": "A1B2C3D4E5F6789012345678901234EF",
+  "AuthorIdentifier": "jane.doe@company.com",
+  "Context": ".../company/?projectname=UNIVERSITY LIBRARY RENOVATION&projectnumber=23.12345.00&sourceguid=a12345bb-456c-78dd-9e01-2ff345667008&versionguid=20240420_1600(x64)&level=L03&levelguid=01HZABC1D2E3F4G5H6I7J8K9L0M&room=READING-HALL&roomguid=01HZBCD2E3F4G5H6I7J8K9L0M1N",
+  "UsedAsA": "Instance",
+  "Using": [
+    "https://uniclass.cpinational.com/classification-tables/Pr_25_30_20?usage=ACT&type=ENT&entityguid=01HZDEF3G4H5I6J7K8L9M0N1O2P"
+  ],
+  "Function": [
+    "AGM:ENT:SELF"
+  ],
   "ComponentClassification": {
-    "Value": "<Classficiationsystemname>",
-    "URI": ""
+    "Value": "uniclass2015.spaces.educational",
+    "URI": "https://uniclass.cpinational.com/Tables/Pr/"
   },
-  "EntityGUID": "<ObjectEntityGUID>",
-  "ComponentGUID": "<GeneratedGUID>",
-  "ComponentVersionGUID": "<GeneratedGUID>",
+  "EntityGUID": "01HZGHI4J5K6L7M8N9O0P1Q2R3S",
+  "ComponentGUID": "2934f847b86f5d4ea24cb9c0e27fed33",
+  "ComponentVersionGUID": "56cf7e754b8e6a5fb35dc0d1f38gfe44",
   "DateCreated": "2024-06-02T13:05:48.134Z",
   "LastModified": "2024-06-14T09:00:00.000Z",
-  "Name": "<objectname>",
-  "ResponseToComponent": "",
+  "Name": "Reading Hall",
   "HashDefinition": "MD5",
-  "PayloadHash": "<gneratedHash>",
+  "PayloadHash": "F7A8B9C0D1E2F3456789012345678ABC",
   "PayloadDataType": "json",
-  "Payload": ["<Payload_Schema/v.9/Generic/ClassficiationPayload_Simple_schema.json>"]
+  "PayloadSchema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Generic/ClassificationPayload_Simple_schema.json",
+  "Payload": [
+    {
+      "classificationSystem": "Uniclass 2015",
+      "classificationCode": "Pr_25_30_20",
+      "classificationTitle": "Learning spaces",
+      "description": "Spaces designed for educational activities and learning",
+      "level": 3
+    }
+  ]
 }
