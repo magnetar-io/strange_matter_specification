@@ -199,64 +199,32 @@
       "enum": ["json", "geojson"],
       "examples": ["json"]
     },
+    "PayloadSchemaFormat": {
+      "type": "string",
+      "description": "The format/encoding type of the PayloadSchema. Indicates how the schema is defined.",
+      "enum": ["json-schema", "typescript", "openapi", "graphql", "protobuf", "avro", "other"],
+      "examples": ["json-schema", "typescript", "openapi"],
+      "example": "typescript"
+    },
     "PayloadSchema": {
-      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline schema object. The schema can be encoded in various formats including JSON Schema, TypeScript interfaces, OpenAPI specifications, or other definition formats.",
+      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline schema object. The format is indicated by the PayloadSchemaFormat field.",
       "oneOf": [
         {
           "type": "string",
           "format": "uri",
-          "description": "URI reference to an external schema definition (supports JSON Schema, TypeScript, OpenAPI, or other formats)"
+          "description": "URI reference to an external schema definition"
         },
         {
           "type": "object",
-          "description": "Inline schema object defining the payload structure (supports JSON Schema, TypeScript interface definitions, or other formats)"
+          "description": "Inline schema object defining the payload structure"
         },
         {
           "type": "string",
-          "description": "Inline schema definition as a string (supports TypeScript interfaces, GraphQL schemas, or other text-based formats)"
+          "description": "Inline schema definition as a string"
         }
       ],
       "examples": [
-        "https://github.com/magnetar-io/strange_matter_specification/blob/main/Payload_Schema/v.9/Generic/GeojsonPolygonPayload_schema.json",
-        "https://schemas.example.com/building-component-v1.json",
-        "https://github.com/example/typescript-interfaces/building-component.ts",
-        "https://api.example.com/openapi/schema/building-component.yaml",
-        {
-          "$schema": "http://json-schema.org/draft-07/schema#",
-          "$id": "https://geojson.org/schema/Polygon.json",
-          "title": "GeoJSON Polygon",
-          "type": "object",
-          "required": ["type", "coordinates"],
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["Polygon"]
-            },
-            "coordinates": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "minItems": 4,
-                "items": {
-                  "type": "array",
-                  "minItems": 2,
-                  "items": {
-                    "type": "number"
-                  }
-                }
-              }
-            },
-            "bbox": {
-              "type": "array",
-              "minItems": 4,
-              "items": {
-                "type": "number"
-              }
-            }
-          }
-        },
-        "interface BuildingComponent {\n  id: string;\n  name: string;\n  coordinates: number[][];\n  properties: {\n    area: number;\n    height: number;\n  };\n}",
-        "type RoomData = {\n  roomId: string;\n  measurements: {\n    length: number;\n    width: number;\n    height: number;\n  };\n  classification: 'office' | 'meeting' | 'storage';\n};"
+        "interface Room {\n  name: string;\n  area: number;\n  roomType: 'office' | 'meeting' | 'storage';\n}"
       ]
     },
     "Payload": {
@@ -280,6 +248,37 @@
     "LastModified",
     "HashDefinition",
     "PayloadHash",
-    "PayloadDataType"
+    "PayloadDataType",
+    "PayloadSchemaFormat"
+  ],
+  "examples": [
+    {
+      "ComponentType": ".../v.9.01/component.strangematter.id",
+      "ComponentInfo": {
+        "version": ["v1.0.0"],
+        "author": ["john.doe@example.com"],
+        "sourceurl": ["https://github.com/example/component"],
+        "publishdate": ["2024-12-19T10:00:00.000Z"]
+      },
+      "AuthorIdentifier": "john.doe@example.com",
+      "Context": ".../project/?projectname=EXAMPLE&projectnumber=24.001.00",
+      "UsedAsA": "Instance",
+      "ComponentClassification": "Room",
+      "EntityGUID": "01HZCVEB7Z25PDNM32QFW5P6EB",
+      "ComponentGUID": "1823e736a75e4c3da13ba8c9e16def22",
+      "ComponentVersionGUID": "45be6d643a6f49b8a26d75dc2ea41e0b",
+      "ForeignIDs": {
+        "revit_id": "12345",
+        "ifc_guid": "1A2B3C4D5E6F7890ABCDEF1234567890"
+      },
+      "DateCreated": "2024-12-19T10:00:00.000Z",
+      "LastModified": "2024-12-19T10:00:00.000Z",
+      "HashDefinition": "MD5",
+      "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
+      "PayloadDataType": "json",
+      "PayloadSchemaFormat": "typescript",
+      "PayloadSchema": "interface Room {\n  name: string;\n  area: number;\n  roomType: 'office' | 'meeting' | 'storage';\n}",
+      "Payload": [{"name": "Conference Room A", "area": 120, "roomType": "meeting"}]
+    }
   ]
 }
