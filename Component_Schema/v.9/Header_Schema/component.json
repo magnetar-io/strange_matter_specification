@@ -1,6 +1,9 @@
 {
   "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.02/Header_Schema/component.json",
   "title": "Component",
+  "version": "0.9",
+  "date": "2024-12-19",
+  "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
   "type": "object",
   "properties": {
     "ComponentType": {
