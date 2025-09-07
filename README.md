@@ -154,26 +154,26 @@ The protocol specifies that inside a component, you need to find the following i
 
 ### Core Component Identification
 - **ComponentType**: A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads etc. *(required)*
-- **ComponentHash**: A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions *(required)*
+- **ComponentInfo**: Information about the component including version, author, source URL, and publish date details as arrays *(required)*
 
 ### Authorship and Context
 - **AuthorIdentifier**: The email address of the author of the component *(required)*
 - **Context**: A parameterized URI that identifies the specific project context and dataset origin where this component was created. The URI includes query parameters for project identification, source tracking, version information, and spatial context with both human-readable names and EntityGUIDs for precise location referencing. *(required)*
 
 ### Component Usage and Relationships
-- **UsedAsA**: How the Component is being used (Instance, Typical, Archetype, Relationship, Group, Collection) *(optional)*
-- **Using**: Array of references to other components with usage prefixes (ACT, TPC, INT, ENT, COM, VER) for creating a graph of data relationships *(optional)*
-- **Function**: Array of functions this component performs (AGM, OVR, MOD, RMV, MOV) to make changes in data machine readable *(required)*
+- **UsedAsA**: How the Component is being used (Instance, Typical, Archetype, Relationship, Group, Collection) *(required)*
+- **Extends**: Array of references to other components with extension prefixes (ACT, TPC, INT, ENT, COM, VER) for creating a graph of data relationships *(optional)*
+- **Action**: Array of actions this component performs (AGM=Augment, OVR=Override, MOD=Modify, RMV=Remove, MOV=Move, ASSIGN=Assign) with parameterized values to make changes in data machine readable *(optional)*
 
 ### Strange Matter Identifiers
-- **GraphID**: A unique identifier that groups related components and entities into logical data subgraphs for efficient querying and transaction management *(optional)*
 - **EntityGUID**: Unique identifier representing the entity *(required)*
 - **ComponentGUID**: Unique identifier for the component *(required)*
-- **ComponentVersionGUID**: Unique identifier for the component version *(optional)*
+- **ComponentVersionGUID**: Unique identifier for the component version *(required)*
+- **ForeignIDs**: Key-value pairs of foreign identifiers that reference this component in external systems or databases *(required)*
 
 ### Temporal Information
 - **DateCreated**: The creation date and time in ISO 8601 format *(required)*
-- **LastModified**: The date and time the component was last modified, in ISO 8601 format *(optional)*
+- **LastModified**: The date and time the component was last modified, in ISO 8601 format *(required)*
 
 ### Component Metadata
 - **Name**: User-friendly name for the component *(optional)*
@@ -182,7 +182,8 @@ The protocol specifies that inside a component, you need to find the following i
 - **HashDefinition**: The hash algorithm used (e.g., MD5) *(required)*
 - **PayloadHash**: Hash of the payload data for integrity verification *(required)*
 - **PayloadDataType**: The data type of the payload (json, geojson) *(required)*
-- **PayloadSchema**: The schema definition for the payload, either as a URI reference or inline JSON Schema object *(optional)*
+- **PayloadSchemaFormat**: The format/encoding type of the PayloadSchema (json-schema, typescript, openapi, graphql, protobuf, avro, other) *(required)*
+- **PayloadSchema**: The schema definition for the payload, can be a URI reference, inline object, or inline string in various formats *(optional)*
 - **Payload**: The actual payload data, can be an array of objects or null *(optional)*
 
 ## Payload Types
@@ -277,6 +278,9 @@ The list of criteria can seem long, but it's addressable by looking across topic
 {
   "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.02/Header_Schema/component.json",
   "title": "Component",
+  "version": "0.9",
+  "date": "2025-09-07",
+  "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
   "type": "object",
   "properties": {
     "ComponentType": {
@@ -285,11 +289,36 @@ The list of criteria can seem long, but it's addressable by looking across topic
       "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
       "examples": [".../v.9.01/component.strangematter.id"]
     },
-    "ComponentHash": {
-      "type": "string",
-      "pattern": "",
-      "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions",
-      "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
+    "ComponentInfo": {
+      "type": "object",
+      "description": "Information about the component including version, author, and source URL details",
+      "properties": {
+        "version": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of version identifiers for the component",
+          "examples": [["v1.0.0", "v1.1.0", "v2.0.0"]]
+        },
+        "author": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of author identifiers for the component",
+          "examples": [["greg.schleusner@hok.com", "jane.doe@example.com"]]
+        },
+        "sourceurl": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "description": "Array of source URLs where the component can be found",
+          "examples": [["https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.01/component.strangematter.id"]]
+        },
+        "publishdate": {
+          "type": "array",
+          "items": { "type": "string", "format": "date-time" },
+          "description": "Array of publish dates for the component versions in ISO 8601 format",
+          "examples": [["2024-06-02T13:05:48.134Z", "2024-06-14T09:00:00.000Z"]]
+        }
+      },
+      "required": ["version", "author", "sourceurl", "publishdate"]
     },
     "AuthorIdentifier": {
       "type": "string",
@@ -319,9 +348,9 @@ The list of criteria can seem long, but it's addressable by looking across topic
       "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
       "examples": ["Instance"]
     },
-    "Using": {
+    "Extends": {
       "type": "array",
-      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how I'm using' the component indicator.",
+      "description": "To create a graph of data that the author potentially doesn't control, it's necessary to be able to reference other data. For validation and ease of traversal it needs to be expressive such that the IDs are prefixed with a 'how I'm extending' the component indicator.",
       "items": {
         "type": "string",
         "enum": [
@@ -331,28 +360,24 @@ The list of criteria can seem long, but it's addressable by looking across topic
           "ENT",
           "COM",
           "VER"
-        ]
-      }
+        ],
+        "pattern": ""
+      },
+      "examples": [
+        "https://revit.autodesk.com/models/structural-library/WallType-Standard?extends=ACT&type=ENT&entityguid=01HZCVEB7Z25PDNM32QFW5P6EB"
+      ]
     },
-    "Function": {
+    "Action": {
       "type": "array",
-      "description": "This is still WIP in progress but to make changes in data machine readable and machine executable its nessesary to indicate what this new component is doing to another component.",
+      "description": "Actions that this component performs on other components or entities. Actions are encoded in the data to make changes machine readable and executable. The format is ACTION:TYPE:ID:PARAM1:VALUE1:PARAM2:VALUE2 where ACTION is the operation, TYPE is the target type, ID is the target identifier, and additional parameters can be included as key-value pairs. Predefined actions: AGM (Augment - add to existing), OVR (Override - replace existing), MOD (Modify - change existing), RMV (Remove - delete existing), MOV (Move - relocate existing), ASSIGN (Assign - assign responsibility or ownership). Custom actions can be defined beyond the predefined set.",
       "items": {
         "type": "string",
-        "enum": [
-          "AGM",
-          "OVR",
-          "MOD",
-          "RMV",
-          "MOV"
-        ]
-      }
-    },
-    "GraphID": {
-      "type": "string",
-      "description": "A unique identifier that groups related components and entities into logical data subgraphs. Components sharing the same GraphID are considered part of the same logical dataset or workflow, enabling efficient querying, transaction management, and data partitioning in distributed storage systems.",
-      "pattern": "^[A-Z0-9]{26}$",
-      "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
+        "pattern": ""
+      },
+      "examples": [
+        "AGM:ENT:SELF",
+        "ASSIGN:ENT:89abcdef0123456789abcdef:EMAIL:john.doe@example.com:ROLE:OWNER"
+      ]
     },
     "EntityGUID": {
       "type": "string",
@@ -368,6 +393,20 @@ The list of criteria can seem long, but it's addressable by looking across topic
       "type": "string",
       "pattern": "",
       "examples": ["45be6d643a6f49b8a26d75dc2ea41e0b"]
+    },
+    "ForeignIDs": {
+      "type": "object",
+      "description": "Key-value pairs of foreign identifiers that reference this component in external systems or databases",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "revit_id": "12345",
+          "bim360_guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "ifc_guid": "1A2B3C4D5E6F7890ABCDEF1234567890"
+        }
+      ]
     },
     "DateCreated": {
       "type": "string",
@@ -401,8 +440,15 @@ The list of criteria can seem long, but it's addressable by looking across topic
       "enum": ["json", "geojson"],
       "examples": ["json"]
     },
+    "PayloadSchemaFormat": {
+      "type": "string",
+      "description": "The format/encoding type of the PayloadSchema. Indicates how the schema is defined.",
+      "enum": ["json-schema", "typescript", "openapi", "graphql", "protobuf", "avro", "other"],
+      "examples": ["json-schema", "typescript", "openapi"],
+      "example": "typescript"
+    },
     "PayloadSchema": {
-      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline JSON Schema object.",
+      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline schema object. The format is indicated by the PayloadSchemaFormat field.",
       "oneOf": [
         {
           "type": "string",
@@ -411,8 +457,15 @@ The list of criteria can seem long, but it's addressable by looking across topic
         },
         {
           "type": "object",
-          "description": "Inline JSON Schema object defining the payload structure"
+          "description": "Inline schema object defining the payload structure"
+        },
+        {
+          "type": "string",
+          "description": "Inline schema definition as a string"
         }
+      ],
+      "examples": [
+        "interface Room {\n  name: string;\n  area: number;\n  roomType: 'office' | 'meeting' | 'storage';\n}"
       ]
     },
     "Payload": {
@@ -423,19 +476,21 @@ The list of criteria can seem long, but it's addressable by looking across topic
   },
   "required": [
     "ComponentType",
-    "ComponentHash",
+    "ComponentInfo",
     "AuthorIdentifier",
     "Context",
-    "Function",
+    "UsedAsA",
     "ComponentClassification",
     "EntityGUID",
     "ComponentGUID",
-    "ComponentVersion2Guid",
+    "ComponentVersionGUID",
+    "ForeignIDs",
     "DateCreated",
     "LastModified",
     "HashDefinition",
     "PayloadHash",
-    "PayloadDataType"
+    "PayloadDataType",
+    "PayloadSchemaFormat"
   ]
 }
 ```
