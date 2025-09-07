@@ -9,13 +9,48 @@
       "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
       "examples": [".../v.9.01/component.strangematter.id"]
     },
-    "ComponentHash": {
-      "type": "string",
-      "pattern": "",
-      "description": "A Hash of the Component Definition Schema so you don't ever need to look to the URI to compare versions",
-      "examples": ["909D9FA8328A39BE246E5281B9E7CCFB"]
+    "ComponentInfo": {
+      "type": "object",
+      "description": "Information about the component including version, author, and source URL details",
+      "properties": {
+        "version": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of version identifiers for the component",
+          "examples": [["v1.0.0", "v1.1.0", "v2.0.0"]]
+        },
+        "author": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of author identifiers for the component",
+          "examples": [["greg.schleusner@hok.com", "jane.doe@example.com"]]
+        },
+        "sourceurl": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "Array of source URLs where the component can be found",
+          "examples": [["https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.01/component.strangematter.id", "https://example.com/component-source"]]
+        },
+        "publishdate": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": "Array of publish dates for the component versions in ISO 8601 format",
+          "examples": [["2024-06-02T13:05:48.134Z", "2024-06-14T09:00:00.000Z"]]
+        }
+      },
+      "required": ["version", "author", "sourceurl", "publishdate"]
     },
-    "AuthorIdentifier": {
+    "DataAuthorIdentifier": {
       "type": "string",
       "format": "email",
       "description": "The email address of the author of the component",
@@ -46,9 +81,9 @@
       "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
       "examples": ["Instance"]
     },
-    "Using": {
+    "Extends": {
       "type": "array",
-      "description": "To create a graph of data that the authur potentially doesn't control, its necessary to be able to references other data. For validation and ease of traversal it needs to be expressive such that the IDs are Prefixed with a 'how I'm using' the component indicator. So by including an Architype (ART), the authur is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be used multiple times Etc.  They can be combined as needed as prefixes, but the general patterns should be Function, then IDs, include a version. Foreign model references include both human-readable names and EntityGUIDs for precise linking.",
+      "description": "To create a graph of data that the author potentially doesn't control, it's necessary to be able to reference other data. For validation and ease of traversal it needs to be expressive such that the IDs are prefixed with a 'how I'm extending' the component indicator. So by including an Archetype (ART), the author is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be extended multiple times Etc. They can be combined as needed as prefixes, but the general patterns should be Function, then IDs, include a version. Foreign model references include both human-readable names and EntityGUIDs for precise linking.",
       "items": {
         "type": "string",
         "enum": [
@@ -62,45 +97,41 @@
         "pattern": ""
       },
       "examples": [
-        "https://revit.autodesk.com/models/structural-library/WallType-Standard?usage=ACT&type=ENT&entityguid=01HZCVEB7Z25PDNM32QFW5P6EB",
-        "https://bentley.com/microstation/door-families/DoorAssembly-Interior?usage=TPC&type=ENT&entityguid=01HZDMF8X3K9P2QN45RFW7T8YC",
-        "https://bim360.autodesk.com/projects/hospital-renovation/MaterialLibrary-Concrete?usage=ACT&type=COM&entityguid=01HZEAB9Z4L6M1PN32SFX8V9DK",
-        "https://tekla.trimble.com/warehouse/steel-profiles/BeamProfile-W24x68?usage=ACT&type=COM&entityguid=01HZFBC0A5M7Q3RO43TGY9W0EL&version=v2.1.0&versionguid=01HZGCD1B6N8R4SP54UHZ0X1FM",
-        "https://rhino.mcneel.com/grasshopper/curtainwall-systems/WindowSystem-Curtainwall?usage=TPC&type=COM&entityguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
-        "https://carrier.com/hvac-library/vav-units/HVAC-VAV-Unit?usage=TPC&type=COM&entityguid=01HZIEFGD8P0T6UR76WJB2Z3HO&version=v1.3.2&versionguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
+        "https://revit.autodesk.com/models/structural-library/WallType-Standard?extends=ACT&type=ENT&entityguid=01HZCVEB7Z25PDNM32QFW5P6EB",
+        "https://bentley.com/microstation/door-families/DoorAssembly-Interior?extends=TPC&type=ENT&entityguid=01HZDMF8X3K9P2QN45RFW7T8YC",
+        "https://bim360.autodesk.com/projects/hospital-renovation/MaterialLibrary-Concrete?extends=ACT&type=COM&entityguid=01HZEAB9Z4L6M1PN32SFX8V9DK",
+        "https://tekla.trimble.com/warehouse/steel-profiles/BeamProfile-W24x68?extends=ACT&type=COM&entityguid=01HZFBC0A5M7Q3RO43TGY9W0EL&version=v2.1.0&versionguid=01HZGCD1B6N8R4SP54UHZ0X1FM",
+        "https://rhino.mcneel.com/grasshopper/curtainwall-systems/WindowSystem-Curtainwall?extends=TPC&type=COM&entityguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
+        "https://carrier.com/hvac-library/vav-units/HVAC-VAV-Unit?extends=TPC&type=COM&entityguid=01HZIEFGD8P0T6UR76WJB2Z3HO&version=v1.3.2&versionguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
       ]
     },
-    "Function": {
+    "Action": {
       "type": "array",
-      "description": "This is still WIP in progress but to make changes in data machine readable and machine executable its nessesary to indicate what this new component is doing to another component.  So we need to encode an action in the data and not externally.  ",
+      "description": "Actions that this component performs on other components or entities. Actions are encoded in the data to make changes machine readable and executable. The format is ACTION:TYPE:ID:PARAM1:VALUE1:PARAM2:VALUE2 where ACTION is the operation, TYPE is the target type, ID is the target identifier, and additional parameters can be included as key-value pairs. Predefined actions: AGM (Augment - add to existing), OVR (Override - replace existing), MOD (Modify - change existing), RMV (Remove - delete existing), MOV (Move - relocate existing), ASSIGN (Assign - assign responsibility or ownership). Custom actions can be defined beyond the predefined set.",
       "items": {
         "type": "string",
-        "enum": [
-          "AGM",
-          "OVR",
-          "MOD",
-          "RMV",
-          "MOV"
-        ],
         "pattern": ""
       },
       "examples": [
         "AGM:ENT:SELF",
         "AGM:ENT:89abcdef0123456789abcdef",
+        "AGM:ENT:89abcdef0123456789abcdef:PRIORITY:HIGH:STATUS:ACTIVE",
         "OVR:ENT:89abcdef0123456789abcdef",
         "OVR:COM:0123456789abcdef:VER:0123456789abcdef",
+        "OVR:COM:0123456789abcdef:VER:0123456789abcdef:REASON:UPDATE_REQUIRED",
+        "MOD:ENT:89abcdef0123456789abcdef",
+        "MOD:COM:0123456789abcdef:VER:0123456789abcdef",
+        "MOD:ENT:89abcdef0123456789abcdef:CHANGE_TYPE:MINOR:APPROVED_BY:admin@example.com",
         "RMV:COM:0123456789abcdef",
-        "RMV:ENT:0123456789abcdef"
-      ]
-    },
-    "GraphID": {
-      "type": "string",
-      "description": "A unique identifier that groups related components and entities into logical data subgraphs. Components sharing the same GraphID are considered part of the same logical dataset or workflow, enabling efficient querying, transaction management, and data partitioning in distributed storage systems. This is particularly useful for organizing complex data relationships across multiple entities and components that need to be processed or versioned together.",
-      "pattern": "^[A-Z0-9]{26}$",
-      "examples": [
-        "01HZCVEB7Z25PDNM32QFW5P6EB",
-        "01HZDMF8X3K9P2QN45RFW7T8YC",
-        "01HZEAB9Z4L6M1PN32SFX8V9DK"
+        "RMV:ENT:0123456789abcdef",
+        "RMV:ENT:0123456789abcdef:REASON:OBSOLETE:REMOVED_BY:cleanup@example.com",
+        "MOV:ENT:89abcdef0123456789abcdef",
+        "MOV:COM:0123456789abcdef:VER:0123456789abcdef",
+        "MOV:ENT:89abcdef0123456789abcdef:FROM_LOCATION:OLD_SITE:TO_LOCATION:NEW_SITE",
+        "ASSIGN:ENT:89abcdef0123456789abcdef:EMAIL:john.doe@example.com:ROLE:OWNER",
+        "ASSIGN:COM:0123456789abcdef:EMAIL:jane.smith@example.com:ROLE:REVIEWER:DUE_DATE:2024-12-31",
+        "CST:ENT:89abcdef0123456789abcdef",
+        "CST:COM:0123456789abcdef:VER:0123456789abcdef"
       ]
     },
     "EntityGUID": {
@@ -117,6 +148,21 @@
       "type": "string",
       "pattern": "",
       "examples": ["45be6d643a6f49b8a26d75dc2ea41e0b"]
+    },
+    "ForeignIDs": {
+      "type": "object",
+      "description": "Key-value pairs of foreign identifiers that reference this component in external systems or databases",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "revit_id": "12345",
+          "bim360_guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "ifc_guid": "1A2B3C4D5E6F7890ABCDEF1234567890",
+          "external_system_ref": "EXT-REF-001"
+        }
+      ]
     },
     "DateCreated": {
       "type": "string",
@@ -210,14 +256,15 @@
   },
   "required": [
     "ComponentType",
-    "ComponentHash",
+    "ComponentInfo",
     "AuthorIdentifier",
     "Context",
-    "Function",
+    "UsedAsA",
     "ComponentClassification",
     "EntityGUID",
     "ComponentGUID",
-    "ComponentVersion2Guid",
+    "ComponentVersionGUID",
+    "ForeignIDs",
     "DateCreated",
     "LastModified",
     "HashDefinition",
