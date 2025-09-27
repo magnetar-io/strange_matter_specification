@@ -1,75 +1,54 @@
 {
-  "$schema": "https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.02/Header_Schema/component.json",
-  "title": "Component",
-  "version": "0.9",
-  "date": "2025-09-07",
-  "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
     "ComponentType": {
       "type": "string",
-      "pattern": "",
-      "description": "A URI that hosts the component definitions for things like Enums of ComponentClassification, Payloads Etc. This Mockup is in JSON Schema, but it could be any valid choice for definitions",
-      "examples": [".../v.9.01/component.strangematter.id"]
+      "pattern": ""
     },
     "ComponentInfo": {
       "type": "object",
-      "description": "Information about the component including version, author, and source URL details",
       "properties": {
         "version": {
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "description": "Array of version identifiers for the component",
-          "examples": [["v1.0.0", "v1.1.0", "v2.0.0"]]
+          }
         },
         "author": {
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "description": "Array of author identifiers for the component",
-          "examples": [["greg.schleusner@hok.com", "jane.doe@example.com"]]
+          }
         },
         "sourceurl": {
           "type": "array",
           "items": {
             "type": "string",
             "format": "uri"
-          },
-          "description": "Array of source URLs where the component can be found",
-          "examples": [["https://github.com/magnetar-io/strange_matter_specification/blob/main/Component_Schema/v.9.01/component.strangematter.id", "https://example.com/component-source"]]
+          }
         },
         "publishdate": {
           "type": "array",
           "items": {
             "type": "string",
             "format": "date-time"
-          },
-          "description": "Array of publish dates for the component versions in ISO 8601 format",
-          "examples": [["2024-06-02T13:05:48.134Z", "2024-06-14T09:00:00.000Z"]]
+          }
         }
       },
       "required": ["version", "author", "sourceurl", "publishdate"]
     },
     "DataAuthorIdentifier": {
       "type": "string",
-      "format": "email",
-      "description": "The email address of the author of the component",
-      "examples": ["greg.schleusner@hok.com"]
+      "format": "email"
     },
     "Context": {
       "type": "string",
       "format": "uri",
-      "pattern": "^.+\\?.*$",
-      "description": "A parameterized URI that identifies the specific project context and dataset origin where this component was created. The URI includes query parameters for project identification, source tracking, version information, and spatial context with both human-readable names and EntityGUIDs for precise location referencing.",
-      "examples": [
-        ".../aedas/?projectname=SKYLINE TOWER RESIDENTIAL&projectnumber=24.07825.00&sourceguid=b45378cc-789a-42bb-8c96-5dd737886005&versionguid=20240612_0930(x64)&level=L15&levelguid=01HZCVEB7Z25PDNM32QFW5P6EB&room=R1508&roomguid=01HZDMF8X3K9P2QN45RFW7T8YC",
-        ".../perkins/?projectname=WESTFIELD ELEMENTARY SCHOOL&projectnumber=23.15642.00&sourceguid=c67489dd-890b-53cc-9da7-6ee848997006&versionguid=20240425_1200(arm64)&level=L02&levelguid=01HZEAB9Z4L6M1PN32SFX8V9DK&room=CLASSROOM-204&roomguid=01HZFBC0A5M7Q3RO43TGY9W0EL", 
-        ".../foster/?projectname=METRO TRANSIT HUB&projectnumber=25.02138.00&sourceguid=d78590ee-901c-64dd-0eb8-7ff959008007&versionguid=20240801_1545(x64)&level=CONCOURSE&levelguid=01HZGCD1B6N8R4SP54UHZ0X1FM&room=TICKETING-HALL&roomguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
-        ".../zaha/?projectname=QUANTUM RESEARCH FACILITY&projectnumber=24.98321.00&sourceguid=e89601ff-012d-75ee-1fc9-8000a0119008&versionguid=20240710_1415(x64)&level=B03&levelguid=01HZIEFGD8P0T6UR76WJB2Z3HO&room=LAB-CLEAN-307&roomguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
-      ]
+      "pattern": "^.+\\?.*$"
+    },
+    "GraphSequenceNumber": {
+      "type": "integer"
     },
     "UsedAsA": {
       "type": "string",
@@ -80,13 +59,10 @@
         "Relationship",
         "Group",
         "Collection"
-      ],
-      "description": "How the Component is being used.  This should not be a Type, but use for indicating its use when comparing it to how other data uses it in the 'includes' value",
-      "examples": ["Instance"]
+      ]
     },
     "Extends": {
       "type": "array",
-      "description": "To create a graph of data that the author potentially doesn't control, it's necessary to be able to reference other data. For validation and ease of traversal it needs to be expressive such that the IDs are prefixed with a 'how I'm extending' the component indicator. So by including an Archetype (ART), the author is saying I see this as a Requirement Object, not one that should hold any data, and that a Typical (TPC) entity is going to be extended multiple times Etc. They can be combined as needed as prefixes, but the general patterns should be Function, then IDs, include a version. Foreign model references include both human-readable names and EntityGUIDs for precise linking.",
       "items": {
         "type": "string",
         "enum": [
@@ -98,139 +74,98 @@
           "VER"
         ],
         "pattern": ""
-      },
-      "examples": [
-        "https://revit.autodesk.com/models/structural-library/WallType-Standard?extends=ACT&type=ENT&entityguid=01HZCVEB7Z25PDNM32QFW5P6EB",
-        "https://bentley.com/microstation/door-families/DoorAssembly-Interior?extends=TPC&type=ENT&entityguid=01HZDMF8X3K9P2QN45RFW7T8YC",
-        "https://bim360.autodesk.com/projects/hospital-renovation/MaterialLibrary-Concrete?extends=ACT&type=COM&entityguid=01HZEAB9Z4L6M1PN32SFX8V9DK",
-        "https://tekla.trimble.com/warehouse/steel-profiles/BeamProfile-W24x68?extends=ACT&type=COM&entityguid=01HZFBC0A5M7Q3RO43TGY9W0EL&version=v2.1.0&versionguid=01HZGCD1B6N8R4SP54UHZ0X1FM",
-        "https://rhino.mcneel.com/grasshopper/curtainwall-systems/WindowSystem-Curtainwall?extends=TPC&type=COM&entityguid=01HZHDE2C7O9S5TQ65VIA1Y2GN",
-        "https://carrier.com/hvac-library/vav-units/HVAC-VAV-Unit?extends=TPC&type=COM&entityguid=01HZIEFGD8P0T6UR76WJB2Z3HO&version=v1.3.2&versionguid=01HZJFGH4E9Q1U7VS87XKC3Y4IP"
-      ]
+      }
     },
     "Action": {
       "type": "array",
-      "description": "Actions that this component performs on other components or entities. Actions are encoded in the data to make changes machine readable and executable. The format is ACTION:TYPE:ID:PARAM1:VALUE1:PARAM2:VALUE2 where ACTION is the operation, TYPE is the target type, ID is the target identifier, and additional parameters can be included as key-value pairs. Predefined actions: AGM (Augment - add to existing), OVR (Override - replace existing), MOD (Modify - change existing), RMV (Remove - delete existing), MOV (Move - relocate existing), ASSIGN (Assign - assign responsibility or ownership). Custom actions can be defined beyond the predefined set.",
       "items": {
-        "type": "string",
-        "pattern": ""
-      },
-      "examples": [
-        "AGM:ENT:SELF",
-        "AGM:ENT:89abcdef0123456789abcdef",
-        "AGM:ENT:89abcdef0123456789abcdef:PRIORITY:HIGH:STATUS:ACTIVE",
-        "OVR:ENT:89abcdef0123456789abcdef",
-        "OVR:COM:0123456789abcdef:VER:0123456789abcdef",
-        "OVR:COM:0123456789abcdef:VER:0123456789abcdef:REASON:UPDATE_REQUIRED",
-        "MOD:ENT:89abcdef0123456789abcdef",
-        "MOD:COM:0123456789abcdef:VER:0123456789abcdef",
-        "MOD:ENT:89abcdef0123456789abcdef:CHANGE_TYPE:MINOR:APPROVED_BY:admin@example.com",
-        "RMV:COM:0123456789abcdef",
-        "RMV:ENT:0123456789abcdef",
-        "RMV:ENT:0123456789abcdef:REASON:OBSOLETE:REMOVED_BY:cleanup@example.com",
-        "MOV:ENT:89abcdef0123456789abcdef",
-        "MOV:COM:0123456789abcdef:VER:0123456789abcdef",
-        "MOV:ENT:89abcdef0123456789abcdef:FROM_LOCATION:OLD_SITE:TO_LOCATION:NEW_SITE",
-        "ASSIGN:ENT:89abcdef0123456789abcdef:EMAIL:john.doe@example.com:ROLE:OWNER",
-        "ASSIGN:COM:0123456789abcdef:EMAIL:jane.smith@example.com:ROLE:REVIEWER:DUE_DATE:2024-12-31",
-        "CST:ENT:89abcdef0123456789abcdef",
-        "CST:COM:0123456789abcdef:VER:0123456789abcdef"
-      ]
+        "oneOf": [
+          {
+            "type": "string",
+            "pattern": ""
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "pattern": ""
+              },
+              "assignment": {
+                "type": "string"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["action"]
+          }
+        ]
+      }
     },
     "EntityGUID": {
       "type": "string",
-      "pattern": "",
-      "examples": ["01HZCVEB7Z25PDNM32QFW5P6EB"]
+      "pattern": ""
     },
     "ComponentGUID": {
       "type": "string",
-      "pattern": "",
-      "examples": ["1823e736a75e4c3da13ba8c9e16def22"]
+      "pattern": ""
     },
     "ComponentVersionGUID": {
       "type": "string",
-      "pattern": "",
-      "examples": ["45be6d643a6f49b8a26d75dc2ea41e0b"]
+      "pattern": ""
     },
     "ForeignIDs": {
       "type": "object",
-      "description": "Key-value pairs of foreign identifiers that reference this component in external systems or databases",
       "additionalProperties": {
         "type": "string"
-      },
-      "examples": [
-        {
-          "revit_id": "12345",
-          "bim360_guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-          "ifc_guid": "1A2B3C4D5E6F7890ABCDEF1234567890",
-          "external_system_ref": "EXT-REF-001"
-        }
-      ]
+      }
     },
     "DateCreated": {
       "type": "string",
-      "format": "date-time",
-      "description": "The creation date and time in ISO 8601 format.",
-      "examples": ["2024-06-02T13:05:48.134Z"]
+      "format": "date-time"
     },
     "LastModified": {
       "type": "string",
-      "format": "date-time",
-      "description": "The date and time the component was last modified, in ISO 8601 format.",
-      "examples": ["2024-06-14T09:00:00.000Z"]
+      "format": "date-time"
     },
     "Name": {
-      "type": "string",
-      "examples": ["Example Name"]
+      "type": "string"
     },
     "HashDefinition": {
       "type": "string",
-      "enum": ["MD5"],
-      "examples": ["MD5"]
+      "enum": ["MD5"]
     },
     "PayloadHash": {
       "type": "string",
-      "pattern": "",
-      "examples": ["D41D8CD98F00B204E9800998ECF8427E"]
+      "pattern": ""
     },
     "PayloadDataType": {
-      "description": "The data type of the payload.",
       "type": "string",
-      "enum": ["json", "geojson"],
-      "examples": ["json"]
+      "enum": ["json", "geojson"]
     },
     "PayloadSchemaFormat": {
       "type": "string",
-      "description": "The format/encoding type of the PayloadSchema. Indicates how the schema is defined.",
-      "enum": ["json-schema", "typescript", "openapi", "graphql", "protobuf", "avro", "other"],
-      "examples": ["json-schema", "typescript", "openapi"],
-      "example": "typescript"
+      "enum": ["json-schema", "typescript", "openapi", "graphql", "protobuf", "avro", "other"]
     },
     "PayloadSchema": {
-      "description": "The schema definition for the payload. Can be either a URI reference to an external schema or an inline schema object. The format is indicated by the PayloadSchemaFormat field.",
       "oneOf": [
         {
           "type": "string",
-          "format": "uri",
-          "description": "URI reference to an external schema definition"
+          "format": "uri"
         },
         {
-          "type": "object",
-          "description": "Inline schema object defining the payload structure"
+          "type": "object"
         },
         {
-          "type": "string",
-          "description": "Inline schema definition as a string"
+          "type": "string"
         }
-      ],
-      "examples": [
-        "interface Room {\n  name: string;\n  area: number;\n  roomType: 'office' | 'meeting' | 'storage';\n}"
       ]
     },
     "Payload": {
       "type": ["array", "null"],
-      "items": { "type": "object" },
-      "examples": [{}]
+      "items": { "type": "object" }
     }
   },
   "required": [
@@ -238,6 +173,7 @@
     "ComponentInfo",
     "AuthorIdentifier",
     "Context",
+    "GraphSequenceNumber",
     "UsedAsA",
     "ComponentClassification",
     "EntityGUID",
@@ -250,35 +186,5 @@
     "PayloadHash",
     "PayloadDataType",
     "PayloadSchemaFormat"
-  ],
-  "examples": [
-    {
-      "ComponentType": ".../v.9.01/component.strangematter.id",
-      "ComponentInfo": {
-        "version": ["v1.0.0"],
-        "author": ["john.doe@example.com"],
-        "sourceurl": ["https://github.com/example/component"],
-        "publishdate": ["2024-12-19T10:00:00.000Z"]
-      },
-      "AuthorIdentifier": "john.doe@example.com",
-      "Context": ".../project/?projectname=EXAMPLE&projectnumber=24.001.00",
-      "UsedAsA": "Instance",
-      "ComponentClassification": "Room",
-      "EntityGUID": "01HZCVEB7Z25PDNM32QFW5P6EB",
-      "ComponentGUID": "1823e736a75e4c3da13ba8c9e16def22",
-      "ComponentVersionGUID": "45be6d643a6f49b8a26d75dc2ea41e0b",
-      "ForeignIDs": {
-        "revit_id": "12345",
-        "ifc_guid": "1A2B3C4D5E6F7890ABCDEF1234567890"
-      },
-      "DateCreated": "2024-12-19T10:00:00.000Z",
-      "LastModified": "2024-12-19T10:00:00.000Z",
-      "HashDefinition": "MD5",
-      "PayloadHash": "D41D8CD98F00B204E9800998ECF8427E",
-      "PayloadDataType": "json",
-      "PayloadSchemaFormat": "typescript",
-      "PayloadSchema": "interface Room {\n  name: string;\n  area: number;\n  roomType: 'office' | 'meeting' | 'storage';\n}",
-      "Payload": [{"name": "Conference Room A", "area": 120, "roomType": "meeting"}]
-    }
   ]
 }
