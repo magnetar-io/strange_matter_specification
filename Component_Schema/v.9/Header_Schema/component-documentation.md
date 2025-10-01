@@ -3,7 +3,7 @@
 ## Overview
 
 **Title:** Component  
-**Version:** 0.9  
+**Version:** 0.91  
 **Date:** 2025-09-07  
 **Description:** Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem
 

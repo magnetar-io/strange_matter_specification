@@ -1,5 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Component",
+  "version": "0.91",
+  "date": "2025-09-30",
+  "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
   "type": "object",
   "properties": {
     "ComponentType": {
