@@ -10,6 +10,11 @@
       "type": "string",
       "pattern": ""
     },
+    "SchemaVersion": {
+      "type": "string",
+      "description": "Version of the Strange Matter component schema this component conforms to.",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
     "ComponentInfo": {
       "type": "object",
       "properties": {
@@ -51,8 +56,26 @@
       "format": "uri",
       "pattern": "^.+\\?.*$"
     },
+    "SpatialContext": {
+      "type": "array",
+      "description": "Hierarchical spatial context information preserving location metadata across systems. Each inner array represents one spatial context level with key-value pairs.",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 2,
+        "description": "Format: [contextType, key1, value1, key2, value2, ...] where contextType is room|level|building|site|coordinateSystem|zone|area"
+      }
+    },
     "GraphSequenceNumber": {
-      "type": "integer"
+      "type": "array",
+      "description": "Array of graph memberships tracking which context graphs this component belongs to and its order within each. Format: 'GraphID:SequenceNumber' where GraphID is a UUID v7 and SequenceNumber is a zero-padded integer (9 digits). A component can belong to multiple graphs.",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}:[0-9]{9}$"
+      },
+      "minItems": 1
     },
     "UsedAsA": {
       "type": "string",
@@ -65,19 +88,71 @@
         "Collection"
       ]
     },
+    "ComponentClassification": {
+      "type": "string",
+      "pattern": ""
+    },
+    "Tags": {
+      "type": "array",
+      "description": "Freeform tags for categorization, search, and filtering. Complements the structured ComponentClassification field.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Status": {
+      "type": "string",
+      "description": "Lifecycle status of the component. Includes temporal states like expiration.",
+      "enum": [
+        "draft",
+        "active",
+        "pending_review",
+        "approved",
+        "issued",
+        "superseded",
+        "expired",
+        "archived",
+        "deprecated"
+      ]
+    },
+    "License": {
+      "type": "object",
+      "description": "Rights and licensing information for the component data.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["proprietary", "cc-by", "cc-by-sa", "cc-by-nc", "cc0", "mit", "apache-2.0", "other"]
+        },
+        "attribution": {
+          "type": "string",
+          "description": "Required attribution text if applicable."
+        },
+        "canRedistribute": {
+          "type": "boolean"
+        },
+        "canModify": {
+          "type": "boolean"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this license/data expires, if applicable."
+        }
+      },
+      "required": ["type"]
+    },
     "Extends": {
       "type": "array",
       "items": {
-        "type": "string",
-        "enum": [
-          "ACT",
-          "TPC",
-          "INT",
-          "ENT",
-          "COM",
-          "VER"
-        ],
-        "pattern": ""
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": ["ACT", "TPC", "INT", "ENT", "COM", "VER"]
+          },
+          {
+            "type": "string",
+            "pattern": "^(ACT|TPC|INT|ENT|COM|VER)(\\+(ACT|TPC|INT|ENT|COM|VER))*:.+$"
+          }
+        ]
       }
     },
     "Action": {
@@ -170,16 +245,142 @@
     "Payload": {
       "type": ["array", "null"],
       "items": { "type": "object" }
+    },
+    "AI": {
+      "type": "object",
+      "description": "AI-related metadata including embeddings and confidence scores. Designed for storage in vector-capable formats like Lance.",
+      "properties": {
+        "Embeddings": {
+          "type": "array",
+          "description": "Vector embeddings for similarity search. Multiple embeddings can be stored from different models or for different content sources.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for this embedding within the component."
+              },
+              "model": {
+                "type": "string",
+                "description": "The embedding model used (e.g., 'text-embedding-3-large', 'clip-vit-large-patch14')."
+              },
+              "provider": {
+                "type": "string",
+                "description": "The provider of the embedding model (e.g., 'openai', 'cohere', 'local')."
+              },
+              "dimensions": {
+                "type": "integer",
+                "description": "Number of dimensions in the embedding vector."
+              },
+              "source": {
+                "type": "string",
+                "description": "What was embedded. Examples: 'payload', 'name', 'name+payload', 'payload.geometry', 'payload.properties.description'."
+              },
+              "sourceHash": {
+                "type": "string",
+                "description": "Hash of the source content that was embedded, to detect when re-embedding is needed."
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this embedding was generated."
+              },
+              "vector": {
+                "type": "array",
+                "items": { "type": "number" },
+                "description": "The embedding vector. In Lance storage, this would be stored as a native vector column for efficient similarity search."
+              }
+            },
+            "required": ["model", "dimensions", "source", "vector"]
+          }
+        },
+        "Confidence": {
+          "type": "object",
+          "description": "Confidence and quality scores for AI-generated or AI-processed components.",
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Overall confidence score (0-1)."
+            },
+            "source": {
+              "type": "string",
+              "description": "What generated this confidence score (e.g., 'gpt-4o', 'human-review', 'extraction-pipeline')."
+            },
+            "flags": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Quality flags. Examples: 'ai-generated', 'ai-extracted', 'human-verified', 'needs-review', 'low-quality-source'."
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the confidence was assessed."
+            }
+          }
+        },
+        "GeneratedBy": {
+          "type": "object",
+          "description": "If this component was AI-generated, information about the generation.",
+          "properties": {
+            "model": {
+              "type": "string",
+              "description": "The model that generated this component."
+            },
+            "provider": {
+              "type": "string"
+            },
+            "prompt": {
+              "type": "string",
+              "description": "The prompt or instruction used (optional, may be truncated)."
+            },
+            "generatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "ComponentHash": {
+      "type": "string",
+      "description": "Hash of the entire component (excluding this field and ByteCount) for integrity verification. Format: 'algorithm:hash' (e.g., 'sha256:abc123...').",
+      "pattern": "^(sha256|sha512|md5):[a-f0-9]+$"
+    },
+    "ByteCount": {
+      "type": "object",
+      "description": "Size information for the component. Useful for streaming, pagination, and storage planning.",
+      "properties": {
+        "header": {
+          "type": "integer",
+          "description": "Size of header/metadata portion in bytes."
+        },
+        "payload": {
+          "type": "integer",
+          "description": "Size of payload in bytes."
+        },
+        "embeddings": {
+          "type": "integer",
+          "description": "Size of all embeddings in bytes."
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total component size in bytes."
+        }
+      }
     }
   },
   "required": [
     "ComponentType",
+    "SchemaVersion",
     "ComponentInfo",
-    "AuthorIdentifier",
+    "DataAuthorIdentifier",
     "Context",
     "GraphSequenceNumber",
     "UsedAsA",
     "ComponentClassification",
+    "Status",
     "EntityGUID",
     "ComponentGUID",
     "ComponentVersionGUID",
