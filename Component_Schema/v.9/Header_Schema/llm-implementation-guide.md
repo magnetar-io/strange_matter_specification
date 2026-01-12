@@ -372,59 +372,69 @@ spatial = build_spatial_context(
 
 ---
 
-## 7. GraphSequenceNumber and Context Graphs
+## 7. GraphSequence and Context Graphs
 
-Strange Matter implements a **context graph** pattern - capturing not just data, but the relationships and ordering between components. This enables queryable decision lineage and precedent tracking.
+Strange Matter implements a **context graph** pattern - capturing not just data, but the relationships and temporal ordering between components. This enables queryable decision lineage and precedent tracking.
 
 ### The Context Graph Concept
 
-Traditional systems store *what* happened. Context graphs store *how things relate* and *in what order*. When an agent needs to understand why a decision was made or find precedent for a similar situation, the context graph provides that lineage.
+Traditional systems store *what* happened. Context graphs store *how things relate* and *when they were added*. When an agent needs to understand why a decision was made or find precedent for a similar situation, the context graph provides that lineage.
 
 > **Reference:** [Context Graphs: AI's Trillion-Dollar Opportunity](https://foundationcapital.com/context-graphs-ais-trillion-dollar-opportunity/) - Foundation Capital describes context graphs as "a living record of decision traces stitched across entities and time so precedent becomes searchable."
 
-Strange Matter's `GraphSequenceNumber` field implements this pattern at the component level.
+Strange Matter's `GraphSequence` field implements this pattern at the component level.
 
 ### Format
 
 ```
-GraphID:SequenceNumber
+GraphID:DateTime
 ```
 
 | Part | Format | Description |
 |------|--------|-------------|
 | GraphID | UUID v7 | Unique identifier for the context graph |
-| SequenceNumber | 9-digit zero-padded integer | Order within that graph (e.g., `000000001`) |
+| DateTime | ISO 8601 | When component was added to the graph (e.g., `2025-01-15T10:30:00Z`) |
+
+### Why DateTime Instead of Sequence Numbers?
+
+In a distributed system, components are created independently across different tools, users, and locations. **You cannot assume knowledge of all other components in a graph to assign a running sequence number.**
+
+Using datetime:
+- **Self-contained**: Each component knows its own join time
+- **No coordination required**: No central authority needed to track sequences
+- **Sortable**: ISO 8601 datetimes sort correctly as strings
+- **Precise**: Millisecond precision available when needed
 
 ### Key Rules
 
 1. **Every component belongs to at least one graph**
 2. **A component can belong to multiple graphs** (array of entries)
 3. **GraphID is generated once per context** (project, thread, workflow)
-4. **SequenceNumber increments for each new component in a graph**
+4. **DateTime is when the component was added to that graph**
 
 ### When to Generate a New GraphID
 
 | Situation | Action |
 |-----------|--------|
-| New project started | Generate new GraphID, sequence = `000000001` |
-| New document added to existing project | Use project's GraphID, increment sequence |
-| Component reused in another project | Add second entry with new project's GraphID |
+| New project started | Generate new GraphID, use current datetime |
+| New document added to existing project | Use project's GraphID, use current datetime |
+| Component reused in another project | Add second entry with new project's GraphID and current datetime |
 | New email thread | Generate new GraphID for the thread |
-| Reply to existing email thread | Use thread's GraphID, increment sequence |
+| Reply to existing email thread | Use thread's GraphID, use email datetime |
 
 ### Example Scenarios
 
 **Scenario 1: Building a project graph**
 
 ```
-Component 1: Project definition
-  GraphSequenceNumber: ["019432a1-7b2c-7def-8abc-1234567890ab:000000001"]
+Component 1: Project definition (created 10:30)
+  GraphSequence: ["019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T10:30:00Z"]
 
-Component 2: Client program document  
-  GraphSequenceNumber: ["019432a1-7b2c-7def-8abc-1234567890ab:000000002"]
+Component 2: Client program document (created 14:00)
+  GraphSequence: ["019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T14:00:00Z"]
 
-Component 3: Site survey
-  GraphSequenceNumber: ["019432a1-7b2c-7def-8abc-1234567890ab:000000003"]
+Component 3: Site survey (created next day)
+  GraphSequence: ["019432a1-7b2c-7def-8abc-1234567890ab:2025-01-16T09:15:00Z"]
 ```
 
 **Scenario 2: Component shared across projects**
@@ -432,85 +442,76 @@ Component 3: Site survey
 A "Standard Conference Room" space type used on two projects:
 
 ```json
-"GraphSequenceNumber": [
-  "019432a1-7b2c-7def-8abc-1234567890ab:000000005",
-  "019543b2-8c3d-8ef0-9bcd-2345678901bc:000000012"
+"GraphSequence": [
+  "019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T10:30:00Z",
+  "019543b2-8c3d-8ef0-9bcd-2345678901bc:2025-01-20T14:45:00Z"
 ]
 ```
 
-This component is:
-- The 5th item added to Project A's graph
-- The 12th item added to Project B's graph
+This component:
+- Was added to Project A's graph on January 15
+- Was reused in Project B's graph on January 20
 
 **Scenario 3: Decision trace graph**
 
 An approval workflow where each step is a component:
 
 ```
-Request submitted    → Graph X:000000001
-Manager review       → Graph X:000000002
-Exception requested  → Graph X:000000003
-VP approval          → Graph X:000000004
-Final decision       → Graph X:000000005
+Request submitted    → Graph X:2025-01-15T09:00:00Z
+Manager review       → Graph X:2025-01-15T11:30:00Z
+Exception requested  → Graph X:2025-01-15T14:00:00Z
+VP approval          → Graph X:2025-01-16T10:00:00Z
+Final decision       → Graph X:2025-01-16T15:30:00Z
 ```
 
-Now you can query: "Show me all components in Graph X ordered by sequence" to replay the decision.
+Now you can query: "Show me all components in Graph X ordered by datetime" to replay the decision.
 
-### Python Code: GraphSequenceNumber Management
+### Python Code: GraphSequence Management
 
 ```python
 import uuid
-from typing import Dict
+from datetime import datetime, timezone
 
-class GraphManager:
+def create_graph_id() -> str:
+    """Create a new context graph and return its ID."""
+    return str(uuid.uuid7())
+
+def add_to_graph(graph_id: str, timestamp: datetime | None = None) -> str:
     """
-    Manages context graph IDs and sequence numbers.
-    In production, this would be backed by a database.
+    Create a graph membership entry for a component.
+    
+    Args:
+        graph_id: The UUID v7 of the graph
+        timestamp: When added to graph (defaults to now)
+    
+    Returns:
+        GraphSequence entry string: "GraphID:DateTime"
     """
+    if timestamp is None:
+        timestamp = datetime.now(timezone.utc)
     
-    def __init__(self):
-        self._graphs: Dict[str, int] = {}  # GraphID -> current sequence
+    # Format datetime as ISO 8601 with Z suffix
+    dt_str = timestamp.isoformat().replace('+00:00', 'Z')
     
-    def create_graph(self) -> str:
-        """Create a new context graph and return its ID."""
-        graph_id = str(uuid.uuid7())
-        self._graphs[graph_id] = 0
-        return graph_id
-    
-    def get_next_sequence(self, graph_id: str) -> str:
-        """Get the next sequence number for a graph."""
-        if graph_id not in self._graphs:
-            self._graphs[graph_id] = 0
-        
-        self._graphs[graph_id] += 1
-        sequence = self._graphs[graph_id]
-        
-        # Format: GraphID:9-digit-zero-padded-sequence
-        return f"{graph_id}:{sequence:09d}"
-    
-    def add_to_graph(self, graph_id: str) -> str:
-        """Add a component to an existing graph, return the membership string."""
-        return self.get_next_sequence(graph_id)
+    return f"{graph_id}:{dt_str}"
 
 # Example usage:
-manager = GraphManager()
 
 # Start a new project
-project_graph = manager.create_graph()
-project_component = manager.add_to_graph(project_graph)
-# Result: "019432a1-7b2c-7def-8abc-1234567890ab:000000001"
+project_graph = create_graph_id()
+project_component = add_to_graph(project_graph)
+# Result: "019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T10:30:00Z"
 
-# Add program document to same project
-program_component = manager.add_to_graph(project_graph)
-# Result: "019432a1-7b2c-7def-8abc-1234567890ab:000000002"
+# Add program document to same project (a few hours later)
+program_component = add_to_graph(project_graph)
+# Result: "019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T14:00:00Z"
 
 # Space type used in this project AND another project
 other_project_graph = "019543b2-8c3d-8ef0-9bcd-2345678901bc"
 space_type_memberships = [
-    manager.add_to_graph(project_graph),      # This project
-    manager.add_to_graph(other_project_graph) # Other project
+    add_to_graph(project_graph),       # When added to this project
+    add_to_graph(other_project_graph)  # When reused in other project
 ]
-# Result: ["...ab:000000003", "...bc:000000013"]
 ```
 
 ### Querying Context Graphs
@@ -520,10 +521,10 @@ The context graph enables powerful queries:
 | Query | How |
 |-------|-----|
 | "Show all components in Project X" | Filter by GraphID |
-| "Show components in order added" | Sort by SequenceNumber |
-| "What other projects use this component?" | Check for multiple GraphSequenceNumber entries |
-| "What was added after the program?" | Filter GraphID, sequence > program's sequence |
-| "Replay decision workflow" | Get all components with same GraphID, sort by sequence |
+| "Show components in order added" | Sort by DateTime |
+| "What other projects use this component?" | Check for multiple GraphSequence entries |
+| "What was added after the program?" | Filter GraphID, datetime > program's datetime |
+| "Replay decision workflow" | Get all components with same GraphID, sort by datetime |
 
 ---
 
@@ -959,7 +960,7 @@ Before outputting a component, verify:
 - [ ] `ComponentInfo` - object with `version`, `author`, `sourceurl`, `publishdate` (all arrays)
 - [ ] `DataAuthorIdentifier` - valid email format
 - [ ] `Context` - URI with `?` and required query params (`projectName`, `projectNumber`)
-- [ ] `GraphSequenceNumber` - array of strings, format `GraphID:SequenceNumber` (e.g., `UUID7:000000001`)
+- [ ] `GraphSequence` - array of strings, format `GraphID:DateTime` (e.g., `UUID7:2025-01-15T10:30:00Z`)
 - [ ] `UsedAsA` - one of: `Instance`, `Typical`, `Archetype`, `Relationship`, `Group`, `Collection`
 - [ ] `ComponentClassification` - string
 - [ ] `Status` - one of: `draft`, `active`, `pending_review`, `approved`, `issued`, `superseded`, `expired`, `archived`, `deprecated`
@@ -990,15 +991,15 @@ Before outputting a component, verify:
 - [ ] `DateCreated` and `LastModified` are valid ISO 8601 (e.g., `2025-01-15T10:30:00Z`)
 - [ ] `PayloadHash` matches computed MD5 of actual Payload
 - [ ] `SpatialContext` inner arrays start with valid context type (`room`, `level`, `building`, `site`, `zone`, `area`, `coordinateSystem`)
-- [ ] `GraphSequenceNumber` entries match pattern `^UUID7:9-digit-number$`
+- [ ] `GraphSequence` entries match pattern `^UUID7:ISO8601DateTime$`
 
 ### Consistency Checks
 - [ ] If `PayloadDataType` is `geojson`, Payload should contain valid GeoJSON
 - [ ] `ComponentInfo` arrays should have at least one element each
 - [ ] `LastModified` should be >= `DateCreated`
 - [ ] `SpatialContext` captures all available spatial identifiers (GUIDs, names, numbers)
-- [ ] `GraphSequenceNumber` includes all graphs this component belongs to
-- [ ] Sequence numbers increment correctly within each graph
+- [ ] `GraphSequence` includes all graphs this component belongs to
+- [ ] Datetime values are valid ISO 8601 format
 
 ---
 
@@ -1042,7 +1043,7 @@ Creating an `Acme_geojson_polygon` component type for building footprints.
     ["coordinateSystem", "EPSG", "2230", "statePlane", "NAD83 / California zone 6", "units", "feet"]
   ],
   
-  "GraphSequenceNumber": ["019432a1-7b2c-7def-8abc-1234567890ab:000000003"],
+  "GraphSequence": ["019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T10:30:00Z"],
   
   "UsedAsA": "Instance",
   
@@ -1170,7 +1171,7 @@ Creating an `Acme_geojson_polygon` component type for building footprints.
 | `ForeignIDs` | `{sharepoint_item_id, revit_element_id, building_code}` | All identifiers including human-readable `building_code` |
 | `Context` | URL with `projectName` and `projectNumber` first | Web-hosted source, required params first |
 | `SpatialContext` | Room → Level → Building → Site → Coordinate System | Full spatial hierarchy with all GUIDs and names preserved |
-| `GraphSequenceNumber` | `["...ab:000000003"]` | 3rd component added to this project's context graph |
+| `GraphSequence` | `["...ab:2025-01-15T10:30:00Z"]` | Added to this project's context graph on Jan 15 |
 | `PayloadHash` | MD5 of serialized Payload | Computed after Payload was finalized |
 | `UsedAsA` | `Instance` | This is a specific building, not a template |
 | `AI.Embeddings` | Text embedding of name + description | Enables semantic search in Lance |
@@ -1194,9 +1195,10 @@ Creating an `Acme_geojson_polygon` component type for building footprints.
 | Creating vague type names like `Acme_data_json` | Be specific: `Acme_json_email`, `Acme_geojson_polygon` |
 | Omitting SpatialContext when spatial data is available | Capture room, level, building, coordinate system—metadata preserves context across systems |
 | Only capturing one identifier per spatial level | Include ALL identifiers (GUIDs, names, numbers) for each spatial level |
-| Using integer for GraphSequenceNumber | Must be array of `"GraphID:SequenceNumber"` strings |
+| Using integer or sequence number for GraphSequence | Must be array of `"GraphID:DateTime"` strings |
 | Generating new GraphID for every component | Reuse GraphID for components in the same context (project, thread, workflow) |
 | Forgetting multi-graph membership | If component is reused across projects, include entries for ALL graphs it belongs to |
+| Using sequence numbers instead of datetime | GraphSequence uses datetime for distributed systems - no central coordination needed |
 | Omitting `SchemaVersion` | Required field - always include (e.g., `"0.91"`) |
 | Omitting `Status` | Required field - use `"active"` for current, valid components |
 | Not including `Tags` for searchability | Tags enable flexible filtering beyond structured `ComponentClassification` |
@@ -1265,7 +1267,7 @@ def create_minimum_component(
         "DataAuthorIdentifier": author_email,
         "Context": f"{context_base}?projectName={project_name}&projectNumber={project_number}",
         "SpatialContext": spatial_context or [],
-        "GraphSequenceNumber": graph_sequence or [f"{str(uuid.uuid7())}:000000001"],
+        "GraphSequence": graph_sequence or [f"{str(uuid.uuid7())}:{now}"],
         "UsedAsA": "Instance",
         "ComponentClassification": classification,
         "Extends": [],

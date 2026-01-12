@@ -77,54 +77,63 @@ Each inner array follows the format: `[contextType, key1, value1, key2, value2, 
 ]
 ```
 
-### GraphSequenceNumber
+### GraphSequence
 - **Type:** array of strings
-- **Pattern:** `^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}:[0-9]{9}$`
-- **Description:** Array of graph memberships that track which **context graphs** this component belongs to and its sequential order within each graph. This enables queryable decision lineage and precedent tracking across systems.
+- **Pattern:** `^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}:[ISO8601DateTime]$`
+- **Description:** Array of graph memberships that track which **context graphs** this component belongs to and when it was added to each. This enables queryable decision lineage and precedent tracking across systems without requiring centralized sequence coordination.
 
 #### Context Graph Concept
 
-Strange Matter implements a **context graph** pattern - an emerging approach to capturing not just *what* data exists, but *how it relates* and *in what order it was added*. This creates a queryable record of decision traces, entity relationships, and temporal ordering that persists across system boundaries.
+Strange Matter implements a **context graph** pattern - an emerging approach to capturing not just *what* data exists, but *how it relates* and *when it was added*. This creates a queryable record of decision traces, entity relationships, and temporal ordering that persists across system boundaries.
 
 Reference: [Context Graphs: AI's Trillion-Dollar Opportunity](https://foundationcapital.com/context-graphs-ais-trillion-dollar-opportunity/) - Foundation Capital
 
 #### Format
 
-Each entry follows the pattern: `GraphID:SequenceNumber`
+Each entry follows the pattern: `GraphID:DateTime`
 
 - **GraphID**: A UUID v7 identifying the context graph
-- **SequenceNumber**: A 9-digit zero-padded integer indicating order within that graph
+- **DateTime**: ISO 8601 timestamp of when the component was added to that graph
+
+#### Why DateTime Instead of Sequence Numbers?
+
+In a distributed system, components are created independently across different tools, users, and locations. You cannot assume knowledge of all other components in a graph to assign a running sequence number. Using datetime:
+
+- **Self-contained**: Each component knows its own join time
+- **No coordination required**: No central authority needed
+- **Sortable**: ISO 8601 datetimes sort correctly as strings
+- **Precise**: Millisecond precision available when needed
 
 #### Key Behaviors
 
 1. **Multi-graph membership**: A single component can belong to multiple graphs. Example: A "conference room" space type used on Project A and Project B belongs to both project graphs.
 
-2. **Ordering within graphs**: The sequence number shows when a component was added relative to others in the same graph, enabling chronological queries.
+2. **Temporal ordering**: Components can be sorted by their datetime within a graph to reconstruct chronological order.
 
-3. **Graph creation**: The first component in a new context (e.g., a new project) generates a new GraphID. Subsequent related components use the same GraphID with incrementing sequence numbers.
+3. **Graph creation**: The first component in a new context (e.g., a new project) generates a new GraphID. Subsequent related components use the same GraphID with their own timestamps.
 
 #### Example
 
 ```json
-"GraphSequenceNumber": [
-  "019432a1-7b2c-7def-8abc-1234567890ab:000000001",
-  "019543b2-8c3d-8ef0-9bcd-2345678901bc:000000015"
+"GraphSequence": [
+  "019432a1-7b2c-7def-8abc-1234567890ab:2025-01-15T10:30:00Z",
+  "019543b2-8c3d-8ef0-9bcd-2345678901bc:2025-01-20T14:45:30Z"
 ]
 ```
 
 This component belongs to two graphs:
-- Graph `019432a1-...`: Added as the 1st component (possibly the project definition)
-- Graph `019543b2-...`: Added as the 15th component (possibly reused from another project)
+- Graph `019432a1-...`: Added on January 15, 2025 at 10:30 UTC
+- Graph `019543b2-...`: Added on January 20, 2025 at 14:45 UTC (reused in another project)
 
 #### Use Cases
 
-| Scenario | GraphID | SequenceNumber |
-|----------|---------|----------------|
-| New project created | Generate new UUID v7 | `000000001` |
-| Client program added to project | Same as project | `000000002` |
-| Floor plan added to project | Same as project | `000000003` |
-| Space type reused from another project | Both project GraphIDs | Different sequence in each |
-| Email thread about a decision | Thread gets its own GraphID | Emails sequenced by time |
+| Scenario | GraphID | DateTime |
+|----------|---------|----------|
+| New project created | Generate new UUID v7 | Component creation time |
+| Client program added to project | Same as project | When program was added |
+| Floor plan added to project | Same as project | When floor plan was added |
+| Space type reused from another project | Both project GraphIDs | Different timestamps in each |
+| Email thread about a decision | Thread gets its own GraphID | Email sent/received time |
 
 ### UsedAsA
 - **Type:** string
@@ -384,7 +393,7 @@ The following fields are required in all component instances (19 total):
 - ComponentInfo
 - DataAuthorIdentifier
 - Context
-- GraphSequenceNumber
+- GraphSequence
 - UsedAsA
 - ComponentClassification
 - Status
