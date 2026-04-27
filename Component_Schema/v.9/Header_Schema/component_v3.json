@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatterComponentCoreSchema",
+  "version": "3.0",
+  "date": "2026-04-27",
+  "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
+  "type": "object",
+  "properties": {
+    "ComponentType": {
+      "type": "string",
+      "pattern": ""
+    },
+    "SchemaVersion": {
+      "type": "string",
+      "description": "Version of the schema for this componnent.",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "Context": {
+      "type": "object",
+      "description": "Project and document scope: path/location, document identity, project identifiers, and an optional alias.",
+      "properties": {
+        "Path": {
+          "type": "string",
+          "format": "uri-reference",
+          "description": "Path as a URI reference or URL (absolute or relative) for this component’s location in storage or a workspace."
+        },
+        "Document": {
+          "type": "object",
+          "description": "Identifies the file/model within the project, plus sheet or page and a position on it.",
+          "properties": {
+            "Name": {
+              "type": "string",
+              "description": "Document identifier, file name, or model name (e.g. under the project Path)."
+            },
+            "SheetOrPage": {
+              "type": "string",
+              "description": "Sheet name/number in CAD, BIM, or Excel; or page label/number in a PDF or similar."
+            },
+            "PositionReference": {
+              "type": "string",
+              "description": "Where on that sheet or page: e.g. title block cell, grid id, 2D/3D coordinates, view name, viewport, or other anchor the tool understands."
+            }
+          },
+          "additionalProperties": false
+        },
+        "ProjectName": {
+          "type": "string",
+          "description": "Human-readable project name."
+        },
+        "ProjectNumber": {
+          "type": "string",
+          "description": "Project number or code (e.g. job or contract number)."
+        },
+        "Alias1": {
+          "type": "string",
+          "description": "Optional alias or secondary label for this context."
+        }
+      },
+      "additionalProperties": false
+    },
+    "SpatialContext": {
+      "type": "array",
+      "description": "Hierarchical spatial context preserving location metadata across systems. Each item is one spatial level: the context type, the EntityGUID(s) of the entity instance(s) at that level, and optional attributes. Order items from outer/abstract to inner/specific as needed for your model.",
+      "items": {
+        "type": "object",
+        "required": ["contextType", "referencedEntityGUIDs"],
+        "properties": {
+          "contextType": {
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "room",
+                  "level",
+                  "building",
+                  "site",
+                  "coordinateSystem",
+                  "zone",
+                  "area"
+                ],
+                "description": "Standard spatial type of the instance(s) referenced at this level."
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "enum": [
+                    "room",
+                    "department",
+                    "level",
+                    "building",
+                    "site",
+                    "campus",
+                    "coordinateSystem",
+                    "zone",
+                    "area"
+                  ]
+                },
+                "description": "User-defined (non-standard) spatial type name for the instance(s) referenced at this level."
+              }
+            ]
+          },
+          "referencedEntityGUIDs": {
+            "type": "array",
+            "description": "EntityGUIDs of the entity instance(s) this level refers to. Must match the document root EntityGUID field (same property in this schema). Use a single entry when one instance applies; multiple when this level groups several instances.",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/properties/EntityGUID"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "description": "Optional string key-value pairs for this level. Use for domain- or tool-specific fields; or when contextType is non-standard and you need ad hoc keys beyond EntityGUID reference.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },    
+    "fractionalIndex": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Merge-safe order key for this component within an ordered collection of components String-encoded fractional index in the open interval (0,1) with arbitrary precision; sort to determine order; insert by averaging two indices (Figma-style). See: https://www.figma.com/blog/realtime-editing-of-ordered-sequences/"
+    },
+    "UsedAsA": {
+      "type": "string",
+      "enum": [
+        "Instance",
+        "Typical",
+        "Archetype",
+        "Relationship",
+        "Group",
+        "Collection"
+      ]
+    },
+    "ComponentClassification": {
+      "type": "string",
+      "pattern": ""
+    },
+    "Status": {
+      "type": "string",
+      "description": "Lifecycle status of the component. Includes temporal states like expiration.",
+      "enum": [
+        "draft",
+        "active",
+        "pending_review",
+        "approved",
+        "issued",
+        "superseded",
+        "expired",
+        "archived",
+        "deprecated"
+      ]
+    },
+    "Extends": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": ["ACT", "TPC", "INT", "ENT", "COM", "VER"]
+          },
+          {
+            "type": "string",
+            "pattern": "^(ACT|TPC|INT|ENT|COM|VER)(\\+(ACT|TPC|INT|ENT|COM|VER))*:.+$"
+          }
+        ]
+      }
+    },
+    "Assignment": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "pattern": ""
+          },
+          {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string",
+                "pattern": ""
+              },
+              "assignment": {
+                "type": "string"
+              },
+              "dueDate": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["action"]
+          }
+        ]
+      }
+    },
+    "EntityGUID": {
+      "type": "string",
+      "pattern": ""
+    },
+    "ComponentGUID": {
+      "type": "string",
+      "pattern": ""
+    },
+    "ComponentVersionGUID": {
+      "type": "string",
+      "pattern": ""
+    },
+    "ForeignIDs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Number": {
+      "type": "string"
+    },
+    "PayloadDataType": {
+      "type": "string"
+    },
+    "Payload": {
+      "type": ["array", "null"],
+      "items": { "type": "object" }
+    } 
+  },
+  "required": [
+    "ComponentType",
+    "SchemaVersion",
+    "Context",
+    "UsedAsA",
+    "ComponentClassification",
+    "Status",
+    "EntityGUID",
+    "ComponentGUID",
+    "ComponentVersionGUID",
+    "ForeignIDs",
+    "PayloadDataType"
+  ]
+}
