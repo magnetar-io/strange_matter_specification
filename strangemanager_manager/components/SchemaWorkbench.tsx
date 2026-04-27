@@ -30,7 +30,7 @@ export function SchemaWorkbench() {
     <div className="grid gap-6 md:grid-cols-2">
       <div className="space-y-3 min-h-0">
         <h2 className="text-sm font-semibold">Loader &amp; raw editor</h2>
-        <div className="flex flex-wrap gap-2">
+        <div>
           <input
             ref={fileRef}
             type="file"
@@ -46,19 +46,6 @@ export function SchemaWorkbench() {
               r.readAsText(f);
             }}
           />
-          <button
-            type="button"
-            className="text-xs px-3 py-1.5 rounded border border-foreground/20 hover:bg-foreground/5"
-            onClick={async () => {
-              const res = await fetch("/component_slim.json");
-              if (res.ok) {
-                const t = await res.text();
-                loadFileText(t);
-              }
-            }}
-          >
-            Load sample (ComponentSlim)
-          </button>
         </div>
         {draftError && (
           <p className="text-sm text-red-500 font-mono">{draftError}</p>
