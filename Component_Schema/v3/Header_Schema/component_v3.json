@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "StrangeMatterComponentCoreSchema",
-  "version": "3.0",
-  "date": "2026-04-27",
+  "version": "3.01",
+  "date": "2026-05-04",
   "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
   "type": "object",
   "properties": {
@@ -17,28 +17,48 @@
     },
     "Context": {
       "type": "object",
-      "description": "Project and document scope: path/location, document identity, project identifiers, and an optional alias.",
+      "description": "Project and document scope: optional path/location, optional document identity, project identifiers, and an optional alias. None of the inner properties are required—omit fields that do not apply to your workflow. To stipulate that content lives inside another file or model, combine what you need: for example Path to an IFC (.ifc) or iModel (file or connection URI), Document.Name as the file or model identifier, Document.LocalContent to identify which slice of the source data applies (page, sheet, tab, layer, category, and similar—see that field), and Document.PositionReference for actual 2D or 3D placement in that host’s data (coordinates, pixels, bounding box, CRS—see that field). Stable element or record ids belong in EntityGUID or ForeignIDs, not here. Simpler cases may use only project fields plus a loose path.",
       "properties": {
         "Path": {
           "type": "string",
           "format": "uri-reference",
-          "description": "Path as a URI reference or URL (absolute or relative) for this component’s location in storage or a workspace."
+          "description": "URI reference or URL (absolute or relative) for this component in storage, a workspace, or a linked dataset—e.g. project folder, container file, or iModel connection string when that is how you resolve the host file."
         },
         "Document": {
           "type": "object",
-          "description": "Identifies the file/model within the project, plus sheet or page and a position on it.",
+          "description": "Optional grouping for which file or model and where inside it, when that matters. You may populate only the slots your pipeline uses; federated or single-file models (IFC, iModel, CAD) often pair Name with LocalContent for how the source file or tool scopes data (layer, category, sheet, tab, …) and PositionReference for geometric placement (coordinates or extent) in model or sheet space.",
           "properties": {
             "Name": {
               "type": "string",
-              "description": "Document identifier, file name, or model name (e.g. under the project Path)."
+              "description": "Document identifier: file name, model name, or dataset id—often the host under Path (including IFC or iModel container)."
             },
-            "SheetOrPage": {
-              "type": "string",
-              "description": "Sheet name/number in CAD, BIM, or Excel; or page label/number in a PDF or similar."
+            "LocalContent": {
+              "type": "object",
+              "description": "Describes which slice of the source file or authoring system the component is grounded in: not geometry or spatial containment per se (see SpatialContext and PositionReference), but the native organizing dimension in the data—print or UI pagination, drawing sheets, workbook tabs and cells, CAD/BIM layers and categories, etc.",
+              "required": ["Kind", "Reference"],
+              "properties": {
+                "Kind": {
+                  "type": "string",
+                  "enum": [
+                    "page",
+                    "sheet",
+                    "cell",
+                    "tab",
+                    "layer",
+                    "category"
+                  ],
+                  "description": "page: print/PDF or viewer page; sheet: drawing sheet in CAD/BIM; cell: spreadsheet or grid cell; tab: workbook or UI tab; layer: graphics/model layer in the source; category: class or family category as defined in the source (e.g. Revit category, CAD layer filter)."
+                },
+                "Reference": {
+                  "type": "string",
+                  "description": "The identifier or label from that source for this Kind: e.g. page index, sheet number (A-101), Excel tab name and A1-style address, layer name, category string as the tool stores it—whatever the originating system uses to name that slice."
+                }
+              },
+              "additionalProperties": false
             },
             "PositionReference": {
               "type": "string",
-              "description": "Where on that sheet or page: e.g. title block cell, grid id, 2D/3D coordinates, view name, viewport, or other anchor the tool understands."
+              "description": "Actual geometric placement of this component within the host document’s data—not stable database ids. Encode in a form the producer and consumer agree on (e.g. JSON, WKT, or delimited text): 2D page or drawing coordinates (x,y on the sheet or page space); 2D raster placement or extent in pixel coordinates or row/column ranges on an image; 3D point or polyline/region in the model’s coordinate system (state axis order and units); or an axis-aligned or oriented bounding box for an extent in 2D or 3D. Include CRS or model-space identifiers when multiple systems exist. For IFC elements or iModel elements by id, use EntityGUID or ForeignIDs instead."
             }
           },
           "additionalProperties": false
@@ -60,7 +80,7 @@
     },
     "SpatialContext": {
       "type": "array",
-      "description": "Hierarchical spatial context preserving location metadata across systems. Each item is one spatial level: the context type, the EntityGUID(s) of the entity instance(s) at that level, and optional attributes. Order items from outer/abstract to inner/specific as needed for your model.",
+      "description": "Hierarchical spatial context preserving location metadata across systems. Each array item is one step of direct containment: the immediate parent or container at that level (context type, EntityGUID(s) of the instance(s) at that level, and optional attributes)—not a single value that encodes the full ancestry, and not a class or domain inheritance tree. Order items from outer/abstract to inner/specific as needed for your model.",
       "items": {
         "type": "object",
         "required": ["contextType", "referencedEntityGUIDs"],
@@ -136,8 +156,37 @@
       ]
     },
     "ComponentClassification": {
-      "type": "string",
-      "pattern": ""
+      "type": "object",
+      "description": "Structured classification: provenance, payload kind, spatial subject, data context (e.g. design vs. as-built), and measurement basis and scope.",
+      "properties": {
+        "creator": {
+          "type": "string",
+          "enum": ["hok", "external"],
+          "description": "Source or authoring domain for this component."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["geometry", "image"],
+          "description": "Primary representation type of the component payload."
+        },
+        "object": {
+          "type": "string",
+          "enum": ["floor", "room", "furniture"],
+          "description": "Spatial or domain subject the component refers to."
+        },
+        "phase": {
+          "type": "string",
+          "enum": ["design", "existing"],
+          "description": "Classifies the data’s context: for example, design intent versus as-built or existing conditions. Use this field more generally to express what kind of data the component carries (e.g. proposed work, current state, or other study types) so consumers can filter, compare, or route payloads by the situation or dataset they represent—not only a strict project timeline."
+        },
+        "measurement": {
+          "type": "string",
+          "enum": ["net", "gross", "usable"],
+          "description": "Identifies the measurement basis: not only the numeric result in specific units (where those apply), but the scope and boundary of what is counted—what is included or excluded in the measure (e.g. full shell vs. rentable core, or full area vs. occupant-usable). Use to disambiguate comparable figures that differ by definition rather than by raw unit alone."
+        }
+      },
+      "required": ["creator", "type", "object", "phase", "measurement"],
+      "additionalProperties": false
     },
     "Status": {
       "type": "string",
