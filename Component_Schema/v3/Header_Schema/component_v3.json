@@ -80,63 +80,68 @@
     },
     "SpatialContext": {
       "type": "array",
-      "description": "Hierarchical spatial context preserving location metadata across systems. Each array item is one step of direct containment: the immediate parent or container at that level (context type, EntityGUID(s) of the instance(s) at that level, and optional attributes)—not a single value that encodes the full ancestry, and not a class or domain inheritance tree. Order items from outer/abstract to inner/specific as needed for your model.",
+      "description": "List of hierarchical spatial context paths preserving location metadata across systems. Each top-level array item is one step of direct containment: the immediate parent or container at that level (context type, EntityGUID(s) of the instance(s) at that level, and optional attributes)—not a single value that encodes the full ancestry, and not a class or domain inheritance tree. Use multiple paths when a component belongs to multiple parents. Within each path, order items from outer/abstract to inner/specific as needed for your model.",
       "items": {
-        "type": "object",
-        "required": ["contextType", "referencedEntityGUIDs"],
-        "properties": {
-          "contextType": {
-            "oneOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "room",
-                  "level",
-                  "building",
-                  "site",
-                  "coordinateSystem",
-                  "zone",
-                  "area"
-                ],
-                "description": "Standard spatial type of the instance(s) referenced at this level."
-              },
-              {
-                "type": "string",
-                "minLength": 1,
-                "not": {
+        "type": "array",
+        "description": "One ordered spatial context path for this component, from outer/abstract context to inner/specific context.",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["contextType", "referencedEntityGUIDs"],
+          "properties": {
+            "contextType": {
+              "oneOf": [
+                {
+                  "type": "string",
                   "enum": [
                     "room",
-                    "department",
                     "level",
                     "building",
                     "site",
-                    "campus",
                     "coordinateSystem",
                     "zone",
                     "area"
-                  ]
+                  ],
+                  "description": "Standard spatial type of the instance(s) referenced at this level."
                 },
-                "description": "User-defined (non-standard) spatial type name for the instance(s) referenced at this level."
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "enum": [
+                      "room",
+                      "department",
+                      "level",
+                      "building",
+                      "site",
+                      "campus",
+                      "coordinateSystem",
+                      "zone",
+                      "area"
+                    ]
+                  },
+                  "description": "User-defined (non-standard) spatial type name for the instance(s) referenced at this level."
+                }
+              ]
+            },
+            "referencedEntityGUIDs": {
+              "type": "array",
+              "description": "EntityGUIDs of the entity instance(s) this level refers to. Must match the document root EntityGUID field (same property in this schema). Use a single entry when one instance applies; multiple when this level groups several instances.",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/properties/EntityGUID"
               }
-            ]
-          },
-          "referencedEntityGUIDs": {
-            "type": "array",
-            "description": "EntityGUIDs of the entity instance(s) this level refers to. Must match the document root EntityGUID field (same property in this schema). Use a single entry when one instance applies; multiple when this level groups several instances.",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/properties/EntityGUID"
+            },
+            "attributes": {
+              "type": "object",
+              "description": "Optional string key-value pairs for this level. Use for domain- or tool-specific fields; or when contextType is non-standard and you need ad hoc keys beyond EntityGUID reference.",
+              "additionalProperties": {
+                "type": "string"
+              }
             }
           },
-          "attributes": {
-            "type": "object",
-            "description": "Optional string key-value pairs for this level. Use for domain- or tool-specific fields; or when contextType is non-standard and you need ad hoc keys beyond EntityGUID reference.",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "additionalProperties": false
+          "additionalProperties": false
+        }
       }
     },    
     "fractionalIndex": {
