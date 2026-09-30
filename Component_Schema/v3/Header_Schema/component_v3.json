@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "StrangeMatterComponentCoreSchema",
-  "version": "3.01",
-  "date": "2026-05-04",
+  "version": "3.04",
+  "date": "2026-09-30",
   "description": "Schema for Strange Matter Component specification defining the structure and metadata for components in the Strange Matter ecosystem",
   "type": "object",
   "properties": {
     "ComponentType": {
       "type": "string",
-      "pattern": ""
+      "description": "Reusable definition of the component's generic data representation. Multiple components can share one ComponentType while their classifications express different specific uses."
     },
     "AuthorIdentifier": {
       "type": "string",
@@ -17,12 +17,12 @@
     },
     "SchemaVersion": {
       "type": "string",
-      "description": "Version of the schema for this componnent.",
+      "description": "Version of the schema that governs this component's data. This can be specific to its component type and classification; it is distinct from the lifecycle status of an instance.",
       "pattern": "^[0-9]+\\.[0-9]+$"
     },
     "Context": {
       "type": "object",
-      "description": "Project and document scope: optional path/location, optional document identity, project identifiers, and an optional alias. None of the inner properties are required—omit fields that do not apply to your workflow. To stipulate that content lives inside another file or model, combine what you need: for example Path to an IFC (.ifc) or iModel (file or connection URI), Document.Name as the file or model identifier, Document.LocalContent to identify which slice of the source data applies (page, sheet, tab, layer, category, and similar—see that field), and Document.PositionReference for actual 2D or 3D placement in that host’s data (coordinates, pixels, bounding box, CRS—see that field). Stable element or record ids belong in EntityGUID or ForeignIDs, not here. Simpler cases may use only project fields plus a loose path.",
+      "description": "Where this component's source data comes from. Path locates the source; Document can identify a file, model, or dataset and a specific place within it. Project fields and aliases provide additional source context. Inner fields are optional. Stable element or record identifiers belong in EntityGUID or ForeignIDs rather than document location fields.",
       "properties": {
         "Path": {
           "type": "string",
@@ -31,15 +31,15 @@
         },
         "Document": {
           "type": "object",
-          "description": "Optional grouping for which file or model and where inside it, when that matters. You may populate only the slots your pipeline uses; federated or single-file models (IFC, iModel, CAD) often pair Name with LocalContent for how the source file or tool scopes data (layer, category, sheet, tab, …) and PositionReference for geometric placement (coordinates or extent) in model or sheet space.",
+          "description": "Identifies a source file, model, or dataset and, when needed, the part and position within it. Populate only the fields that apply to the source workflow.",
           "properties": {
             "Name": {
               "type": "string",
               "description": "Document identifier: file name, model name, or dataset id—often the host under Path (including IFC or iModel container)."
             },
-            "LocalContent": {
+            "LocalContext": {
               "type": "object",
-              "description": "Describes which slice of the source file or authoring system the component is grounded in: not geometry or spatial containment per se (see SpatialContext and PositionReference), but the native organizing dimension in the data—print or UI pagination, drawing sheets, workbook tabs and cells, CAD/BIM layers and categories, etc.",
+              "description": "Names the relevant part of the source document or dataset, such as a PDF page, drawing sheet, workbook tab, cell, layer, or category. PositionReference locates a region within that part when needed.",
               "required": ["Kind", "Reference"],
               "properties": {
                 "Kind": {
@@ -78,14 +78,22 @@
         },
         "Alias1": {
           "type": "string",
-          "description": "Optional alias or secondary label for this context."
+          "description": "First optional alias or secondary label for this context."
+        },
+        "Alias2": {
+          "type": "string",
+          "description": "Second optional alias or secondary label for this context."
+        },
+        "Alias3": {
+          "type": "string",
+          "description": "Third optional alias or secondary label for this context."
         }
       },
       "additionalProperties": false
     },
     "SpatialContext": {
       "type": "array",
-      "description": "List of hierarchical spatial context paths preserving location metadata across systems. Each top-level array item is one step of direct containment: the immediate parent or container at that level (context type, EntityGUID(s) of the instance(s) at that level, and optional attributes)—not a single value that encodes the full ancestry, and not a class or domain inheritance tree. Use multiple paths when a component belongs to multiple parents. Within each path, order items from outer/abstract to inner/specific as needed for your model.",
+      "description": "Optional quick lookup of the entity's spatial containment without opening component payloads. Each top-level item is one ordered path of containment levels, from outer to inner; use multiple paths when more than one containment route applies. This describes instance relationships rather than a class inheritance tree.",
       "items": {
         "type": "array",
         "description": "One ordered spatial context path for this component, from outer/abstract context to inner/specific context.",
@@ -95,43 +103,13 @@
           "required": ["contextType", "referencedEntityGUIDs"],
           "properties": {
             "contextType": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "enum": [
-                    "room",
-                    "level",
-                    "building",
-                    "site",
-                    "coordinateSystem",
-                    "zone",
-                    "area"
-                  ],
-                  "description": "Standard spatial type of the instance(s) referenced at this level."
-                },
-                {
-                  "type": "string",
-                  "minLength": 1,
-                  "not": {
-                    "enum": [
-                      "room",
-                      "department",
-                      "level",
-                      "building",
-                      "site",
-                      "campus",
-                      "coordinateSystem",
-                      "zone",
-                      "area"
-                    ]
-                  },
-                  "description": "User-defined (non-standard) spatial type name for the instance(s) referenced at this level."
-                }
-              ]
+              "type": "string",
+              "minLength": 1,
+              "description": "Spatial containment type of the referenced entity instances. Common values include room, department, level, building, campus, site, coordinateSystem, zone, and area; custom nonempty values are also allowed."
             },
             "referencedEntityGUIDs": {
               "type": "array",
-              "description": "EntityGUIDs of the entity instance(s) this level refers to. Must match the document root EntityGUID field (same property in this schema). Use a single entry when one instance applies; multiple when this level groups several instances.",
+              "description": "EntityGUIDs of the containing entity instances at this level. Each referenced entity has its own EntityGUID; these values need not equal this component's root EntityGUID. Use one entry for one instance or several when the level groups multiple instances.",
               "minItems": 1,
               "items": {
                 "$ref": "#/properties/EntityGUID"
@@ -148,14 +126,36 @@
           "additionalProperties": false
         }
       }
-    },    
+    },
+    "Series": {
+      "type": "array",
+      "description": "Human-readable series memberships for this component's entity, such as Team Meetings / Meeting 2 or Document pages / Page 1 of 2. A series entry labels membership and the member's value; it does not itself identify the series collection entity or establish order. Use Extends to reference the collection EntityGUID, and use multiple entries when the entity participates in more than one named series.",
+      "items": {
+        "type": "object",
+        "required": ["name", "value"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable name of the series, such as Team Meetings or Document pages."
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable label or position of this entity within the named series, such as Meeting 2 or Page 1 of 2."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "fractionalIndex": {
       "type": "string",
       "minLength": 1,
-      "description": "Merge-safe order key for this component within an ordered collection of components String-encoded fractional index in the open interval (0,1) with arbitrary precision; sort to determine order; insert by averaging two indices (Figma-style). See: https://www.figma.com/blog/realtime-editing-of-ordered-sequences/"
+      "description": "Order key on this component for a sequence whose members may be inserted between existing members, including simultaneous or later-added entries. It is independent of the human-readable Series name and value. Useful when a collection or hierarchy has meaningful display or calculation order. Producers and consumers must agree on the sequence being ordered and the fractional-index encoding and comparison rules."
     },
     "UsedAsA": {
       "type": "string",
+      "description": "Role of this component: an individual instance; a reusable Typical prototype; an Archetype describing expected components; a Relationship; a Group that can assert a shared property about members; or a Collection of members.",
       "enum": [
         "Instance",
         "Typical",
@@ -165,42 +165,42 @@
         "Collection"
       ]
     },
-    "ComponentClassification": {
+    "KomponentClassfication": {
       "type": "object",
-      "description": "Structured classification: provenance, payload kind, spatial subject, data context (e.g. design vs. as-built), and measurement basis and scope.",
+      "description": "Specific use of the generic ComponentType in this component instance. Include at least one applicable member describing source, representation, subject, data context, or measurement basis, so a reusable type such as an image or GeoJSON polygon can serve different purposes.",
+      "minProperties": 1,
       "properties": {
         "creator": {
           "type": "string",
-          "enum": ["hok", "external"],
+          "minLength": 1,
           "description": "Source or authoring domain for this component."
         },
         "type": {
           "type": "string",
-          "enum": ["geometry", "image"],
+          "minLength": 1,
           "description": "Primary representation type of the component payload."
         },
         "object": {
           "type": "string",
-          "enum": ["floor", "room", "furniture"],
+          "minLength": 1,
           "description": "Spatial or domain subject the component refers to."
         },
         "phase": {
           "type": "string",
-          "enum": ["design", "existing"],
+          "minLength": 1,
           "description": "Classifies the data’s context: for example, design intent versus as-built or existing conditions. Use this field more generally to express what kind of data the component carries (e.g. proposed work, current state, or other study types) so consumers can filter, compare, or route payloads by the situation or dataset they represent—not only a strict project timeline."
         },
         "measurement": {
           "type": "string",
-          "enum": ["net", "gross", "usable"],
+          "minLength": 1,
           "description": "Identifies the measurement basis: not only the numeric result in specific units (where those apply), but the scope and boundary of what is counted—what is included or excluded in the measure (e.g. full shell vs. rentable core, or full area vs. occupant-usable). Use to disambiguate comparable figures that differ by definition rather than by raw unit alone."
         }
       },
-      "required": ["creator", "type", "object", "phase", "measurement"],
       "additionalProperties": false
     },
     "Status": {
       "type": "string",
-      "description": "Lifecycle status of the component. Includes temporal states like expiration.",
+      "description": "Lifecycle status of the data in this component instance, not the status of its schema.",
       "enum": [
         "draft",
         "active",
@@ -215,21 +215,14 @@
     },
     "Extends": {
       "type": "array",
+      "description": "EntityGUIDs of entities this component extends or participates in. Use this when an author adds information to another entity without changing its existing components. A component describing a member of a series collection also references that collection's EntityGUID here; the collection holds series metadata, and members retain their own EntityGUIDs.",
       "items": {
-        "oneOf": [
-          {
-            "type": "string",
-            "enum": ["ACT", "TPC", "INT", "ENT", "COM", "VER"]
-          },
-          {
-            "type": "string",
-            "pattern": "^(ACT|TPC|INT|ENT|COM|VER)(\\+(ACT|TPC|INT|ENT|COM|VER))*:.+$"
-          }
-        ]
+        "$ref": "#/properties/EntityGUID"
       }
     },
     "Assignment": {
       "type": "array",
+      "description": "Assignments or actions associated with this component, such as responsibility for an issue or follow-up work.",
       "items": {
         "oneOf": [
           {
@@ -258,25 +251,31 @@
     },
     "EntityGUID": {
       "type": "string",
-      "pattern": ""
+      "description": "UUIDv7 for the entity being described. Reuse it across components describing the same entity.",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
     },
     "ComponentGUID": {
       "type": "string",
-      "pattern": ""
+      "description": "UUIDv7 for this component's identity, shared by its versions.",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
     },
     "ComponentVersionGUID": {
       "type": "string",
-      "pattern": ""
+      "description": "UUIDv7 identifying this specific version of the component.",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-7[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
     },
     "ForeignIDs": {
       "type": "object",
+      "description": "Identifiers for this component or its entity in external systems. Each key names a source system, and its array holds the identifiers used by that system; external identifiers are not required to be UUIDv7.",
       "additionalProperties": {
-        "type": "string"
+        "type": "array",
+        "items": { "type": "string" }
       }
     },
     "Date": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Date and time associated with the component data as an ISO 8601 timestamp with Z or the originating local UTC offset. The offset preserves the local time relationship to UTC."
     },
     "Name": {
       "type": "string"
@@ -285,19 +284,19 @@
       "type": "string"
     },
     "PayloadDataType": {
-      "type": "string"
+      "type": "string",
+      "description": "Format or data type of the payload, such as GeoJSON or TIFF. The value is defined by the producing component type or profile."
     },
     "Payload": {
-      "type": ["array", "null"],
-      "items": { "type": "object" }
-    } 
+      "description": "For inline JSON, put the JSON value directly here: an object, array, number, boolean, string, or null. Do not serialize an object or array into a quoted JSON string. A string may instead be a URI pointing to external data or JSON-safe encoded binary content (for example Base64-encoded binary USD); raw binary bytes cannot appear in a JSON string. The component type or profile must define how to interpret string values and which binary encoding to decode."
+    }
   },
   "required": [
     "ComponentType",
     "SchemaVersion",
     "Context",
     "UsedAsA",
-    "ComponentClassification",
+    "KomponentClassfication",
     "Status",
     "EntityGUID",
     "ComponentGUID",

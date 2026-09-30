@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Recording.EventStream",
+  "version": "1.0",
+  "description": "Time-aligned recorder event stream, including capture and application events. Payload and individual event-record structures belong to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    }
+  ],
+  "type": "object",
+  "required": ["Extends"],
+  "properties": {
+    "Extends": {
+      "minItems": 1,
+      "description": "Include the EntityGUID of the series collection this recording component belongs to."
+    },
+    "ComponentType": {
+      "const": "StrangeMatter.Recording.EventStream"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "enum": [
+            "recording event stream"
+          ]
+        },
+        "object": {
+          "enum": [
+            "meeting",
+            "narration"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "PayloadDataType": {
+      "enum": [
+        "application/x-ndjson"
+      ]
+    }
+  }
+}

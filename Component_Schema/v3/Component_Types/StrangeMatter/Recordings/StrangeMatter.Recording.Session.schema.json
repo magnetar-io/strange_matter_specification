@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Recording.Session",
+  "version": "1.0",
+  "description": "Capture-session metadata for a meeting or narration. The session component can act as the entity's series-order anchor. Payload structure belongs to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    },
+    {
+      "if": {
+        "properties": {
+          "KomponentClassfication": {
+            "properties": { "type": { "const": "meeting recording session" } },
+            "required": ["type"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "KomponentClassfication": {
+            "properties": { "object": { "const": "meeting" } }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "KomponentClassfication": {
+            "properties": { "object": { "const": "narration" } }
+          }
+        }
+      }
+    }
+  ],
+  "type": "object",
+  "required": ["Extends"],
+  "properties": {
+    "Extends": {
+      "minItems": 1,
+      "description": "Include the EntityGUID of the series collection this recording component belongs to."
+    },
+    "ComponentType": {
+      "const": "StrangeMatter.Recording.Session"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "enum": [
+            "meeting recording session",
+            "narration recording session"
+          ]
+        },
+        "object": {
+          "enum": [
+            "meeting",
+            "narration"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "PayloadDataType": {
+      "enum": [
+        "application/json"
+      ]
+    }
+  }
+}

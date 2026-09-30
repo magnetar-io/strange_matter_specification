@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Recording.TranscriptProvenance",
+  "version": "1.0",
+  "description": "Generation details and corrections for a transcript. Payload structure belongs to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    }
+  ],
+  "type": "object",
+  "required": ["Extends"],
+  "properties": {
+    "Extends": {
+      "minItems": 1,
+      "description": "Include the EntityGUID of the series collection this recording component belongs to."
+    },
+    "ComponentType": {
+      "const": "StrangeMatter.Recording.TranscriptProvenance"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "enum": [
+            "transcript generation metadata"
+          ]
+        },
+        "object": {
+          "enum": [
+            "meeting",
+            "narration"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "PayloadDataType": {
+      "enum": [
+        "application/json"
+      ]
+    }
+  }
+}

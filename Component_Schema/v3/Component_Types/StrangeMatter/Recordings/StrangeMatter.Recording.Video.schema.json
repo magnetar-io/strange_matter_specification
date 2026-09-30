@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Recording.Video",
+  "version": "1.0",
+  "description": "A recording video asset. Classification distinguishes the source screen capture from a review output; PayloadDataType identifies the media format. Payload structure belongs to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    }
+  ],
+  "type": "object",
+  "required": ["Extends"],
+  "properties": {
+    "Extends": {
+      "minItems": 1,
+      "description": "Include the EntityGUID of the series collection this recording component belongs to."
+    },
+    "ComponentType": {
+      "const": "StrangeMatter.Recording.Video"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "enum": [
+            "screen capture video",
+            "review video"
+          ]
+        },
+        "object": {
+          "enum": [
+            "meeting",
+            "narration"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "PayloadDataType": {
+      "enum": [
+        "video/mp4"
+      ]
+    }
+  }
+}

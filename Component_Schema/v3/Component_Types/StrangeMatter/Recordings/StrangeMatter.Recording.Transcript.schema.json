@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Recording.Transcript",
+  "version": "1.0",
+  "description": "Transcript of recording audio. Classification distinguishes timed structured data from a readable rendering; PayloadDataType identifies JSON or Markdown. Payload structure belongs to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    },
+    {
+      "if": {
+        "properties": {
+          "KomponentClassfication": {
+            "properties": { "type": { "const": "timed structured transcript" } },
+            "required": ["type"]
+          }
+        }
+      },
+      "then": {
+        "properties": { "PayloadDataType": { "const": "application/json" } }
+      },
+      "else": {
+        "properties": { "PayloadDataType": { "const": "text/markdown" } }
+      }
+    }
+  ],
+  "type": "object",
+  "required": ["Extends"],
+  "properties": {
+    "Extends": {
+      "minItems": 1,
+      "description": "Include the EntityGUID of the series collection this recording component belongs to."
+    },
+    "ComponentType": {
+      "const": "StrangeMatter.Recording.Transcript"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "enum": [
+            "timed structured transcript",
+            "readable transcript"
+          ]
+        },
+        "object": {
+          "enum": [
+            "meeting",
+            "narration"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "PayloadDataType": {
+      "enum": [
+        "application/json",
+        "text/markdown"
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.View.Geometry",
+  "version": "1.0",
+  "description": "Reusable Strange Matter component type for view geometry, separate from view metadata. Version 1.0 defines orthographic geometry values; other projection value shapes can be added in later type-schema versions without renaming the component type. KomponentClassfication.type names the full view representation, such as floor plan orthographic or structural ceiling plan orthographic, so consumers can select it without reading Payload.",
+  "allOf": [
+    { "$ref": "../../../Header_Schema/component_v3.json" }
+  ],
+  "type": "object",
+  "properties": {
+    "ComponentType": {
+      "const": "StrangeMatter.View.Geometry"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "PayloadDataType": {
+      "const": "json"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Name the full view representation in type, combining the view kind and projection as appropriate. Consumers identify the representation from this header without opening Payload.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^.+ orthographic$",
+          "description": "Named view representation ending in orthographic, such as floor plan orthographic, ceiling plan orthographic, or structural floor plan orthographic. The prefix vocabulary remains open. A future perspective value shape could support names such as floor plan perspective after a type-schema revision.",
+          "examples": [
+            "floor plan orthographic",
+            "ceiling plan orthographic",
+            "structural floor plan orthographic"
+          ]
+        },
+        "object": {
+          "const": "view",
+          "description": "Groups this component with other information about view entities for view-first discovery."
+        }
+      },
+      "required": ["type", "object"]
+    },
+    "Payload": {
+      "description": "Inline view-geometry values with their units and coordinate system. Version 1.0 supports the orthographic representation identified by KomponentClassfication.type. Source files and external view IDs belong in Context and ForeignIDs in the header; descriptive view metadata belongs in a separate component.",
+      "$ref": "#/$defs/OrthographicGeometryValues"
+    }
+  },
+  "required": ["Payload"],
+  "$defs": {
+    "OrthographicGeometryValues": {
+      "type": "object",
+      "description": "Geometric extent values for an orthographic view.",
+      "properties": {
+        "extents": {
+          "$ref": "#/$defs/Extents"
+        }
+      },
+      "required": ["extents"],
+      "additionalProperties": false
+    },
+    "Extents": {
+      "type": "object",
+      "description": "Axis-aligned 2D or 3D bounds for the view. Minimum and maximum must use the same coordinate dimension; consumers should check that relationship and minimum-to-maximum order because this schema does not express them.",
+      "properties": {
+        "minimum": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 3
+        },
+        "maximum": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 3
+        },
+        "coordinateSystem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "units": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["minimum", "maximum", "coordinateSystem", "units"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrangeMatter.Series.Collection",
+  "version": "1.0",
+  "description": "Metadata about a named series. The collection describes the series; member components reference its EntityGUID through Extends. Payload structure belongs to the producing app.",
+  "allOf": [
+    {
+      "$ref": "../../../Header_Schema/component_v3.json"
+    }
+  ],
+  "type": "object",
+  "properties": {
+    "ComponentType": {
+      "const": "StrangeMatter.Series.Collection"
+    },
+    "SchemaVersion": {
+      "const": "1.0"
+    },
+    "KomponentClassfication": {
+      "type": "object",
+      "description": "Classify the representation and subject in the header so consumers can select this component without reading Payload.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name the kind of series; use 'meeting series' for a meeting collection. Other series kinds may use this reusable type.",
+          "examples": [
+            "meeting series"
+          ]
+        },
+        "object": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Subject collected by the series; use 'meeting' for a meeting collection.",
+          "examples": [
+            "meeting"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "object"
+      ]
+    },
+    "UsedAsA": {
+      "const": "Collection"
+    }
+  }
+}
